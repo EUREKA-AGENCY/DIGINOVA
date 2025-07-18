@@ -56,7 +56,7 @@
 
     <!-- Section Histoire - Version enrichie -->
     <section class="py-20 sm:py-28 bg-white relative overflow-hidden" id="histoire">
-      <div class="container mx-auto px-6 sm:px-10 w-full lg:w-3/4">
+      <div class="container mx-auto px-6 sm:px-10 w-full lg:w-4/5">
         <SectionTitle
           title="Notre parcours"
           subtitle="De 2015 à aujourd'hui"

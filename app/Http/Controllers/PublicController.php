@@ -16,4 +16,8 @@ class PublicController extends Controller
     {
         return Inertia::render('public/About');
     }
+    public function quote()
+    {
+        return Inertia::render('public/Quote');
+    }
 }

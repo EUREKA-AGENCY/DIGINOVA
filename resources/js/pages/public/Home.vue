@@ -57,7 +57,7 @@
           text="NOUS CONTACTER" 
           variant="white" 
           class="px-10 py-4 text-lg mx-auto"
-          @click="$inertia.visit('/contact')"
+          @click="$inertia.visit('/quote')"
         />
       </div>
     </section>
