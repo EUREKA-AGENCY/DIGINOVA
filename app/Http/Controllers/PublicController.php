@@ -20,4 +20,9 @@ class PublicController extends Controller
     {
         return Inertia::render('public/Quote');
     }
+
+    public function contact()
+    {
+        return Inertia::render('public/Contact');
+    }
 }

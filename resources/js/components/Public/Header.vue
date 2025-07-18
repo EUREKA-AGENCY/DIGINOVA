@@ -28,6 +28,7 @@
             size="sm"
             to="/contact"
             class="hidden md:inline-flex"
+            @click="$inertia.visit('/contact')"
           />
           
           <button 
