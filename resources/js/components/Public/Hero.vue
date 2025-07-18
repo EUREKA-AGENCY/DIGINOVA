@@ -35,9 +35,9 @@
       <div class="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
         <!-- Bouton principal - Version améliorée -->
         <a 
-          href="/contact" 
+          href="/quote" 
           class="cta-primary group"
-          @click.prevent="$inertia.visit('/contact')"
+          @click.prevent="$inertia.visit('/quote')"
         >
           <span>DÉMARRER UN PROJET</span>
           <div class="cta-arrow">
