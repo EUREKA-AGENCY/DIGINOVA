@@ -244,15 +244,15 @@
 
 <script setup>
 // Les imports et le script setup restent identiques
-import AppLayout from '@/Layouts/AppLayoutPublic.vue'
-import Logo from '@/Components/Logo.vue'
-import SectionTitle from '@/Components/Public/SectionTitle.vue'
+import AppLayout from '@/layouts/AppLayoutPublic.vue'
+import Logo from '@/components/Logo.vue'
+import SectionTitle from '@/components/Public/SectionTitle.vue'
 import InteractiveButton from '@/components/Public/InteractiveButton.vue'
-import InteractiveTimeline from '@/Components/Public/About/InteractiveTimeline.vue'
-import StatCard from '@/Components/Public/About/StatCard.vue'
-import ValueCard from '@/Components/Public/About/ValueCard.vue'
-import TeamMemberCard from '@/Components/Public/About/TeamMemberCard.vue'
-import MouseScrollIndicator from '@/Components/Public/MouseScrollIndicator.vue'
+import InteractiveTimeline from '@/components/Public/About/InteractiveTimeline.vue'
+import StatCard from '@/components/Public/About/StatCard.vue'
+import ValueCard from '@/components/Public/About/ValueCard.vue'
+import TeamMemberCard from '@/components/Public/About/TeamMemberCard.vue'
+import MouseScrollIndicator from '@/components/Public/MouseScrollIndicator.vue'
 
 const scrollToTeam = () => {
   const element = document.getElementById('equipe')

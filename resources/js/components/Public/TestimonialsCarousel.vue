@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import TestimonialCard from '@/Components/Public/TestimonialCard.vue'
+import TestimonialCard from '@/components/Public/TestimonialCard.vue'
 
 interface Testimonial {
   id: number

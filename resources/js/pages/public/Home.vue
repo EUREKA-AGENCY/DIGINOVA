@@ -65,11 +65,11 @@
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayoutPublic.vue' // Correction du chemin
+import AppLayout from '@/layouts/AppLayoutPublic.vue' // Correction du chemin
 import Hero from '@/components/Public/Hero.vue'
-import CallToAction from '@/Components/Public/CallToAction.vue' // Correction de la casse
-import SectionTitle from '@/Components/Public/SectionTitle.vue' // Correction de la casse
-import ServicesGrid from '@/Components/Public/Services/ServicesGrid.vue' // Correction de la casse
+import CallToAction from '@/components/Public/CallToAction.vue' // Correction de la casse
+import SectionTitle from '@/components/Public/SectionTitle.vue' // Correction de la casse
+import ServicesGrid from '@/components/Public/Services/ServicesGrid.vue' // Correction de la casse
 
 defineProps({
   services: {
