@@ -6,7 +6,6 @@ export default defineConfig({
     plugins: [
         laravel({
             input: 'resources/js/app.js',
-            ssr: 'resources/js/ssr.js',
             refresh: true,
         }),
         vue({
@@ -17,10 +16,5 @@ export default defineConfig({
                 },
             },
         }),
-    ],
-    resolve: {
-        alias: {
-        '@': '/resources/js'
-        }
-    }
+    ]
 });
