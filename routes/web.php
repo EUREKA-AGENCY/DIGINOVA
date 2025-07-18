@@ -31,5 +31,6 @@ Route::get('/services', [PublicController::class, 'services'])->name('services.i
 Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/quote', [PublicController::class, 'quote'])->name('quote');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::get('/achievements', [PublicController::class, 'achievements'])->name('achievements');
 
 require __DIR__.'/auth.php';

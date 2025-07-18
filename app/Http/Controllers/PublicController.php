@@ -25,4 +25,9 @@ class PublicController extends Controller
     {
         return Inertia::render('public/Contact');
     }
+
+    public function achievements()
+    {
+        return Inertia::render('public/Achievements');
+    }
 }

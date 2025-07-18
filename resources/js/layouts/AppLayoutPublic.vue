@@ -30,7 +30,7 @@ const isMobileMenuOpen = ref(false)
 const navigation = [
   { name: 'ACCUEIL', href: '/' },
   { name: 'SERVICES', href: '/services' },
-  { name: 'RÉALISATIONS', href: '/portfolio' },
+  { name: 'RÉALISATIONS', href: '/achievements' },
   { name: 'BLOG', href: '/blog' },
   { name: 'À PROPOS', href: '/about' },
 ]
