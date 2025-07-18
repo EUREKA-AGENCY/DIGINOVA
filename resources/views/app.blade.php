@@ -12,7 +12,10 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <!-- Scripts -->
         @routes
-        @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
+        @vite([
+            'resources/js/app.js',
+            "resources/js/pages/public/{$page['component']}.vue"
+        ])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
