@@ -22,11 +22,20 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head title="Créer un compte" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-semibold text-diginova-blue">
+                Rejoindre la communauté DIGINOVA
+            </h1>
+            <p class="mt-2 text-sm text-neutral-500">
+                Créez votre compte pour accéder à l’espace membre et participer au forum.
+            </p>
+        </div>
+
+        <form @submit.prevent="submit" class="space-y-4">
+            <div class="space-y-1">
+                <InputLabel for="name" value="Nom complet" />
 
                 <TextInput
                     id="name"
@@ -36,13 +45,14 @@ const submit = () => {
                     required
                     autofocus
                     autocomplete="name"
+                    placeholder="Nom et prénom"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-1 text-xs" :message="form.errors.name" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+            <div class="space-y-1">
+                <InputLabel for="email" value="Adresse e-mail" />
 
                 <TextInput
                     id="email"
@@ -51,13 +61,14 @@ const submit = () => {
                     v-model="form.email"
                     required
                     autocomplete="username"
+                    placeholder="vous@entreprise.com"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-1 text-xs" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="space-y-1">
+                <InputLabel for="password" value="Mot de passe" />
 
                 <TextInput
                     id="password"
@@ -66,15 +77,16 @@ const submit = () => {
                     v-model="form.password"
                     required
                     autocomplete="new-password"
+                    placeholder="••••••••"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-1 text-xs" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4">
+            <div class="space-y-1">
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
+                    value="Confirmer le mot de passe"
                 />
 
                 <TextInput
@@ -84,30 +96,40 @@ const submit = () => {
                     v-model="form.password_confirmation"
                     required
                     autocomplete="new-password"
+                    placeholder="••••••••"
                 />
 
                 <InputError
-                    class="mt-2"
+                    class="mt-1 text-xs"
                     :message="form.errors.password_confirmation"
                 />
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
+            <div class="mt-2 flex items-center justify-between text-xs text-neutral-600">
+                <span>
+                    Déjà inscrit ?
+                    <Link
+                        :href="route('login')"
+                        class="font-semibold text-diginova-blue hover:text-diginova-red"
+                    >
+                        Se connecter
+                    </Link>
+                </span>
+            </div>
 
+            <div class="pt-2">
                 <PrimaryButton
-                    class="ms-4"
+                    class="w-full justify-center text-sm"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    Créer mon compte
                 </PrimaryButton>
             </div>
+
+            <p class="pt-3 text-center text-[11px] text-neutral-400">
+                En créant un compte, vous acceptez les règles d’utilisation de la communauté DIGINOVA.
+            </p>
         </form>
     </GuestLayout>
 </template>

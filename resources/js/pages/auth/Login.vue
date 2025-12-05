@@ -31,15 +31,24 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head title="Connexion" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-semibold text-diginova-blue">
+                Connexion à votre espace
+            </h1>
+            <p class="mt-2 text-sm text-neutral-500">
+                Accédez à votre espace membre et au forum de la communauté DIGINOVA.
+            </p>
+        </div>
+
+        <div v-if="status" class="mb-4 rounded-lg bg-green-50 px-3 py-2 text-sm font-medium text-green-700">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+        <form @submit.prevent="submit" class="space-y-5">
+            <div class="space-y-1">
+                <InputLabel for="email" value="Adresse e-mail" />
 
                 <TextInput
                     id="email"
@@ -49,13 +58,24 @@ const submit = () => {
                     required
                     autofocus
                     autocomplete="username"
+                    placeholder="vous@entreprise.com"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-1" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                    <InputLabel for="password" value="Mot de passe" />
+
+                    <Link
+                        v-if="canResetPassword"
+                        :href="route('password.request')"
+                        class="text-xs font-medium text-diginova-blue hover:text-diginova-red"
+                    >
+                        Mot de passe oublié ?
+                    </Link>
+                </div>
 
                 <TextInput
                     id="password"
@@ -64,35 +84,33 @@ const submit = () => {
                     v-model="form.password"
                     required
                     autocomplete="current-password"
+                    placeholder="••••••••"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-1" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4 block">
-                <label class="flex items-center">
+            <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 text-xs text-neutral-600">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
-                        >Remember me</span
-                    >
+                    <span>Se souvenir de moi</span>
                 </label>
+
+                <Link
+                    :href="route('register')"
+                    class="text-xs font-medium text-diginova-blue hover:text-diginova-red"
+                >
+                    Créer un compte
+                </Link>
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
-                </Link>
-
+            <div class="pt-2">
                 <PrimaryButton
-                    class="ms-4"
+                    class="w-full justify-center text-sm"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Log in
+                    Se connecter
                 </PrimaryButton>
             </div>
         </form>

@@ -1,0 +1,502 @@
+openapi: 3.0.3
+info:
+  title: DIGINOVA Forum API
+  version: "1.0.0"
+  description: >
+    API d'accès au forum DIGINOVA pour des systèmes externes :
+    authentification par client_id / client_secret + token Bearer,
+    gestion des sujets, commentaires, likes et notifications.
+
+servers:
+  - url: https://diginova.cm/api
+    description: Serveur de production
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+
+  schemas:
+    TokenRequest:
+      type: object
+      required:
+        - grant_type
+        - client_id
+        - client_secret
+        - username
+        - password
+      properties:
+        grant_type:
+          type: string
+          enum: [password]
+          description: Type de flux, actuellement uniquement "password".
+        client_id:
+          type: string
+          description: Identifiant du client externe.
+        client_secret:
+          type: string
+          description: Secret du client externe.
+        username:
+          type: string
+          description: Identifiant de l'utilisateur (email DIGINOVA).
+        password:
+          type: string
+          format: password
+          description: Mot de passe de l'utilisateur.
+
+    TokenResponse:
+      type: object
+      properties:
+        token_type:
+          type: string
+          example: Bearer
+        access_token:
+          type: string
+          description: Jeton d'accès à utiliser dans l'entête Authorization.
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        user:
+          $ref: '#/components/schemas/User'
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+
+    ForumThreadListItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        excerpt:
+          type: string
+        replies_count:
+          type: integer
+        likes_count:
+          type: integer
+        liked:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/UserSummary'
+        created_at:
+          type: string
+          format: date-time
+
+    ForumThreadDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserSummary'
+        created_at:
+          type: string
+          format: date-time
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForumReply'
+        likes_count:
+          type: integer
+        liked:
+          type: boolean
+
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    ForumReply:
+      type: object
+      properties:
+        id:
+          type: integer
+        body:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserSummary'
+        created_at:
+          type: string
+          format: date-time
+
+    ForumThreadCreateRequest:
+      type: object
+      required:
+        - title
+        - body
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        body:
+          type: string
+
+    ForumReplyCreateRequest:
+      type: object
+      required:
+        - body
+      properties:
+        body:
+          type: string
+
+    PaginatedThreads:
+      type: object
+      description: Réponse de pagination Laravel standard.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForumThreadListItem'
+        current_page:
+          type: integer
+        last_page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+        from:
+          type: integer
+          nullable: true
+        to:
+          type: integer
+          nullable: true
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                nullable: true
+              label:
+                type: string
+              active:
+                type: boolean
+
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Type logique de la notification (ex. "forum_reply").
+        data:
+          type: object
+          description: Données spécifiques (thread_id, reply_id, auteur, etc.).
+        read_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    NotificationsResponse:
+      type: object
+      properties:
+        unread_count:
+          type: integer
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+
+paths:
+  /oauth/token:
+    post:
+      summary: Obtenir un jeton d'accès
+      description: >
+        Retourne un jeton d'accès (type Bearer) pour un utilisateur DIGINOVA,
+        en utilisant un couple client_id / client_secret + login/mot de passe.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: Jeton d'accès créé avec succès.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Client ou identifiants invalides.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /forum/threads:
+    get:
+      summary: Lister les sujets du forum
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          required: false
+          description: Numéro de page (pagination Laravel).
+      responses:
+        '200':
+          description: Liste paginée des sujets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedThreads'
+        '401':
+          description: Non authentifié.
+    post:
+      summary: Créer un nouveau sujet
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForumThreadCreateRequest'
+      responses:
+        '201':
+          description: Sujet créé.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  body:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+        '400':
+          description: Données invalides.
+        '401':
+          description: Non authentifié.
+
+  /forum/threads/{thread}:
+    get:
+      summary: Détail d'un sujet
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: thread
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID du sujet.
+      responses:
+        '200':
+          description: Sujet avec ses réponses.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForumThreadDetail'
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Sujet introuvable.
+
+  /forum/threads/{thread}/replies:
+    post:
+      summary: Ajouter une réponse à un sujet
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: thread
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID du sujet.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForumReplyCreateRequest'
+      responses:
+        '201':
+          description: Réponse créée.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  body:
+                    type: string
+                  thread_id:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+        '400':
+          description: Données invalides.
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Sujet introuvable.
+
+  /forum/threads/{thread}/likes:
+    post:
+      summary: Liker un sujet
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: thread
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID du sujet.
+      responses:
+        '200':
+          description: Like ajouté.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  liked:
+                    type: boolean
+                    example: true
+                  likes_count:
+                    type: integer
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Sujet introuvable.
+    delete:
+      summary: Retirer son like d'un sujet
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: thread
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID du sujet.
+      responses:
+        '200':
+          description: Like retiré.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  liked:
+                    type: boolean
+                    example: false
+                  likes_count:
+                    type: integer
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Sujet introuvable.
+
+  /forum/notifications:
+    get:
+      summary: Lister les notifications du forum
+      tags:
+        - Notifications
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Notifications récentes de l'utilisateur.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsResponse'
+        '401':
+          description: Non authentifié.
+
+  /forum/notifications/{id}/read:
+    post:
+      summary: Marquer une notification comme lue
+      tags:
+        - Notifications
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID de la notification (UUID).
+      responses:
+        '200':
+          description: Notification mise à jour.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  read_at:
+                    type: string
+                    format: date-time
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Notification introuvable.
+

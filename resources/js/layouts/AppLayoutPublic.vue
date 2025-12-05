@@ -20,18 +20,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 import Header from '@/components/Public/Header.vue'
 import MobileMenu from '@/components/Public/MobileMenu.vue'
 import Footer from '@/components/Public/Footer.vue'
 
 const isMobileMenuOpen = ref(false)
 
-const navigation = [
-  { name: 'ACCUEIL', href: '/' },
-  { name: 'SERVICES', href: '/services' },
-  { name: 'RÉALISATIONS', href: '/achievements' },
-  { name: 'BLOG', href: '/blog' },
-  { name: 'À PROPOS', href: '/about' },
-]
+const page = usePage()
+
+const navigation = computed(() => {
+  const items = [
+    { name: 'ACCUEIL', href: '/' },
+    { name: 'SERVICES', href: '/services' },
+    { name: 'RÉALISATIONS', href: '/achievements' },
+    { name: 'FORUM', href: '/blogs' },
+    { name: 'À PROPOS', href: '/about' },
+  ]
+
+  const user = page.props.auth?.user as { id: number } | null | undefined
+
+  items.push({
+    name: user ? 'ESPACE MEMBRE' : 'CONNEXION',
+    href: user ? '/dashboard' : '/login',
+  })
+
+  return items
+})
 </script>

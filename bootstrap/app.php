@@ -9,6 +9,7 @@ use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
+        api: __DIR__.'/../routes/api.php',
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
@@ -25,6 +26,10 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+        ]);
+
+        $middleware->alias([
+            'api_token' => \App\Http\Middleware\ApiTokenMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
