@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Foundation\Application;
@@ -56,6 +57,14 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/developer', [DeveloperController::class, 'index'])->name('developer.index');
+    Route::post('/developer/apps', [DeveloperController::class, 'store'])->name('developer.apps.store');
+    Route::delete('/developer/apps/{client}', [DeveloperController::class, 'destroy'])->name('developer.apps.destroy');
+    Route::post('/developer/webhooks', [DeveloperController::class, 'storeWebhook'])->name('developer.webhooks.store');
+    Route::delete('/developer/webhooks/{webhook}', [DeveloperController::class, 'destroyWebhook'])->name('developer.webhooks.destroy');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -77,10 +86,29 @@ Route::get('/members/{user}', [BlogController::class, 'user'])->name('members.sh
 Route::middleware('auth')->group(function () {
     Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
     Route::post('/blogs/{thread}/comments', [BlogController::class, 'comment'])->name('blogs.comment');
+    Route::post('/blogs/{thread}/likes', [BlogController::class, 'like'])->name('blogs.like');
+    Route::delete('/blogs/{thread}/likes', [BlogController::class, 'unlike'])->name('blogs.unlike');
+    Route::post('/blogs/replies/{reply}/likes', [BlogController::class, 'likeReply'])->name('blogs.replies.like');
+    Route::delete('/blogs/replies/{reply}/likes', [BlogController::class, 'unlikeReply'])->name('blogs.replies.unlike');
 });
 
 Route::get('/blog', function () {
     return redirect()->route('blogs.index');
 });
 
+Route::get('/docs/api', function () {
+    return view('api-docs');
+})->name('docs.api');
+
+Route::get('/docs/api/openapi.yaml', function () {
+    $path = base_path('openapi.yaml');
+
+    abort_unless(file_exists($path), 404);
+
+    return response()->file($path, [
+        'Content-Type' => 'application/yaml',
+    ]);
+})->name('docs.api.spec');
+
 require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';

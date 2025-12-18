@@ -14,6 +14,11 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+    {
+        title: 'Espace développeur',
+        href: '/developer',
+        icon: BookOpen,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

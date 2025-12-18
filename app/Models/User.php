@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(ForumThread::class, 'forum_thread_likes')->withTimestamps();
     }
+
+    public function likedForumReplies()
+    {
+        return $this->belongsToMany(ForumReply::class, 'forum_reply_likes')->withTimestamps();
+    }
 }

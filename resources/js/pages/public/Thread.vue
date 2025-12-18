@@ -32,8 +32,28 @@
                 </p>
               </div>
             </div>
-            <div class="rounded-full bg-neutral-50 px-3 py-1 text-[11px] text-neutral-500">
-              {{ replies.length }} réponse<span v-if="replies.length !== 1">s</span> dans cette discussion
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                class="inline-flex items-center gap-1.5 rounded-full bg-neutral-50 px-3 py-1 text-[11px] font-medium text-neutral-600 hover:bg-neutral-100"
+                :class="{
+                  'cursor-not-allowed opacity-60': !canReply,
+                }"
+                :disabled="!canReply || likeForm.processing"
+                @click="toggleThreadLike"
+              >
+                <i
+                  class="fas fa-heart text-[12px]"
+                  :class="thread.liked ? 'text-diginova-red' : 'text-neutral-400'"
+                ></i>
+                <span>
+                  {{ thread.likes_count }}
+                  j'aime
+                </span>
+              </button>
+              <div class="rounded-full bg-neutral-50 px-3 py-1 text-[11px] text-neutral-500">
+                {{ replies.length }} réponse<span v-if="replies.length !== 1">s</span> dans cette discussion
+              </div>
             </div>
           </div>
         </header>
@@ -61,6 +81,7 @@
               </p>
               <form @submit.prevent="submitReply" class="mt-3 space-y-3">
                 <textarea
+                  ref="replyTextarea"
                   v-model="replyForm.body"
                   rows="4"
                   class="w-full rounded-lg border border-neutral-300 bg-white text-sm shadow-sm focus:border-diginova-red focus:ring-diginova-red"
@@ -103,7 +124,7 @@
               </h2>
 
               <div
-                v-for="reply in replies"
+                v-for="reply in rootReplies"
                 :key="reply.id"
                 class="rounded-2xl bg-white p-4 text-sm shadow-sm ring-1 ring-neutral-100"
               >
@@ -126,10 +147,93 @@
                       </p>
                     </div>
                   </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      class="inline-flex items-center gap-1.5 rounded-full bg-neutral-50 px-2.5 py-1 text-[11px] font-medium text-neutral-600 hover:bg-neutral-100"
+                      :class="{
+                        'cursor-not-allowed opacity-60': !canReply,
+                      }"
+                      :disabled="!canReply || replyLikeForm.processing"
+                      @click="toggleReplyLike(reply)"
+                    >
+                      <i
+                        class="fas fa-heart text-[11px]"
+                        :class="reply.liked ? 'text-diginova-red' : 'text-neutral-400'"
+                      ></i>
+                      <span>{{ reply.likes_count }}</span>
+                    </button>
+                    <button
+                      v-if="canReply"
+                      type="button"
+                      class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-2.5 py-1 text-[11px] font-medium text-neutral-600 hover:border-diginova-red hover:text-diginova-red"
+                      @click="startReplyTo(reply)"
+                    >
+                      <i class="fas fa-reply text-[11px]"></i>
+                      <span>Répondre</span>
+                    </button>
+                  </div>
                 </div>
                 <p class="whitespace-pre-line text-sm text-neutral-800">
                   {{ reply.body }}
                 </p>
+                <div
+                  v-for="child in childReplies(reply.id)"
+                  :key="child.id"
+                  class="mt-3 ml-10 border-l-2 border-diginova-blue/10 pl-4"
+                >
+                  <div class="rounded-2xl bg-neutral-50 p-4 text-sm shadow-sm ring-1 ring-neutral-100">
+                    <div class="mb-2 flex items-center justify-between text-[11px] text-neutral-500">
+                    <div class="flex items-center gap-2">
+                      <div
+                        class="flex h-7 w-7 items-center justify-center rounded-full bg-diginova-blue/10 text-[11px] font-semibold text-diginova-blue"
+                      >
+                        {{ child.user.name.charAt(0) }}
+                      </div>
+                      <div class="leading-tight">
+                        <RouterLink
+                          :href="route('members.show', child.user.id)"
+                          class="font-medium text-diginova-red hover:underline"
+                        >
+                          {{ child.user.name }}
+                        </RouterLink>
+                        <p class="text-[11px] text-neutral-500">
+                          Posté {{ child.created_at }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button
+                        type="button"
+                        class="inline-flex items-center gap-1.5 rounded-full bg-neutral-50 px-2.5 py-1 text-[11px] font-medium text-neutral-600 hover:bg-neutral-100"
+                        :class="{
+                          'cursor-not-allowed opacity-60': !canReply,
+                        }"
+                        :disabled="!canReply || replyLikeForm.processing"
+                        @click="toggleReplyLike(child)"
+                      >
+                        <i
+                          class="fas fa-heart text-[11px]"
+                          :class="child.liked ? 'text-diginova-red' : 'text-neutral-400'"
+                        ></i>
+                        <span>{{ child.likes_count }}</span>
+                      </button>
+                      <button
+                        v-if="canReply"
+                        type="button"
+                        class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-2.5 py-1 text-[11px] font-medium text-neutral-600 hover:border-diginova-red hover:text-diginova-red"
+                        @click="startReplyTo(child)"
+                      >
+                        <i class="fas fa-reply text-[11px]"></i>
+                        <span>Répondre</span>
+                      </button>
+                    </div>
+                  </div>
+                    <p class="whitespace-pre-line text-sm text-neutral-800">
+                      {{ child.body }}
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <p v-if="!replies.length" class="py-6 text-sm text-neutral-500">
@@ -168,6 +272,7 @@
 </template>
 
 <script setup>
+import { ref, nextTick, computed } from 'vue'
 import AppLayout from '@/layouts/AppLayoutPublic.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
 import { useForm, Link as RouterLink } from '@inertiajs/vue3'
@@ -187,9 +292,18 @@ const props = defineProps({
   },
 })
 
+const rootReplies = computed(() => props.replies.filter((reply) => !reply.parent_reply_id))
+const childReplies = (parentId) => props.replies.filter((reply) => reply.parent_reply_id === parentId)
+
 const replyForm = useForm({
   body: '',
+  parent_reply_id: null,
 })
+
+const replyTextarea = ref(null)
+
+const likeForm = useForm({})
+const replyLikeForm = useForm({})
 
 const submitReply = () => {
   replyForm.post(route('blogs.comment', props.thread.id), {
@@ -198,5 +312,45 @@ const submitReply = () => {
     },
     preserveScroll: true,
   })
+}
+
+const startReplyTo = (reply) => {
+  const mention = `@${reply.user.name} `
+  replyForm.body = replyForm.body ? `${replyForm.body}\n${mention}` : mention
+  replyForm.parent_reply_id = reply.id
+
+  nextTick(() => {
+    if (replyTextarea.value) {
+      replyTextarea.value.focus()
+    }
+  })
+}
+
+const toggleThreadLike = () => {
+  if (!props.canReply) return
+
+  if (props.thread.liked) {
+    likeForm.delete(route('blogs.unlike', props.thread.id), {
+      preserveScroll: true,
+    })
+  } else {
+    likeForm.post(route('blogs.like', props.thread.id), {
+      preserveScroll: true,
+    })
+  }
+}
+
+const toggleReplyLike = (reply) => {
+  if (!props.canReply) return
+
+  if (reply.liked) {
+    replyLikeForm.delete(route('blogs.replies.unlike', reply.id), {
+      preserveScroll: true,
+    })
+  } else {
+    replyLikeForm.post(route('blogs.replies.like', reply.id), {
+      preserveScroll: true,
+    })
+  }
 }
 </script>

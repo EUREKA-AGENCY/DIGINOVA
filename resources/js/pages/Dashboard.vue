@@ -2,8 +2,8 @@
 import { Head, Link, usePage } from '@inertiajs/vue3';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, User } from '@/types';
+import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue';
+import type { User } from '@/types';
 
 interface Thread {
     id: number;
@@ -29,19 +29,12 @@ interface Props {
 
 defineProps<Props>();
 
-const breadcrumbItems: BreadcrumbItem[] = [
-    {
-        title: 'Espace membre',
-        href: '/dashboard',
-    },
-];
-
 const page = usePage();
 const user = page.props.auth.user as User;
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbItems">
+    <AppLayoutPublic>
         <Head title="Espace membre" />
 
         <div class="px-4 py-8 sm:px-8">
@@ -110,13 +103,13 @@ const user = page.props.auth.user as User;
 
                     <div class="mt-5 flex flex-wrap gap-3">
                         <Link
-                            :href="route('profile.edit')"
+                            href="/settings/profile"
                             class="inline-flex items-center rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 hover:border-diginova-red hover:text-diginova-red"
                         >
                             Modifier mon profil
                         </Link>
                         <Link
-                            :href="route('password.edit')"
+                            href="/settings/password"
                             class="inline-flex items-center rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 hover:border-diginova-red hover:text-diginova-red"
                         >
                             Mettre à jour mon mot de passe
@@ -215,5 +208,5 @@ const user = page.props.auth.user as User;
                 </section>
             </div>
         </div>
-    </AppLayout>
+    </AppLayoutPublic>
 </template>

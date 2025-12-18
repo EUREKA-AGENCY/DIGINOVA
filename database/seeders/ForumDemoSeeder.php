@@ -14,7 +14,16 @@ class ForumDemoSeeder extends Seeder
      */
     public function run(): void
     {
-        // Crée quelques utilisateurs de démonstration (ou les récupère s'ils existent déjà)
+        // Utilisateur principal de démonstration (espace membre)
+        $mainUser = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => 'password',
+            ],
+        );
+
+        // Crée quelques utilisateurs de démonstration pour la communauté (ou les récupère s'ils existent déjà)
         $alice = User::firstOrCreate(
             ['email' => 'alice.forum@diginova.local'],
             [
@@ -70,6 +79,17 @@ class ForumDemoSeeder extends Seeder
             ],
         );
 
+        // Sujet d'exemple rattaché à l'utilisateur principal (pour que le dashboard ne soit pas vide)
+        $mainThread = ForumThread::firstOrCreate(
+            [
+                'user_id' => $mainUser->id,
+                'title' => 'Bienvenue dans mon espace membre DIGINOVA',
+            ],
+            [
+                'body' => "Bonjour à tous,\n\nJe découvre l'espace membre et le forum DIGINOVA.\nN'hésitez pas à partager vos conseils et vos retours d'expérience !",
+            ],
+        );
+
         // Réponses d'exemple
         ForumReply::firstOrCreate(
             [
@@ -103,12 +123,19 @@ class ForumDemoSeeder extends Seeder
             ],
         );
 
+        ForumReply::firstOrCreate(
+            [
+                'forum_thread_id' => $mainThread->id,
+                'user_id' => $alice->id,
+                'body' => "Bienvenue ! Vous pouvez commencer par parcourir les derniers sujets du forum pour vous inspirer.",
+            ],
+        );
+
         // Met à jour les compteurs de réponses sur les sujets concernés
-        foreach ([$thread1, $thread2, $thread3] as $thread) {
+        foreach ([$thread1, $thread2, $thread3, $mainThread] as $thread) {
             $thread->update([
                 'replies_count' => $thread->replies()->count(),
             ]);
         }
     }
 }
-

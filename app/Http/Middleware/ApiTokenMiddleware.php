@@ -33,7 +33,6 @@ class ApiTokenMiddleware
         if (! $token || ! $token->user) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         }
-
         if ($token->expires_at && $token->expires_at->isPast()) {
             return response()->json(['message' => 'Token expired.'], 401);
         }
@@ -44,7 +43,12 @@ class ApiTokenMiddleware
 
         Auth::setUser($token->user);
 
+        $externalUserId = $request->header('X-External-User-Id');
+
+        if ($externalUserId !== null && $externalUserId !== '') {
+            $request->attributes->set('external_user_id', $externalUserId);
+        }
+
         return $next($request);
     }
 }
-

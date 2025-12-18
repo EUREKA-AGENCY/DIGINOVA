@@ -17,6 +17,7 @@ class OauthClient extends Model
 
     protected $fillable = [
         'id',
+        'user_id',
         'name',
         'secret',
         'redirect_uri',
@@ -26,5 +27,9 @@ class OauthClient extends Model
     {
         return $this->hasMany(ApiToken::class, 'client_id', 'id');
     }
-}
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}

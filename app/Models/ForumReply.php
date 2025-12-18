@@ -24,4 +24,19 @@ class ForumReply extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'forum_reply_likes')->withTimestamps();
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_reply_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_reply_id');
+    }
 }

@@ -130,10 +130,16 @@
                     <span>Publié {{ thread.created_at }}</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <i class="fas fa-comments text-neutral-400"></i>
-                    <span>
-                      {{ thread.replies_count }} réponse<span v-if="thread.replies_count !== 1">s</span>
-                    </span>
+                    <div class="flex items-center gap-1.5">
+                      <i class="fas fa-heart text-neutral-400"></i>
+                      <span>{{ thread.likes_count }}</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                      <i class="fas fa-comments text-neutral-400"></i>
+                      <span>
+                        {{ thread.replies_count }} réponse<span v-if="thread.replies_count !== 1">s</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

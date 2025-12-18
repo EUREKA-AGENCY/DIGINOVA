@@ -62,6 +62,31 @@ components:
         user:
           $ref: '#/components/schemas/User'
 
+    RegisterRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+        - password_confirmation
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Nom complet de l'utilisateur.
+        email:
+          type: string
+          format: email
+          description: Adresse email de l'utilisateur (doit être unique).
+        password:
+          type: string
+          format: password
+          description: Mot de passe de l'utilisateur.
+        password_confirmation:
+          type: string
+          format: password
+          description: Confirmation du mot de passe (doit être identique à password).
+
     User:
       type: object
       properties:
@@ -129,6 +154,10 @@ components:
       properties:
         id:
           type: integer
+        parent_reply_id:
+          type: integer
+          nullable: true
+          description: ID de la réponse parente, ou null si la réponse est directement rattachée au sujet.
         body:
           type: string
         user:
@@ -136,6 +165,10 @@ components:
         created_at:
           type: string
           format: date-time
+        likes_count:
+          type: integer
+        liked:
+          type: boolean
 
     ForumThreadCreateRequest:
       type: object
@@ -230,7 +263,51 @@ components:
         error:
           type: string
 
+  parameters:
+    ExternalUserId:
+      name: X-External-User-Id
+      in: header
+      required: false
+      description: >
+        Identifiant externe de l'utilisateur, propre à votre système.
+        Cet identifiant est renvoyé dans les payloads des webhooks
+        (champ "external_user_id") afin de vous permettre de recoller
+        facilement les actions du forum avec vos propres utilisateurs.
+      schema:
+        type: string
+
 paths:
+  /register:
+    post:
+      summary: Créer un compte utilisateur
+      description: >
+        Crée un nouvel utilisateur DIGINOVA. Une fois le compte créé,
+        utilisez ensuite l'endpoint `/oauth/token` pour obtenir un jeton
+        d'accès API pour cet utilisateur.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Utilisateur créé avec succès.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '422':
+          description: Données invalides (erreurs de validation).
+
   /oauth/token:
     post:
       summary: Obtenir un jeton d'accès
@@ -270,6 +347,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
         - name: page
           in: query
           schema:
@@ -291,6 +369,8 @@ paths:
         - Forum
       security:
         - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
       requestBody:
         required: true
         content:
@@ -327,6 +407,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
         - name: thread
           in: path
           required: true
@@ -353,6 +434,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
         - name: thread
           in: path
           required: true
@@ -397,6 +479,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
         - name: thread
           in: path
           required: true
@@ -427,6 +510,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
         - name: thread
           in: path
           required: true
@@ -451,6 +535,70 @@ paths:
         '404':
           description: Sujet introuvable.
 
+  /forum/replies/{reply}/likes:
+    post:
+      summary: Liker une réponse
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
+        - name: reply
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la réponse.
+      responses:
+        '200':
+          description: Like ajouté sur la réponse.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  liked:
+                    type: boolean
+                    example: true
+                  likes_count:
+                    type: integer
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Réponse introuvable.
+    delete:
+      summary: Retirer son like d'une réponse
+      tags:
+        - Forum
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
+        - name: reply
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID de la réponse.
+      responses:
+        '200':
+          description: Like retiré de la réponse.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  liked:
+                    type: boolean
+                    example: false
+                  likes_count:
+                    type: integer
+        '401':
+          description: Non authentifié.
+        '404':
+          description: Réponse introuvable.
+
   /forum/notifications:
     get:
       summary: Lister les notifications du forum
@@ -458,6 +606,8 @@ paths:
         - Notifications
       security:
         - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
       responses:
         '200':
           description: Notifications récentes de l'utilisateur.
@@ -476,6 +626,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
+        - $ref: '#/components/parameters/ExternalUserId'
         - name: id
           in: path
           required: true
@@ -499,4 +650,3 @@ paths:
           description: Non authentifié.
         '404':
           description: Notification introuvable.
-
