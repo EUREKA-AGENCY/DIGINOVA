@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ForumDemoSeeder::class,
             OauthClientSeeder::class,
+            ForumExternalIdentitySeeder::class,
         ]);
     }
 }

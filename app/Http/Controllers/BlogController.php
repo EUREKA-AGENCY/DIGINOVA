@@ -31,6 +31,8 @@ class BlogController extends Controller
                         'id' => $thread->user->id,
                         'name' => $thread->user->name,
                     ],
+                    'display_name' => $thread->external_author_name ?: $thread->user->name,
+                    'author_is_external' => ! empty($thread->external_author_name),
                     'created_at' => $thread->created_at->diffForHumans(),
                 ];
             });
@@ -57,6 +59,8 @@ class BlogController extends Controller
                     'id' => $thread->user->id,
                     'name' => $thread->user->name,
                 ],
+                'display_name' => $thread->external_author_name ?: $thread->user->name,
+                'author_is_external' => ! empty($thread->external_author_name),
                 'created_at' => $thread->created_at->diffForHumans(),
                 'likes_count' => $thread->likes()->count(),
                 'liked' => $user ? $thread->likes()->where('user_id', $user->id)->exists() : false,
@@ -71,6 +75,8 @@ class BlogController extends Controller
                             'id' => $reply->user->id,
                             'name' => $reply->user->name,
                         ],
+                        'display_name' => $reply->external_author_name ?: $reply->user->name,
+                        'author_is_external' => ! empty($reply->external_author_name),
                         'created_at' => $reply->created_at->diffForHumans(),
                         'likes_count' => $reply->likes->count(),
                         'liked' => $user ? $reply->likes->contains('id', $user->id) : false,
@@ -168,6 +174,8 @@ class BlogController extends Controller
                     'title' => $thread->title,
                     'replies_count' => $thread->replies_count,
                     'created_at' => $thread->created_at->diffForHumans(),
+                    'display_name' => $thread->external_author_name ?: $thread->user->name,
+                    'author_is_external' => ! empty($thread->external_author_name),
                 ];
             });
 
@@ -185,6 +193,8 @@ class BlogController extends Controller
                         'title' => $reply->thread->title,
                     ],
                     'created_at' => $reply->created_at->diffForHumans(),
+                    'display_name' => $reply->external_author_name ?: $reply->user->name,
+                    'author_is_external' => ! empty($reply->external_author_name),
                 ];
             });
 

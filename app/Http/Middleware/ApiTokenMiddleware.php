@@ -43,10 +43,20 @@ class ApiTokenMiddleware
 
         Auth::setUser($token->user);
 
-        $externalUserId = $request->header('X-External-User-Id');
+        $externalUserId = trim((string) $request->header('X-External-User-Id', ''));
+        $externalUserName = trim((string) $request->header('X-External-User-Name', ''));
+        $externalReference = trim((string) $request->header('X-External-User-Reference', ''));
 
-        if ($externalUserId !== null && $externalUserId !== '') {
+        if ($externalUserId !== '') {
             $request->attributes->set('external_user_id', $externalUserId);
+        }
+
+        if ($externalUserId !== '' && $externalUserName !== '') {
+            $request->attributes->set('external_identity', [
+                'id' => $externalUserId,
+                'name' => $externalUserName,
+                'reference' => $externalReference !== '' ? $externalReference : null,
+            ]);
         }
 
         return $next($request);

@@ -120,11 +120,18 @@
                 <div class="mt-3 flex items-center justify-between text-[11px] text-neutral-500">
                   <div class="flex items-center gap-2">
                     <span>Par</span>
+                    <span
+                      v-if="thread.author_is_external"
+                      class="font-medium text-neutral-900"
+                    >
+                      {{ thread.display_name }}
+                    </span>
                     <RouterLink
+                      v-else
                       :href="route('members.show', thread.user.id)"
                       class="font-medium text-diginova-red hover:underline"
                     >
-                      {{ thread.user.name }}
+                      {{ thread.display_name }}
                     </RouterLink>
                     <span class="text-neutral-400">•</span>
                     <span>Publié {{ thread.created_at }}</span>

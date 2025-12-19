@@ -12,6 +12,24 @@ use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
+    /**
+     * Ensure that an external identity was provided through headers and return it.
+     *
+     * @return array{id: string, name: string, reference: ?string}
+     */
+    protected function requireExternalIdentity(Request $request): array
+    {
+        $identity = $request->attributes->get('external_identity');
+
+        if (! $identity || empty($identity['id']) || empty($identity['name'])) {
+            abort(response()->json([
+                'message' => 'Les en-têtes X-External-User-Id et X-External-User-Name sont obligatoires pour cette action.',
+            ], 422));
+        }
+
+        return $identity;
+    }
+
     public function index(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -32,6 +50,12 @@ class ForumController extends Controller
                 'user' => [
                     'id' => $thread->user->id,
                     'name' => $thread->user->name,
+                ],
+                'display_name' => $thread->external_author_name ?: $thread->user->name,
+                'author_is_external' => ! empty($thread->external_author_name),
+                'external_author' => [
+                    'id' => $thread->external_author_id,
+                    'name' => $thread->external_author_name,
                 ],
                 'created_at' => $thread->created_at,
             ];
@@ -54,6 +78,12 @@ class ForumController extends Controller
                 'id' => $thread->user->id,
                 'name' => $thread->user->name,
             ],
+            'display_name' => $thread->external_author_name ?: $thread->user->name,
+            'author_is_external' => ! empty($thread->external_author_name),
+            'external_author' => [
+                'id' => $thread->external_author_id,
+                'name' => $thread->external_author_name,
+            ],
             'created_at' => $thread->created_at,
             'replies' => $thread->replies
                 ->sortBy('created_at')
@@ -64,6 +94,12 @@ class ForumController extends Controller
                         'user' => [
                             'id' => $reply->user->id,
                             'name' => $reply->user->name,
+                        ],
+                        'display_name' => $reply->external_author_name ?: $reply->user->name,
+                        'author_is_external' => ! empty($reply->external_author_name),
+                        'external_author' => [
+                            'id' => $reply->external_author_id,
+                            'name' => $reply->external_author_name,
                         ],
                         'created_at' => $reply->created_at,
                         'likes_count' => $reply->likes->count(),
@@ -81,12 +117,17 @@ class ForumController extends Controller
 
     public function store(Request $request): JsonResponse
     {
+        $identity = $this->requireExternalIdentity($request);
+
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
         ]);
 
-        $thread = $request->user()->forumThreads()->create($data);
+        $thread = $request->user()->forumThreads()->create(array_merge($data, [
+            'external_author_id' => $identity['id'],
+            'external_author_name' => $identity['name'],
+        ]));
 
         $payload = [
             'id' => $thread->id,
@@ -100,11 +141,8 @@ class ForumController extends Controller
             'created_at' => $thread->created_at->toIso8601String(),
         ];
 
-        $externalUserId = $request->attributes->get('external_user_id');
-
-        if ($externalUserId !== null) {
-            $payload['external_user_id'] = $externalUserId;
-        }
+        $payload['external_identity'] = $identity;
+        $payload['external_user_id'] = $identity['id'];
 
         WebhookDispatcher::dispatch('forum.thread.created', $payload);
 
@@ -113,11 +151,19 @@ class ForumController extends Controller
             'title' => $thread->title,
             'body' => $thread->body,
             'created_at' => $thread->created_at,
+            'display_name' => $thread->external_author_name,
+            'author_is_external' => true,
+            'external_author' => [
+                'id' => $thread->external_author_id,
+                'name' => $thread->external_author_name,
+            ],
         ], 201);
     }
 
     public function reply(Request $request, ForumThread $thread): JsonResponse
     {
+        $identity = $this->requireExternalIdentity($request);
+
         $data = $request->validate([
             'body' => ['required', 'string'],
             'parent_reply_id' => ['nullable', 'integer', 'exists:forum_replies,id'],
@@ -126,6 +172,8 @@ class ForumController extends Controller
         $payload = [
             'user_id' => $request->user()->id,
             'body' => $data['body'],
+            'external_author_id' => $identity['id'],
+            'external_author_name' => $identity['name'],
         ];
 
         if (! empty($data['parent_reply_id'])) {
@@ -156,13 +204,9 @@ class ForumController extends Controller
                 'email' => $request->user()->email,
             ],
             'created_at' => $reply->created_at->toIso8601String(),
+            'external_identity' => $identity,
         ];
-
-        $externalUserId = $request->attributes->get('external_user_id');
-
-        if ($externalUserId !== null) {
-            $payload['external_user_id'] = $externalUserId;
-        }
+        $payload['external_user_id'] = $identity['id'];
 
         WebhookDispatcher::dispatch('forum.reply.created', $payload);
 
@@ -171,11 +215,18 @@ class ForumController extends Controller
             'body' => $reply->body,
             'thread_id' => $thread->id,
             'created_at' => $reply->created_at,
+            'display_name' => $reply->external_author_name,
+            'author_is_external' => true,
+            'external_author' => [
+                'id' => $reply->external_author_id,
+                'name' => $reply->external_author_name,
+            ],
         ], 201);
     }
 
     public function like(Request $request, ForumThread $thread): JsonResponse
     {
+        $identity = $this->requireExternalIdentity($request);
         $user = $request->user();
 
         $thread->likes()->syncWithoutDetaching([$user->id]);
@@ -190,13 +241,10 @@ class ForumController extends Controller
                 'email' => $user->email,
             ],
             'likes_count' => $likesCount,
+            'external_identity' => $identity,
         ];
-
-        $externalUserId = $request->attributes->get('external_user_id');
-
-        if ($externalUserId !== null) {
-            $payload['external_user_id'] = $externalUserId;
-        }
+        $payload['external_user_id'] = $identity['id'];
+        $payload['external_user_id'] = $identity['id'];
 
         WebhookDispatcher::dispatch('forum.thread.liked', $payload);
 
@@ -208,6 +256,7 @@ class ForumController extends Controller
 
     public function unlike(Request $request, ForumThread $thread): JsonResponse
     {
+        $identity = $this->requireExternalIdentity($request);
         $user = $request->user();
 
         $thread->likes()->detach($user->id);
@@ -222,13 +271,8 @@ class ForumController extends Controller
                 'email' => $user->email,
             ],
             'likes_count' => $likesCount,
+            'external_identity' => $identity,
         ];
-
-        $externalUserId = $request->attributes->get('external_user_id');
-
-        if ($externalUserId !== null) {
-            $payload['external_user_id'] = $externalUserId;
-        }
 
         WebhookDispatcher::dispatch('forum.thread.unliked', $payload);
 
@@ -240,6 +284,7 @@ class ForumController extends Controller
 
     public function likeReply(Request $request, ForumReply $reply): JsonResponse
     {
+        $identity = $this->requireExternalIdentity($request);
         $user = $request->user();
 
         $reply->likes()->syncWithoutDetaching([$user->id]);
@@ -255,13 +300,10 @@ class ForumController extends Controller
                 'email' => $user->email,
             ],
             'likes_count' => $likesCount,
+            'external_identity' => $identity,
         ];
-
-        $externalUserId = $request->attributes->get('external_user_id');
-
-        if ($externalUserId !== null) {
-            $payload['external_user_id'] = $externalUserId;
-        }
+        $payload['external_user_id'] = $identity['id'];
+        $payload['external_user_id'] = $identity['id'];
 
         WebhookDispatcher::dispatch('forum.reply.liked', $payload);
 
@@ -273,6 +315,7 @@ class ForumController extends Controller
 
     public function unlikeReply(Request $request, ForumReply $reply): JsonResponse
     {
+        $identity = $this->requireExternalIdentity($request);
         $user = $request->user();
 
         $reply->likes()->detach($user->id);
@@ -288,13 +331,8 @@ class ForumController extends Controller
                 'email' => $user->email,
             ],
             'likes_count' => $likesCount,
+            'external_identity' => $identity,
         ];
-
-        $externalUserId = $request->attributes->get('external_user_id');
-
-        if ($externalUserId !== null) {
-            $payload['external_user_id'] = $externalUserId;
-        }
 
         WebhookDispatcher::dispatch('forum.reply.unliked', $payload);
 

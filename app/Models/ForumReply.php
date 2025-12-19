@@ -13,6 +13,8 @@ class ForumReply extends Model
         'forum_thread_id',
         'user_id',
         'body',
+        'external_author_id',
+        'external_author_name',
     ];
 
     public function thread()

@@ -13,6 +13,8 @@ class ForumThread extends Model
         'user_id',
         'title',
         'body',
+        'external_author_id',
+        'external_author_name',
     ];
 
     public function user()
