@@ -1,0 +1,16 @@
+/* Brand colors */
+:root {
+  --brand-bg: #0b2038;
+  --brand-accent: #e12428;
+}
+
+.header {
+  background: var(--brand-bg) !important;
+}
+
+.button-primary, .panel .panel-content h1, .panel .panel-content h2 {
+  background-color: var(--brand-accent) !important;
+  border-color: var(--brand-accent) !important;
+}
+
+a { color: var(--brand-accent); }
