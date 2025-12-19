@@ -155,6 +155,26 @@
                 Aucun sujet pour le moment. Soyez le premier à lancer une discussion !
               </p>
             </div>
+
+            <div
+              v-if="threads.links && threads.links.length > 1"
+              class="flex flex-wrap items-center justify-center gap-2 pt-4 text-xs"
+            >
+              <component
+                v-for="link in threads.links"
+                :key="link.url ?? link.label"
+                :is="link.url ? RouterLink : 'span'"
+                :href="link.url || undefined"
+                v-html="link.label"
+                :class="[
+                  'rounded-full px-3 py-1 border transition',
+                  link.active
+                    ? 'border-diginova-red bg-diginova-red text-white'
+                    : 'border-neutral-200 text-neutral-600 hover:border-diginova-red hover:text-diginova-red',
+                  !link.url ? 'cursor-not-allowed opacity-40' : '',
+                ]"
+              />
+            </div>
           </div>
 
           <!-- Colonne latérale -->

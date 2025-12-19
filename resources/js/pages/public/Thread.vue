@@ -57,6 +57,15 @@
             </div>
           </div>
         </header>
+        <div
+          v-if="thread.likers && thread.likers.length"
+          class="mb-6 rounded-2xl bg-white/60 px-4 py-3 text-[11px] text-neutral-600 shadow-sm"
+        >
+          AimÃ© par
+          <span class="font-semibold text-neutral-900">
+            {{ formatLikers(thread.likers) }}
+          </span>
+        </div>
 
         <div class="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)]">
           <!-- Colonne principale : sujet + réponses -->
@@ -178,6 +187,15 @@
                   {{ reply.body }}
                 </p>
                 <div
+                  v-if="reply.likers && reply.likers.length"
+                  class="mt-2 text-[11px] text-neutral-500"
+                >
+                  AimÃ© par
+                  <span class="font-semibold text-neutral-800">
+                    {{ formatLikers(reply.likers) }}
+                  </span>
+                </div>
+                <div
                   v-for="child in childReplies(reply.id)"
                   :key="child.id"
                   class="mt-3 ml-10 border-l-2 border-diginova-blue/10 pl-4"
@@ -228,10 +246,19 @@
                         <span>Répondre</span>
                       </button>
                     </div>
-                  </div>
+                    </div>
                     <p class="whitespace-pre-line text-sm text-neutral-800">
                       {{ child.body }}
                     </p>
+                    <div
+                      v-if="child.likers && child.likers.length"
+                      class="mt-2 text-[11px] text-neutral-500"
+                    >
+                      Aimé par
+                      <span class="font-semibold text-neutral-800">
+                        {{ formatLikers(child.likers) }}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -304,6 +331,19 @@ const replyTextarea = ref(null)
 
 const likeForm = useForm({})
 const replyLikeForm = useForm({})
+
+const formatLikers = (likers = []) => {
+  if (!likers || !likers.length) return ''
+
+  const names = likers.map((liker) => liker.name)
+
+  if (names.length <= 3) {
+    return names.join(', ')
+  }
+
+  const remaining = names.length - 3
+  return `${names.slice(0, 3).join(', ')} et ${remaining} autre${remaining > 1 ? 's' : ''}`
+}
 
 const submitReply = () => {
   replyForm.post(route('blogs.comment', props.thread.id), {

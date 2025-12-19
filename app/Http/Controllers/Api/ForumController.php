@@ -84,6 +84,12 @@ class ForumController extends Controller
                 'id' => $thread->external_author_id,
                 'name' => $thread->external_author_name,
             ],
+            'likers' => $thread->likes->map(function ($liker) {
+                return [
+                    'id' => $liker->id,
+                    'name' => $liker->name,
+                ];
+            }),
             'created_at' => $thread->created_at,
             'replies' => $thread->replies
                 ->sortBy('created_at')
@@ -101,6 +107,12 @@ class ForumController extends Controller
                             'id' => $reply->external_author_id,
                             'name' => $reply->external_author_name,
                         ],
+                        'likers' => $reply->likes->map(function ($liker) {
+                            return [
+                                'id' => $liker->id,
+                                'name' => $liker->name,
+                            ];
+                        }),
                         'created_at' => $reply->created_at,
                         'likes_count' => $reply->likes->count(),
                         'liked' => $user ? $reply->likes->contains('id', $user->id) : false,
