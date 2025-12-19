@@ -57,6 +57,13 @@
                   {{ thread.replies_count }} réponse<span v-if="thread.replies_count !== 1">s</span>
                   • {{ thread.created_at }}
                 </div>
+                <p
+                  v-if="thread.author_is_external"
+                  class="mt-1 text-[11px] text-neutral-500"
+                >
+                  Posté en tant que
+                  <span class="font-semibold text-neutral-800">{{ thread.display_name }}</span>
+                </p>
               </div>
 
               <p v-if="!threads.length" class="text-xs text-neutral-500">
@@ -88,6 +95,12 @@
                   </RouterLink>
                   • {{ reply.created_at }}
                 </div>
+                <p
+                  v-if="reply.author_is_external"
+                  class="mt-1 text-[11px] text-neutral-500"
+                >
+                  <span class="font-semibold text-neutral-800">{{ reply.display_name }}</span>
+                </p>
               </div>
 
               <p v-if="!replies.length" class="text-xs text-neutral-500">

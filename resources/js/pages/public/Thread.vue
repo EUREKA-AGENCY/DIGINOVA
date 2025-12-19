@@ -15,17 +15,25 @@
               <div
                 class="flex h-7 w-7 items-center justify-center rounded-full bg-diginova-blue/10 text-[11px] font-semibold text-diginova-blue"
               >
-                {{ thread.user.name.charAt(0) }}
+                {{ thread.display_name.charAt(0) }}
               </div>
               <div class="leading-tight">
                 <div class="flex items-center gap-1.5">
                   <span>Par</span>
-                  <RouterLink
-                    :href="route('members.show', thread.user.id)"
-                    class="font-medium text-diginova-red hover:underline"
+                  <template v-if="!thread.author_is_external">
+                    <RouterLink
+                      :href="route('members.show', thread.user.id)"
+                      class="font-medium text-diginova-red hover:underline"
+                    >
+                      {{ thread.display_name }}
+                    </RouterLink>
+                  </template>
+                  <span
+                    v-else
+                    class="font-medium text-neutral-900"
                   >
-                    {{ thread.user.name }}
-                  </RouterLink>
+                    {{ thread.display_name }}
+                  </span>
                 </div>
                 <p class="text-[11px] text-neutral-500">
                   Publié {{ thread.created_at }}
@@ -142,15 +150,23 @@
                     <div
                       class="flex h-7 w-7 items-center justify-center rounded-full bg-diginova-blue/10 text-[11px] font-semibold text-diginova-blue"
                     >
-                      {{ reply.user.name.charAt(0) }}
+                      {{ reply.display_name.charAt(0) }}
                     </div>
                     <div class="leading-tight">
-                      <RouterLink
-                        :href="route('members.show', reply.user.id)"
-                        class="font-medium text-diginova-red hover:underline"
+                      <template v-if="!reply.author_is_external">
+                        <RouterLink
+                          :href="route('members.show', reply.user.id)"
+                          class="font-medium text-diginova-red hover:underline"
+                        >
+                          {{ reply.display_name }}
+                        </RouterLink>
+                      </template>
+                      <span
+                        v-else
+                        class="font-medium text-neutral-900"
                       >
-                        {{ reply.user.name }}
-                      </RouterLink>
+                        {{ reply.display_name }}
+                      </span>
                       <p class="text-[11px] text-neutral-500">
                         Posté {{ reply.created_at }}
                       </p>
@@ -206,15 +222,23 @@
                       <div
                         class="flex h-7 w-7 items-center justify-center rounded-full bg-diginova-blue/10 text-[11px] font-semibold text-diginova-blue"
                       >
-                        {{ child.user.name.charAt(0) }}
+                        {{ child.display_name.charAt(0) }}
                       </div>
                       <div class="leading-tight">
-                        <RouterLink
-                          :href="route('members.show', child.user.id)"
-                          class="font-medium text-diginova-red hover:underline"
+                        <template v-if="!child.author_is_external">
+                          <RouterLink
+                            :href="route('members.show', child.user.id)"
+                            class="font-medium text-diginova-red hover:underline"
+                          >
+                            {{ child.display_name }}
+                          </RouterLink>
+                        </template>
+                        <span
+                          v-else
+                          class="font-medium text-neutral-900"
                         >
-                          {{ child.user.name }}
-                        </RouterLink>
+                          {{ child.display_name }}
+                        </span>
                         <p class="text-[11px] text-neutral-500">
                           Posté {{ child.created_at }}
                         </p>
@@ -355,7 +379,8 @@ const submitReply = () => {
 }
 
 const startReplyTo = (reply) => {
-  const mention = `@${reply.user.name} `
+  const baseName = reply.display_name || reply.user.name
+  const mention = `@${baseName} `
   replyForm.body = replyForm.body ? `${replyForm.body}\n${mention}` : mention
   replyForm.parent_reply_id = reply.id
 

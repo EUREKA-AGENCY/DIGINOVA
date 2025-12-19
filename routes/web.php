@@ -31,6 +31,8 @@ Route::get('/dashboard', function () {
                 'title' => $thread->title,
                 'replies_count' => $thread->replies_count,
                 'created_at' => $thread->created_at->diffForHumans(),
+                'display_name' => $thread->external_author_name ?: $thread->user->name,
+                'author_is_external' => ! empty($thread->external_author_name),
             ];
         });
 
@@ -48,6 +50,8 @@ Route::get('/dashboard', function () {
                     'title' => $reply->thread->title,
                 ],
                 'created_at' => $reply->created_at->diffForHumans(),
+                'display_name' => $reply->external_author_name ?: $reply->user->name,
+                'author_is_external' => ! empty($reply->external_author_name),
             ];
         });
 

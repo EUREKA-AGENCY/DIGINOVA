@@ -10,6 +10,8 @@ interface Thread {
     title: string;
     replies_count: number;
     created_at: string;
+    display_name: string;
+    author_is_external: boolean;
 }
 
 interface Reply {
@@ -20,6 +22,8 @@ interface Reply {
         title: string;
     };
     created_at: string;
+    display_name: string;
+    author_is_external: boolean;
 }
 
 interface Props {
@@ -141,6 +145,15 @@ const user = page.props.auth.user as User;
                                 </span>
                                 <span>Créé {{ thread.created_at }}</span>
                             </div>
+                            <p
+                                v-if="thread.author_is_external"
+                                class="mt-1 text-[11px] text-neutral-500"
+                            >
+                                Posté en tant que
+                                <span class="font-semibold text-neutral-800">
+                                    {{ thread.display_name }}
+                                </span>
+                            </p>
                         </div>
 
                         <p v-if="!threads.length" class="text-xs text-neutral-500">
@@ -175,6 +188,15 @@ const user = page.props.auth.user as User;
                                     </Link>
                                     • {{ reply.created_at }}
                                 </div>
+                                <p
+                                    v-if="reply.author_is_external"
+                                    class="mt-1 text-[11px] text-neutral-500"
+                                >
+                                    Réponse envoyée en tant que
+                                    <span class="font-semibold text-neutral-800">
+                                        {{ reply.display_name }}
+                                    </span>
+                                </p>
                             </div>
 
                             <p v-if="!replies.length" class="text-xs text-neutral-500">
