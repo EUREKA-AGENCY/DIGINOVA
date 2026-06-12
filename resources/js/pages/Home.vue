@@ -359,45 +359,37 @@ const projectTypes = [
                 </div>
             </div>
 
-            <!-- Trust / clients — marquee -->
+            <!-- Trust / clients -->
             <div class="mt-20">
                 <!-- Label -->
-                <div class="flex items-center gap-4 mb-10 max-w-xs mx-auto">
+                <div class="flex items-center gap-4 mb-10">
                     <div class="flex-1 h-px bg-white/10"></div>
                     <span class="text-white/35 text-[11px] uppercase tracking-[0.18em] whitespace-nowrap">Ils nous font confiance</span>
                     <div class="flex-1 h-px bg-white/10"></div>
                 </div>
 
-                <!-- Marquee track -->
-                <div class="relative overflow-hidden">
-                    <!-- Edge fades -->
-                    <div class="pointer-events-none absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-[#070E24] to-transparent"></div>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-[#070E24] to-transparent"></div>
-
-                    <div class="marquee-track flex gap-6">
-                        <div
-                            v-for="(c, i) in [...clients, ...clients]"
-                            :key="`${c.name}-${i}`"
-                            class="group flex-shrink-0 flex flex-col items-center gap-2.5"
-                        >
-                            <!-- Logo -->
-                            <div class="h-12 w-32 flex items-center justify-center">
-                                <img
-                                    v-if="c.logo && !logoFailed[c.name]"
-                                    :src="c.logo"
-                                    :alt="c.name"
-                                    class="max-h-10 max-w-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-90 transition-all duration-400"
-                                    @error="logoFailed[c.name] = true"
-                                />
-                                <span v-else class="text-white/30 text-sm font-bold tracking-tight group-hover:text-white/70 transition-colors duration-300">
-                                    {{ c.name.slice(0, 2).toUpperCase() }}
-                                </span>
-                            </div>
-                            <!-- Nom -->
-                            <span class="text-white/25 group-hover:text-white/55 text-[10px] font-medium tracking-wide transition-colors duration-300">
-                                {{ c.name }}
+                <!-- Grid logos -->
+                <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-y-8">
+                    <div
+                        v-for="c in clients"
+                        :key="c.name"
+                        class="group flex flex-col items-center gap-3"
+                    >
+                        <div class="h-16 flex items-center justify-center px-2">
+                            <img
+                                v-if="c.logo && !logoFailed[c.name]"
+                                :src="c.logo"
+                                :alt="c.name"
+                                class="max-h-14 max-w-[110px] w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+                                @error="logoFailed[c.name] = true"
+                            />
+                            <span v-else class="text-white/40 text-base font-bold group-hover:text-white/70 transition-colors duration-300">
+                                {{ c.name.slice(0, 2).toUpperCase() }}
                             </span>
                         </div>
+                        <span class="text-white/30 group-hover:text-white/60 text-[10px] font-medium tracking-wide transition-colors duration-300">
+                            {{ c.name }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -879,16 +871,3 @@ const projectTypes = [
     </section>
 </template>
 
-<style scoped>
-@keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-}
-.marquee-track {
-    width: max-content;
-    animation: marquee 30s linear infinite;
-}
-.marquee-track:hover {
-    animation-play-state: paused;
-}
-</style>
