@@ -212,54 +212,17 @@ const stats = [
 ]
 
 const logoFailed = reactive({})
-function onLogoError(name) { logoFailed[name] = true }
 
 const clients = [
-    {
-        name: 'BGFIBank',
-        logo: 'https://logo.clearbit.com/bgfi.com',
-        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://bgfi.cm&size=128',
-    },
-    {
-        name: 'MinDef',
-        logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://mindef.gov.cm&size=128',
-        fallback: null,
-    },
-    {
-        name: 'USRA-CARE',
-        logo: 'https://logo.clearbit.com/usra-care.com',
-        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://usra-care.com&size=128',
-    },
-    {
-        name: 'ADS360',
-        logo: 'https://logo.clearbit.com/ads360.digital',
-        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://ads360.digital&size=128',
-    },
-    {
-        name: 'CaregFA',
-        logo: 'https://logo.clearbit.com/caregfa.com',
-        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://caregfa.com&size=128',
-    },
-    {
-        name: 'Census',
-        logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://census.diginova.cm&size=128',
-        fallback: null,
-    },
-    {
-        name: 'DECH School',
-        logo: null,
-        fallback: null,
-    },
-    {
-        name: 'FreeSurf',
-        logo: null,
-        fallback: null,
-    },
-    {
-        name: 'MBAC',
-        logo: null,
-        fallback: null,
-    },
+    { name: 'BGFIBank',    logo: 'https://leclientcm.bgfi.com/_nuxt/img/bgfi.f7108a4.png' },
+    { name: 'MinDef',      logo: 'https://mindef.gov.cm/wp-content/uploads/2023/10/LOGO-MINDEF-PNG-FRANCAIS.png' },
+    { name: 'USRA-CARE',   logo: 'https://www.google.com/s2/favicons?domain=usra-care.com&sz=128' },
+    { name: 'ADS360',      logo: 'https://www.google.com/s2/favicons?domain=ads360.digital&sz=128' },
+    { name: 'CaregFA',     logo: 'https://www.google.com/s2/favicons?domain=caregfa.com&sz=128' },
+    { name: 'Census',      logo: 'https://www.google.com/s2/favicons?domain=census.diginova.cm&sz=128' },
+    { name: 'DECH School', logo: null },
+    { name: 'FreeSurf',    logo: null },
+    { name: 'MBAC',        logo: null },
 ]
 
 const budgets = [
@@ -409,17 +372,11 @@ const projectTypes = [
                         <!-- Logo -->
                         <div class="w-10 h-10 flex items-center justify-center">
                             <img
-                                v-if="(c.logo || c.fallback) && !logoFailed[c.name]"
-                                :src="c.logo || c.fallback"
+                                v-if="c.logo && !logoFailed[c.name]"
+                                :src="c.logo"
                                 :alt="c.name"
-                                class="w-9 h-9 object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity duration-300"
-                                @error="(e) => {
-                                    if (c.fallback && e.target.src !== c.fallback) {
-                                        e.target.src = c.fallback
-                                    } else {
-                                        logoFailed[c.name] = true
-                                    }
-                                }"
+                                class="w-9 h-9 object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity duration-300 rounded-sm"
+                                @error="logoFailed[c.name] = true"
                             />
                             <div v-else class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
                                 <span class="text-white/50 text-[11px] font-bold group-hover:text-white/80 transition-colors">
