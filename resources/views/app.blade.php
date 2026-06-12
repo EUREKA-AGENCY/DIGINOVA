@@ -28,9 +28,12 @@
         <meta name="twitter:description" content="Solutions digitales sur mesure pour votre entreprise.">
         <meta name="twitter:image"       content="{{ config('app.url') }}/logo.svg">
 
+        <!-- CSRF -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600|poppins:400,500,600,700,800&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @routes
