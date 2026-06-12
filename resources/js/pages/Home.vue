@@ -222,7 +222,7 @@ const clients = [
     { name: 'Census',      logo: 'https://census.diginova.cm/assets/images/logo-rgph.png' },
     { name: 'DECH School', logo: null },
     { name: 'FreeSurf',    logo: 'https://freesurf.cm/logo.png' },
-    { name: 'MBAC',        logo: null },
+    { name: 'MBAC',        logo: 'https://mbac.mg/images/logo/mbac.jpg' },
 ]
 
 const budgets = [
