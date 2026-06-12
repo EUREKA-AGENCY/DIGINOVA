@@ -99,52 +99,85 @@ const services = [
 
 const portfolio = [
     {
-        name: 'FreeSurf',
-        type: 'SaaS · Hotspot WiFi',
-        desc: 'Plateforme de gestion de hotspots WiFi avec facturation automatique et dashboards temps réel.',
-        tags: ['Laravel', 'Vue.js', 'MySQL'],
-        accent: '#1B2D8C',
-        img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&h=220&q=75&auto=format&fit=crop',
+        name: 'BGFI LeClient',
+        type: 'Banque · Fintech',
+        desc: 'Plateforme digitale BGFIBank Cameroun : ouverture de compte en ligne, gestion bancaire et services financiers pour particuliers et entreprises.',
+        tags: ['Laravel', 'Vue.js', 'API Banking'],
+        accent: '#1D4ED8',
+        img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=220&q=75&auto=format&fit=crop',
+        url: 'https://leclientcm.bgfi.com/',
     },
     {
-        name: 'MBAC',
-        type: 'Administration Publique',
-        desc: 'Système de gestion administrative pour le Ministère des Biens et Affaires Culturelles.',
-        tags: ['Laravel', 'Bootstrap', 'Oracle'],
-        accent: '#0D6B52',
-        img: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=500&h=220&q=75&auto=format&fit=crop',
-    },
-    {
-        name: 'DECH School',
-        type: 'EdTech · Gestion Scolaire',
-        desc: 'Application complète : inscriptions, notes, emplois du temps, paiements en ligne.',
-        tags: ['Laravel', 'Vue.js', 'MySQL'],
-        accent: '#7C3AED',
-        img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=220&q=75&auto=format&fit=crop',
+        name: 'MinDef',
+        type: 'Défense Nationale · Institutionnel',
+        desc: 'Site institutionnel et système de messagerie sécurisé du Ministère de la Défense du Cameroun.',
+        tags: ['Laravel', 'Bootstrap', 'MySQL'],
+        accent: '#15803D',
+        img: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500&h=220&q=75&auto=format&fit=crop',
+        url: 'https://mindef.gov.cm/',
     },
     {
         name: 'USRA-CARE',
         type: 'Santé · Banque Mondiale',
-        desc: 'Plateforme de suivi santé développée dans le cadre du projet SISEPCAM.',
+        desc: 'Plateforme de suivi santé développée dans le cadre du projet SISEPCAM, financé par la Banque Mondiale.',
         tags: ['React', 'Node.js', 'PostgreSQL'],
         accent: '#DC2626',
         img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=220&q=75&auto=format&fit=crop',
+        url: 'https://usra-care.com/',
     },
     {
         name: 'ADS360',
-        type: 'Marketing Digital',
-        desc: 'Tableau de bord unifié pour la gestion de campagnes publicitaires multi-canaux.',
+        type: 'DOOH · Publicité Digitale',
+        desc: 'Solutions d\'écrans digitaux publicitaires (DOOH) : gestion de contenus, diffusion en temps réel et analytics pour réseaux d\'affichage urbain.',
         tags: ['Vue.js', 'Laravel', 'API REST'],
         accent: '#EA580C',
         img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=220&q=75&auto=format&fit=crop',
+        url: 'https://ads360.digital/',
+    },
+    {
+        name: 'CaregFA',
+        type: 'Expérience Client · SaaS',
+        desc: 'Plateforme SaaS de gestion de file d\'attente et d\'optimisation de l\'accueil client pour entreprises et institutions.',
+        tags: ['Laravel', 'Vue.js', 'MySQL'],
+        accent: '#7C3AED',
+        img: 'https://images.unsplash.com/photo-1556742205-e10c9486e506?w=500&h=220&q=75&auto=format&fit=crop',
+        url: 'https://caregfa.com/',
+    },
+    {
+        name: 'FreeSurf',
+        type: 'SaaS · Hotspot WiFi',
+        desc: 'Plateforme de gestion de hotspots WiFi avec portail captif, facturation automatique et dashboards temps réel.',
+        tags: ['Laravel', 'Vue.js', 'MySQL'],
+        accent: '#0891B2',
+        img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&h=220&q=75&auto=format&fit=crop',
+        url: null,
+    },
+    {
+        name: 'DECH School',
+        type: 'EdTech · Gestion Scolaire',
+        desc: 'Application complète : inscriptions, notes, emplois du temps, paiements en ligne et portail parents/élèves.',
+        tags: ['Laravel', 'Vue.js', 'MySQL'],
+        accent: '#D97706',
+        img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=220&q=75&auto=format&fit=crop',
+        url: null,
+    },
+    {
+        name: 'MBAC',
+        type: 'Administration Publique',
+        desc: 'Système de gestion administrative pour le Ministère des Biens et Affaires Culturelles du Cameroun.',
+        tags: ['Laravel', 'Bootstrap', 'Oracle'],
+        accent: '#0D6B52',
+        img: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=500&h=220&q=75&auto=format&fit=crop',
+        url: null,
     },
     {
         name: 'Census',
         type: 'Administration · Recensement',
-        desc: 'Application nationale de recensement avec interface mobile et synchronisation offline.',
+        desc: 'Application nationale de recensement avec interface mobile offline-first et synchronisation différée.',
         tags: ['Laravel', 'Flutter', 'MySQL'],
-        accent: '#0891B2',
+        accent: '#6B7280',
         img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=220&q=75&auto=format&fit=crop',
+        url: null,
     },
 ]
 
@@ -178,7 +211,7 @@ const stats = [
     { value: '100%', label: 'En production' },
 ]
 
-const clients = ['MinDef', 'MBAC', 'DECH School', 'USRA-CARE', 'ADS360', 'FreeSurf', 'Census', 'Sisepcam']
+const clients = ['BGFIBank', 'MinDef', 'USRA-CARE', 'ADS360', 'CaregFA', 'DECH School', 'FreeSurf', 'MBAC', 'Census', 'Sisepcam']
 
 const budgets = [
     'Moins de 500 000 FCFA',
@@ -442,7 +475,7 @@ const projectTypes = [
                 <div
                     v-for="proj in portfolio"
                     :key="proj.name"
-                    class="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-slate-200 hover:shadow-xl hover:shadow-slate-200/70 transition-all duration-300 cursor-default"
+                    class="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-slate-200 hover:shadow-xl hover:shadow-slate-200/70 transition-all duration-300 cursor-default flex flex-col"
                 >
                     <!-- Cover image -->
                     <div class="relative h-44 overflow-hidden">
@@ -467,13 +500,13 @@ const projectTypes = [
                     <!-- Accent bar -->
                     <div class="h-1 w-full" :style="`background: ${proj.accent};`"></div>
 
-                    <div class="p-5">
+                    <div class="p-5 flex flex-col flex-1">
                         <h3 class="text-slate-900 font-bold text-xl mb-2" style="font-family:'Poppins',sans-serif;">
                             {{ proj.name }}
                         </h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-4">{{ proj.desc }}</p>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{{ proj.desc }}</p>
 
-                        <div class="flex flex-wrap gap-1.5">
+                        <div class="flex flex-wrap gap-1.5 mb-4">
                             <span
                                 v-for="tag in proj.tags"
                                 :key="tag"
@@ -482,6 +515,19 @@ const projectTypes = [
                                 {{ tag }}
                             </span>
                         </div>
+
+                        <a
+                            v-if="proj.url"
+                            :href="proj.url"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-1.5 text-xs font-semibold transition-all duration-200 group/link"
+                            :style="`color: ${proj.accent};`"
+                            @click.stop
+                        >
+                            Voir le site
+                            <ArrowRight class="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform duration-200" />
+                        </a>
                     </div>
                 </div>
             </div>
