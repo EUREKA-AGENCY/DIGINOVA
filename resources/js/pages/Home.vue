@@ -359,33 +359,45 @@ const projectTypes = [
                 </div>
             </div>
 
-            <!-- Trust / clients (full width below) -->
-            <div class="mt-16">
-                <p class="text-white/30 text-xs uppercase tracking-widest mb-8 text-center">Ils nous font confiance</p>
+            <!-- Trust / clients — marquee -->
+            <div class="mt-20">
+                <!-- Label -->
+                <div class="flex items-center gap-4 mb-10 max-w-xs mx-auto">
+                    <div class="flex-1 h-px bg-white/10"></div>
+                    <span class="text-white/35 text-[11px] uppercase tracking-[0.18em] whitespace-nowrap">Ils nous font confiance</span>
+                    <div class="flex-1 h-px bg-white/10"></div>
+                </div>
 
-                <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3">
-                    <div
-                        v-for="c in clients"
-                        :key="c.name"
-                        class="group flex flex-col items-center gap-2.5 p-3 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-default"
-                    >
-                        <!-- Logo card -->
-                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
-                            <img
-                                v-if="c.logo && !logoFailed[c.name]"
-                                :src="c.logo"
-                                :alt="c.name"
-                                class="w-full h-full object-contain"
-                                @error="logoFailed[c.name] = true"
-                            />
-                            <span v-else class="text-[#070E24] text-[11px] font-bold">
-                                {{ c.name.slice(0, 2).toUpperCase() }}
+                <!-- Marquee track -->
+                <div class="relative overflow-hidden">
+                    <!-- Edge fades -->
+                    <div class="pointer-events-none absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-[#070E24] to-transparent"></div>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-[#070E24] to-transparent"></div>
+
+                    <div class="marquee-track flex gap-6">
+                        <div
+                            v-for="(c, i) in [...clients, ...clients]"
+                            :key="`${c.name}-${i}`"
+                            class="group flex-shrink-0 flex flex-col items-center gap-2"
+                        >
+                            <!-- Logo pill -->
+                            <div class="w-28 h-16 rounded-2xl bg-white flex items-center justify-center px-3 py-2 shadow-md opacity-55 group-hover:opacity-100 group-hover:shadow-xl group-hover:shadow-[#00D8E8]/10 transition-all duration-300">
+                                <img
+                                    v-if="c.logo && !logoFailed[c.name]"
+                                    :src="c.logo"
+                                    :alt="c.name"
+                                    class="max-w-full max-h-full object-contain"
+                                    @error="logoFailed[c.name] = true"
+                                />
+                                <span v-else class="text-[#070E24] text-sm font-bold tracking-tight">
+                                    {{ c.name.slice(0, 2).toUpperCase() }}
+                                </span>
+                            </div>
+                            <!-- Nom -->
+                            <span class="text-white/30 group-hover:text-white/60 text-[10px] font-medium tracking-wide transition-colors duration-300">
+                                {{ c.name }}
                             </span>
                         </div>
-                        <!-- Nom -->
-                        <span class="text-white/35 group-hover:text-white/65 text-[10px] font-medium text-center leading-tight transition-colors duration-300 line-clamp-2">
-                            {{ c.name }}
-                        </span>
                     </div>
                 </div>
             </div>
@@ -866,3 +878,17 @@ const projectTypes = [
         </div>
     </section>
 </template>
+
+<style scoped>
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.marquee-track {
+    width: max-content;
+    animation: marquee 30s linear infinite;
+}
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+</style>
