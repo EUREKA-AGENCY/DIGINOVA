@@ -367,22 +367,20 @@ const projectTypes = [
                     <div
                         v-for="c in clients"
                         :key="c.name"
-                        class="group flex flex-col items-center gap-2 p-3 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-default"
+                        class="group flex flex-col items-center gap-2.5 p-3 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-default"
                     >
-                        <!-- Logo -->
-                        <div class="w-10 h-10 flex items-center justify-center">
+                        <!-- Logo card -->
+                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
                             <img
                                 v-if="c.logo && !logoFailed[c.name]"
                                 :src="c.logo"
                                 :alt="c.name"
-                                class="w-9 h-9 object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity duration-300 rounded-sm"
+                                class="w-full h-full object-contain"
                                 @error="logoFailed[c.name] = true"
                             />
-                            <div v-else class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
-                                <span class="text-white/50 text-[11px] font-bold group-hover:text-white/80 transition-colors">
-                                    {{ c.name.slice(0, 2).toUpperCase() }}
-                                </span>
-                            </div>
+                            <span v-else class="text-[#070E24] text-[11px] font-bold">
+                                {{ c.name.slice(0, 2).toUpperCase() }}
+                            </span>
                         </div>
                         <!-- Nom -->
                         <span class="text-white/35 group-hover:text-white/65 text-[10px] font-medium text-center leading-tight transition-colors duration-300 line-clamp-2">
