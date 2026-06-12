@@ -252,115 +252,96 @@ const projectTypes = [
     </Head>
 
     <!-- ════════════════════ HERO ════════════════════ -->
-    <section
-        class="relative min-h-screen flex flex-col justify-center overflow-hidden"
-        style="background: linear-gradient(150deg, #050D2A 0%, #0B1437 50%, #0d2060 100%);"
-    >
-        <!-- Dot grid overlay -->
-        <div
-            class="absolute inset-0 opacity-[0.035]"
-            style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 32px 32px;"
-        ></div>
+    <section class="relative min-h-screen flex flex-col justify-center overflow-hidden">
 
-        <!-- Cyan glow top-center -->
-        <div
-            class="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.08] pointer-events-none"
-            style="background: radial-gradient(ellipse at center, #00D8E8 0%, transparent 65%);"
-        ></div>
+        <!-- Background photo + dark overlay -->
+        <div class="absolute inset-0">
+            <img
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&h=900&q=80&auto=format&fit=crop"
+                alt=""
+                class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(5,13,42,0.95) 0%, rgba(7,14,36,0.85) 45%, rgba(7,14,36,0.65) 100%);"></div>
+        </div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 w-full">
+        <!-- Cercle décoratif bas-gauche -->
+        <div class="pointer-events-none absolute bottom-16 left-10 w-56 h-56 rounded-full border border-[#00D8E8]/20"></div>
+        <div class="pointer-events-none absolute bottom-24 left-20 w-32 h-32 rounded-full border border-[#00D8E8]/10"></div>
 
-            <!-- 2-column on desktop -->
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Cercle décoratif haut-droite -->
+        <div class="pointer-events-none absolute -top-10 right-10 w-72 h-72 rounded-full border border-white/8"></div>
+
+        <!-- Accent dot -->
+        <div class="pointer-events-none absolute top-1/3 left-1/2 w-2 h-2 rounded-full bg-[#00D8E8]/60"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 w-full">
+
+            <!-- 2-column -->
+            <div class="grid lg:grid-cols-[1fr_420px] gap-12 lg:gap-16 items-center">
 
                 <!-- Left: text -->
-                <div class="text-center lg:text-left">
-
+                <div>
                     <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 bg-white/5 border border-[#00D8E8]/20 rounded-full px-4 py-1.5 mb-8">
+                    <div class="inline-flex items-center gap-2 bg-white/5 border border-[#00D8E8]/25 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
                         <span class="w-1.5 h-1.5 rounded-full bg-[#00D8E8] animate-pulse flex-shrink-0"></span>
                         <span class="text-[#00D8E8] text-xs font-medium tracking-wider uppercase">Diginova · Yaoundé, Cameroun</span>
                     </div>
 
                     <!-- Headline -->
                     <h1
-                        class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.08] mb-6"
+                        class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-6"
                         style="font-family:'Poppins',sans-serif;"
                     >
-                        Transformez votre vision
-                        <span
-                            class="block mt-1"
-                            style="background: linear-gradient(90deg, #00D8E8 0%, #4EB8FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
-                        >
-                            en réalité digitale
-                        </span>
+                        Votre partenaire<br>
+                        <span class="text-[#00D8E8]">digital</span><br>
+                        de confiance
                     </h1>
 
                     <!-- Subtitle -->
-                    <p class="text-white/60 text-lg sm:text-xl leading-relaxed mb-10">
-                        Développement web sur mesure, applications SaaS, microservices et DevOps.
-                        Des solutions robustes livrées par une équipe avec
-                        <strong class="text-white/85 font-semibold">8 ans d'expérience</strong> et
-                        <strong class="text-white/85 font-semibold">19 projets en production</strong>.
+                    <p class="text-white/55 text-lg leading-relaxed mb-10 max-w-xl">
+                        Développement web sur mesure, applications SaaS, microservices et DevOps —
+                        tout sous un même toit, une seule équipe.
                     </p>
 
                     <!-- CTAs -->
-                    <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 mb-12">
+                    <div class="flex flex-col sm:flex-row items-start gap-4">
                         <button
                             @click="scrollTo('contact')"
-                            class="inline-flex items-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] active:scale-95 text-[#070E24] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#00D8E8]/30 text-base w-full sm:w-auto justify-center border-0"
+                            class="inline-flex items-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] active:scale-95 text-[#070E24] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#00D8E8]/30 text-base justify-center border-0"
                         >
                             Démarrer un projet
                             <ArrowRight class="w-5 h-5" />
                         </button>
                         <button
                             @click="scrollTo('realisations')"
-                            class="inline-flex items-center gap-2.5 bg-white/8 hover:bg-white/12 border border-white/15 hover:border-[#00D8E8]/40 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base w-full sm:w-auto justify-center backdrop-blur-sm"
+                            class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#00D8E8]/50 text-white hover:text-[#00D8E8] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base justify-center backdrop-blur-sm bg-white/5"
                         >
-                            Voir nos réalisations
-                            <ChevronDown class="w-5 h-5 text-[#00D8E8]" />
+                            Voir nos réalisations →
                         </button>
-                    </div>
-
-                    <!-- Stats bar -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
-                        <div
-                            v-for="(s, i) in stats"
-                            :key="s.label"
-                            :class="['flex flex-col items-center py-5 px-4', i < stats.length - 1 ? 'border-r border-white/10' : '']"
-                        >
-                            <span class="text-2xl sm:text-3xl font-bold text-[#00D8E8]" style="font-family:'Poppins',sans-serif">
-                                {{ s.value }}
-                            </span>
-                            <span class="text-white/50 text-xs mt-0.5 text-center">{{ s.label }}</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Right: hero image (desktop only) -->
-                <div class="hidden lg:flex items-center justify-center relative">
-                    <!-- Glow behind image -->
-                    <div
-                        class="absolute inset-0 rounded-3xl blur-3xl opacity-20 pointer-events-none"
-                        style="background: radial-gradient(ellipse at center, #00D8E8 0%, #1B2D8C 60%, transparent 100%);"
-                    ></div>
-
-                    <!-- Browser mockup frame -->
-                    <div class="relative w-full max-w-lg rounded-2xl overflow-hidden border border-white/15 shadow-2xl shadow-black/60">
-                        <!-- Faux browser bar -->
-                        <div class="bg-[#0d1a3a] px-4 py-3 flex items-center gap-2 border-b border-white/10">
-                            <span class="w-3 h-3 rounded-full bg-red-400/70"></span>
-                            <span class="w-3 h-3 rounded-full bg-yellow-400/70"></span>
-                            <span class="w-3 h-3 rounded-full bg-green-400/70"></span>
-                            <div class="flex-1 mx-3 bg-white/5 rounded-md px-3 py-1 text-white/30 text-xs">
-                                diginova.cm/dashboard
-                            </div>
-                        </div>
-                        <img
-                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=450&q=80&auto=format&fit=crop"
-                            alt="Dashboard Diginova"
-                            class="w-full block"
-                        />
+                <!-- Right: stat cards 2×2 -->
+                <div class="hidden lg:grid grid-cols-2 gap-4">
+                    <!-- Card 1 — accent -->
+                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#00D8E8]/30" style="background: rgba(0,216,232,0.12);">
+                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">8+</p>
+                        <p class="text-white/60 text-sm leading-tight">Années<br>d'expérience</p>
+                    </div>
+                    <!-- Card 2 — glass -->
+                    <div class="rounded-2xl p-6 backdrop-blur-md border border-white/10" style="background: rgba(255,255,255,0.05);">
+                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">24/7</p>
+                        <p class="text-white/60 text-sm leading-tight">Support<br>dédié</p>
+                    </div>
+                    <!-- Card 3 — glass -->
+                    <div class="rounded-2xl p-6 backdrop-blur-md border border-white/10" style="background: rgba(255,255,255,0.05);">
+                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">19+</p>
+                        <p class="text-white/60 text-sm leading-tight">Projets<br>livrés</p>
+                    </div>
+                    <!-- Card 4 — accent -->
+                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#00D8E8]/30" style="background: rgba(0,216,232,0.12);">
+                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">100%</p>
+                        <p class="text-white/60 text-sm leading-tight">En<br>production</p>
                     </div>
                 </div>
             </div>
@@ -402,7 +383,7 @@ const projectTypes = [
         </div>
 
         <!-- Scroll hint -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-35">
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
             <span class="text-white text-[11px] uppercase tracking-widest">Découvrir</span>
             <ChevronDown class="w-4 h-4 text-white animate-bounce" />
         </div>

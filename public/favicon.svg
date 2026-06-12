@@ -1,29 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#1B2D8C"/>
-      <stop offset="50%"  stop-color="#1B2D8C"/>
-      <stop offset="100%" stop-color="#00D8E8"/>
-    </linearGradient>
-  </defs>
-  <!-- D letter -->
-  <path fill-rule="evenodd" fill="#1B2D8C"
-    d="M2,2 H12 Q22,2 22,16 Q22,30 12,30 H2 Z
-       M7,7 H11 Q17,7 17,16 Q17,25 11,25 H7 Z"/>
-  <!-- Snowflake 8 arms -->
-  <g transform="translate(19,16)" fill="url(#g)">
-    <polygon points="0,-11  1,-4  0,0  -1,-4"/>
-    <polygon points="0,11   1,4   0,0  -1,4"/>
-    <polygon points="11,0   4,1   0,0   4,-1"/>
-    <polygon points="-11,0 -4,1   0,0  -4,-1"/>
-    <polygon points="8,-8   2,-1  0,0   1,-2"/>
-    <polygon points="8,8    1,2   0,0   2,1"/>
-    <polygon points="-8,-8 -1,-2  0,0  -2,-1"/>
-    <polygon points="-8,8  -2,1   0,0  -1,2"/>
-    <!-- Diamond tips cardinal -->
-    <polygon points="0,-11  1,-9  0,-7  -1,-9"/>
-    <polygon points="0,11   1,9   0,7   -1,9"/>
-    <polygon points="11,0   9,1   7,0   9,-1"/>
-    <polygon points="-11,0 -9,1  -7,0  -9,-1"/>
-  </g>
+  <!-- Dark rounded background -->
+  <rect width="32" height="32" rx="7" fill="#070E24"/>
+  <!-- Bold D shape in Diginova cyan -->
+  <path fill="#00D8E8"
+    d="M8 8 h5.5 C18.2 8 22 11.6 22 16 C22 20.4 18.2 24 13.5 24 H8 Z
+       M11 11.5 v9 h2.3 C16.3 20.5 18.5 18.5 18.5 16 C18.5 13.5 16.3 11.5 13.3 11.5 Z"/>
 </svg>
