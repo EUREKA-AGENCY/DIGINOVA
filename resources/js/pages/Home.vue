@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 import {
     ArrowRight, ChevronDown, Check, Send, Loader2,
@@ -177,7 +177,7 @@ const portfolio = [
         tags: ['Laravel', 'Flutter', 'MySQL'],
         accent: '#6B7280',
         img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=220&q=75&auto=format&fit=crop',
-        url: null,
+        url: 'https://census.diginova.cm/',
     },
 ]
 
@@ -211,7 +211,56 @@ const stats = [
     { value: '100%', label: 'En production' },
 ]
 
-const clients = ['BGFIBank', 'MinDef', 'USRA-CARE', 'ADS360', 'CaregFA', 'DECH School', 'FreeSurf', 'MBAC', 'Census', 'Sisepcam']
+const logoFailed = reactive({})
+function onLogoError(name) { logoFailed[name] = true }
+
+const clients = [
+    {
+        name: 'BGFIBank',
+        logo: 'https://logo.clearbit.com/bgfi.com',
+        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://bgfi.cm&size=128',
+    },
+    {
+        name: 'MinDef',
+        logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://mindef.gov.cm&size=128',
+        fallback: null,
+    },
+    {
+        name: 'USRA-CARE',
+        logo: 'https://logo.clearbit.com/usra-care.com',
+        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://usra-care.com&size=128',
+    },
+    {
+        name: 'ADS360',
+        logo: 'https://logo.clearbit.com/ads360.digital',
+        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://ads360.digital&size=128',
+    },
+    {
+        name: 'CaregFA',
+        logo: 'https://logo.clearbit.com/caregfa.com',
+        fallback: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://caregfa.com&size=128',
+    },
+    {
+        name: 'Census',
+        logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://census.diginova.cm&size=128',
+        fallback: null,
+    },
+    {
+        name: 'DECH School',
+        logo: null,
+        fallback: null,
+    },
+    {
+        name: 'FreeSurf',
+        logo: null,
+        fallback: null,
+    },
+    {
+        name: 'MBAC',
+        logo: null,
+        fallback: null,
+    },
+]
 
 const budgets = [
     'Moins de 500 000 FCFA',
@@ -348,16 +397,41 @@ const projectTypes = [
             </div>
 
             <!-- Trust / clients (full width below) -->
-            <div class="mt-16 text-center">
-                <p class="text-white/30 text-xs uppercase tracking-widest mb-5">Ils nous font confiance</p>
-                <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-                    <span
+            <div class="mt-16">
+                <p class="text-white/30 text-xs uppercase tracking-widest mb-8 text-center">Ils nous font confiance</p>
+
+                <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3">
+                    <div
                         v-for="c in clients"
-                        :key="c"
-                        class="text-white/35 hover:text-white/65 text-sm font-medium transition-colors duration-200 cursor-default"
+                        :key="c.name"
+                        class="group flex flex-col items-center gap-2 p-3 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-default"
                     >
-                        {{ c }}
-                    </span>
+                        <!-- Logo -->
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <img
+                                v-if="(c.logo || c.fallback) && !logoFailed[c.name]"
+                                :src="c.logo || c.fallback"
+                                :alt="c.name"
+                                class="w-9 h-9 object-contain brightness-0 invert opacity-50 group-hover:opacity-90 transition-opacity duration-300"
+                                @error="(e) => {
+                                    if (c.fallback && e.target.src !== c.fallback) {
+                                        e.target.src = c.fallback
+                                    } else {
+                                        logoFailed[c.name] = true
+                                    }
+                                }"
+                            />
+                            <div v-else class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
+                                <span class="text-white/50 text-[11px] font-bold group-hover:text-white/80 transition-colors">
+                                    {{ c.name.slice(0, 2).toUpperCase() }}
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Nom -->
+                        <span class="text-white/35 group-hover:text-white/65 text-[10px] font-medium text-center leading-tight transition-colors duration-300 line-clamp-2">
+                            {{ c.name }}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
