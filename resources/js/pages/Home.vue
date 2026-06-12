@@ -216,7 +216,7 @@ const logoFailed = reactive({})
 const clients = [
     { name: 'BGFIBank',    logo: 'https://leclientcm.bgfi.com/_nuxt/img/bgfi.f7108a4.png' },
     { name: 'MinDef',      logo: 'https://mindef.gov.cm/wp-content/uploads/2023/10/LOGO-MINDEF-PNG-FRANCAIS.png' },
-    { name: 'USRA-CARE',   logo: 'https://www.google.com/s2/favicons?domain=usra-care.com&sz=128' },
+    { name: 'USRA-CARE',   logo: 'https://usra-care.com/images/logo.jpg' },
     { name: 'ADS360',      logo: 'https://www.google.com/s2/favicons?domain=ads360.digital&sz=128' },
     { name: 'CaregFA',     logo: 'https://www.google.com/s2/favicons?domain=caregfa.com&sz=128' },
     { name: 'Census',      logo: 'https://www.google.com/s2/favicons?domain=census.diginova.cm&sz=128' },
