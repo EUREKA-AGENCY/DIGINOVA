@@ -1,0 +1,17 @@
+{
+  "name": "Diginova",
+  "short_name": "Diginova",
+  "description": "Solutions digitales sur mesure — Eureka Agency",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1B2D8C",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
