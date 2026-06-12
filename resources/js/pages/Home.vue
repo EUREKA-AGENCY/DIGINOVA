@@ -4,7 +4,6 @@ import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 
 defineOptions({ layout: AppLayoutPublic })
 
-// ── Smooth scroll helper ───────────────────────────────────────
 function scrollTo(id) {
     const el = document.getElementById(id)
     if (!el) return
@@ -12,7 +11,6 @@ function scrollTo(id) {
     window.scrollTo({ top, behavior: 'smooth' })
 }
 
-// ── Stats reveal on scroll ────────────────────────────────────
 const statsVisible = ref(false)
 const statsSection = ref(null)
 
@@ -29,7 +27,6 @@ onMounted(() => {
     if (statsSection.value) observer.observe(statsSection.value)
 })
 
-// ── Contact form ──────────────────────────────────────────────
 const form = ref({ name: '', email: '', phone: '', project_type: '', budget: '', message: '' })
 const sending = ref(false)
 const sent = ref(false)
@@ -62,7 +59,6 @@ async function handleSubmit() {
     }
 }
 
-// ── Static data ───────────────────────────────────────────────
 const services = [
     {
         title: 'Développement Web Custom',
@@ -103,6 +99,7 @@ const portfolio = [
         desc: 'Plateforme de gestion de hotspots WiFi avec facturation automatique et dashboards temps réel.',
         tags: ['Laravel', 'Vue.js', 'MySQL'],
         accent: '#1B2D8C',
+        img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&h=220&q=75&auto=format&fit=crop',
     },
     {
         name: 'MBAC',
@@ -110,6 +107,7 @@ const portfolio = [
         desc: 'Système de gestion administrative pour le Ministère des Biens et Affaires Culturelles.',
         tags: ['Laravel', 'Bootstrap', 'Oracle'],
         accent: '#0D6B52',
+        img: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=500&h=220&q=75&auto=format&fit=crop',
     },
     {
         name: 'DECH School',
@@ -117,6 +115,7 @@ const portfolio = [
         desc: 'Application complète : inscriptions, notes, emplois du temps, paiements en ligne.',
         tags: ['Laravel', 'Vue.js', 'MySQL'],
         accent: '#7C3AED',
+        img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=220&q=75&auto=format&fit=crop',
     },
     {
         name: 'USRA-CARE',
@@ -124,6 +123,7 @@ const portfolio = [
         desc: 'Plateforme de suivi santé développée dans le cadre du projet SISEPCAM.',
         tags: ['React', 'Node.js', 'PostgreSQL'],
         accent: '#DC2626',
+        img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=220&q=75&auto=format&fit=crop',
     },
     {
         name: 'ADS360',
@@ -131,6 +131,7 @@ const portfolio = [
         desc: 'Tableau de bord unifié pour la gestion de campagnes publicitaires multi-canaux.',
         tags: ['Vue.js', 'Laravel', 'API REST'],
         accent: '#EA580C',
+        img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=220&q=75&auto=format&fit=crop',
     },
     {
         name: 'Census',
@@ -138,6 +139,7 @@ const portfolio = [
         desc: 'Application nationale de recensement avec interface mobile et synchronisation offline.',
         tags: ['Laravel', 'Flutter', 'MySQL'],
         accent: '#0891B2',
+        img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=220&q=75&auto=format&fit=crop',
     },
 ]
 
@@ -211,74 +213,107 @@ const projectTypes = [
         ></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 w-full">
-            <div class="text-center max-w-4xl mx-auto">
 
-                <!-- Badge -->
-                <div class="inline-flex items-center gap-2 bg-white/5 border border-[#00D8E8]/20 rounded-full px-4 py-1.5 mb-8">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#00D8E8] animate-pulse flex-shrink-0"></span>
-                    <span class="text-[#00D8E8] text-xs font-medium tracking-wider uppercase">Eureka Agency · Yaoundé, Cameroun</span>
-                </div>
+            <!-- 2-column on desktop -->
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-                <!-- Headline -->
-                <h1
-                    class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.08] mb-6"
-                    style="font-family:'Poppins',sans-serif;"
-                >
-                    Transformez votre vision
-                    <span
-                        class="block mt-1"
-                        style="background: linear-gradient(90deg, #00D8E8 0%, #4EB8FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+                <!-- Left: text -->
+                <div class="text-center lg:text-left">
+
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 bg-white/5 border border-[#00D8E8]/20 rounded-full px-4 py-1.5 mb-8">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#00D8E8] animate-pulse flex-shrink-0"></span>
+                        <span class="text-[#00D8E8] text-xs font-medium tracking-wider uppercase">Diginova · Yaoundé, Cameroun</span>
+                    </div>
+
+                    <!-- Headline -->
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.08] mb-6"
+                        style="font-family:'Poppins',sans-serif;"
                     >
-                        en réalité digitale
-                    </span>
-                </h1>
-
-                <!-- Subtitle -->
-                <p class="text-white/60 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
-                    Développement web sur mesure, applications SaaS, microservices et DevOps.
-                    Des solutions robustes livrées par une équipe avec
-                    <strong class="text-white/85 font-semibold">8 ans d'expérience</strong> et
-                    <strong class="text-white/85 font-semibold">19 projets en production</strong>.
-                </p>
-
-                <!-- CTAs -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                    <button
-                        @click="scrollTo('contact')"
-                        class="inline-flex items-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] active:scale-95 text-[#070E24] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#00D8E8]/30 text-base w-full sm:w-auto justify-center border-0"
-                    >
-                        Démarrer un projet
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-7-7 7 7-7 7"/>
-                        </svg>
-                    </button>
-                    <button
-                        @click="scrollTo('realisations')"
-                        class="inline-flex items-center gap-2.5 bg-white/8 hover:bg-white/12 border border-white/15 hover:border-[#00D8E8]/40 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base w-full sm:w-auto justify-center backdrop-blur-sm"
-                    >
-                        Voir nos réalisations
-                        <svg class="w-5 h-5 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Stats bar -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm max-w-3xl mx-auto">
-                    <div
-                        v-for="(s, i) in stats"
-                        :key="s.label"
-                        :class="['flex flex-col items-center py-5 px-4', i < stats.length - 1 ? 'border-r border-white/10' : '']"
-                    >
-                        <span class="text-2xl sm:text-3xl font-bold text-[#00D8E8]" style="font-family:'Poppins',sans-serif">
-                            {{ s.value }}
+                        Transformez votre vision
+                        <span
+                            class="block mt-1"
+                            style="background: linear-gradient(90deg, #00D8E8 0%, #4EB8FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+                        >
+                            en réalité digitale
                         </span>
-                        <span class="text-white/50 text-xs mt-0.5 text-center">{{ s.label }}</span>
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="text-white/60 text-lg sm:text-xl leading-relaxed mb-10">
+                        Développement web sur mesure, applications SaaS, microservices et DevOps.
+                        Des solutions robustes livrées par une équipe avec
+                        <strong class="text-white/85 font-semibold">8 ans d'expérience</strong> et
+                        <strong class="text-white/85 font-semibold">19 projets en production</strong>.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 mb-12">
+                        <button
+                            @click="scrollTo('contact')"
+                            class="inline-flex items-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] active:scale-95 text-[#070E24] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#00D8E8]/30 text-base w-full sm:w-auto justify-center border-0"
+                        >
+                            Démarrer un projet
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-7-7 7 7-7 7"/>
+                            </svg>
+                        </button>
+                        <button
+                            @click="scrollTo('realisations')"
+                            class="inline-flex items-center gap-2.5 bg-white/8 hover:bg-white/12 border border-white/15 hover:border-[#00D8E8]/40 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base w-full sm:w-auto justify-center backdrop-blur-sm"
+                        >
+                            Voir nos réalisations
+                            <svg class="w-5 h-5 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Stats bar -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
+                        <div
+                            v-for="(s, i) in stats"
+                            :key="s.label"
+                            :class="['flex flex-col items-center py-5 px-4', i < stats.length - 1 ? 'border-r border-white/10' : '']"
+                        >
+                            <span class="text-2xl sm:text-3xl font-bold text-[#00D8E8]" style="font-family:'Poppins',sans-serif">
+                                {{ s.value }}
+                            </span>
+                            <span class="text-white/50 text-xs mt-0.5 text-center">{{ s.label }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: hero image (desktop only) -->
+                <div class="hidden lg:flex items-center justify-center relative">
+                    <!-- Glow behind image -->
+                    <div
+                        class="absolute inset-0 rounded-3xl blur-3xl opacity-20 pointer-events-none"
+                        style="background: radial-gradient(ellipse at center, #00D8E8 0%, #1B2D8C 60%, transparent 100%);"
+                    ></div>
+
+                    <!-- Browser mockup frame -->
+                    <div class="relative w-full max-w-lg rounded-2xl overflow-hidden border border-white/15 shadow-2xl shadow-black/60">
+                        <!-- Faux browser bar -->
+                        <div class="bg-[#0d1a3a] px-4 py-3 flex items-center gap-2 border-b border-white/10">
+                            <span class="w-3 h-3 rounded-full bg-red-400/70"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-400/70"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-400/70"></span>
+                            <div class="flex-1 mx-3 bg-white/5 rounded-md px-3 py-1 text-white/30 text-xs">
+                                diginova.cm/dashboard
+                            </div>
+                        </div>
+                        <img
+                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=450&q=80&auto=format&fit=crop"
+                            alt="Dashboard Diginova"
+                            class="w-full block"
+                        />
                     </div>
                 </div>
             </div>
 
-            <!-- Trust / clients -->
+            <!-- Trust / clients (full width below) -->
             <div class="mt-16 text-center">
                 <p class="text-white/30 text-xs uppercase tracking-widest mb-5">Ils nous font confiance</p>
                 <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
@@ -316,8 +351,8 @@ const projectTypes = [
                 </p>
             </div>
 
+            <!-- Services with background image strip -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Service cards -->
                 <div
                     v-for="svc in services"
                     :key="svc.title"
@@ -378,6 +413,21 @@ const projectTypes = [
                     </div>
                 </button>
             </div>
+
+            <!-- Tech visual strip -->
+            <div class="mt-16 rounded-2xl overflow-hidden relative">
+                <img
+                    src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=300&q=70&auto=format&fit=crop"
+                    alt="Développement web et code"
+                    class="w-full h-48 object-cover object-center"
+                />
+                <div class="absolute inset-0" style="background: linear-gradient(90deg, #0B1437 0%, transparent 30%, transparent 70%, #0B1437 100%);"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-white/70 text-lg font-semibold tracking-wide text-center px-4" style="font-family:'Poppins',sans-serif;">
+                        Code propre · Livraisons rapides · Infrastructure robuste
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -401,17 +451,30 @@ const projectTypes = [
                     :key="proj.name"
                     class="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-slate-200 hover:shadow-xl hover:shadow-slate-200/70 transition-all duration-300 cursor-default"
                 >
-                    <!-- Accent bar -->
-                    <div class="h-1 w-full" :style="`background: ${proj.accent};`"></div>
-
-                    <div class="p-6">
+                    <!-- Cover image -->
+                    <div class="relative h-44 overflow-hidden">
+                        <img
+                            :src="proj.img"
+                            :alt="proj.name"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div
+                            class="absolute inset-0"
+                            :style="`background: linear-gradient(to bottom, transparent 40%, ${proj.accent}30 100%);`"
+                        ></div>
+                        <!-- Type badge over image -->
                         <span
-                            class="inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-3"
-                            :style="`color: ${proj.accent}; background: ${proj.accent}18;`"
+                            class="absolute top-3 left-3 text-white text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm"
+                            :style="`background: ${proj.accent}cc;`"
                         >
                             {{ proj.type }}
                         </span>
+                    </div>
 
+                    <!-- Accent bar -->
+                    <div class="h-1 w-full" :style="`background: ${proj.accent};`"></div>
+
+                    <div class="p-5">
                         <h3 class="text-slate-900 font-bold text-xl mb-2" style="font-family:'Poppins',sans-serif;">
                             {{ proj.name }}
                         </h3>
@@ -449,35 +512,57 @@ const projectTypes = [
     <section id="processus" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="text-center mb-14">
-                <span class="inline-block text-[#1B2D8C] text-xs font-semibold uppercase tracking-widest mb-3">Comment ça marche</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900" style="font-family:'Poppins',sans-serif;">
-                    Notre processus en 4 étapes
-                </h2>
-                <p class="mt-4 text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
-                    Un cadre clair et éprouvé pour chaque projet, de la première conversation à la mise en ligne.
-                </p>
-            </div>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div v-for="(step, i) in process" :key="step.n" class="relative">
-                    <!-- Connector (desktop) -->
-                    <div
-                        v-if="i < process.length - 1"
-                        class="hidden lg:block absolute top-8 left-[calc(50%+2.5rem)] right-0 h-px"
-                        style="background: linear-gradient(90deg, #1B2D8C30, transparent);"
-                    ></div>
-
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 rounded-2xl bg-[#1B2D8C] flex items-center justify-center mb-5 shadow-lg shadow-[#1B2D8C]/20">
-                            <span class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">
-                                {{ step.n }}
-                            </span>
+                <!-- Left: image -->
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-200">
+                    <img
+                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&h=520&q=80&auto=format&fit=crop"
+                        alt="Équipe Diginova en réunion"
+                        class="w-full h-96 lg:h-[520px] object-cover"
+                    />
+                    <!-- Overlay with floating stat -->
+                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(27,45,140,0.7) 0%, transparent 50%);"></div>
+                    <div class="absolute bottom-6 left-6 right-6 flex gap-4">
+                        <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
+                            <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">19</div>
+                            <div class="text-white/70 text-xs">Projets livrés</div>
                         </div>
-                        <h3 class="text-slate-900 font-bold text-lg mb-2.5" style="font-family:'Poppins',sans-serif;">
-                            {{ step.title }}
-                        </h3>
-                        <p class="text-slate-500 text-sm leading-relaxed">{{ step.desc }}</p>
+                        <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
+                            <div class="text-2xl font-bold text-[#00D8E8]" style="font-family:'Poppins',sans-serif;">8+</div>
+                            <div class="text-white/70 text-xs">Ans d'exp.</div>
+                        </div>
+                        <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
+                            <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">100%</div>
+                            <div class="text-white/70 text-xs">En prod.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: steps -->
+                <div>
+                    <span class="inline-block text-[#1B2D8C] text-xs font-semibold uppercase tracking-widest mb-3">Comment ça marche</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" style="font-family:'Poppins',sans-serif;">
+                        Notre processus en 4 étapes
+                    </h2>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10">
+                        Un cadre clair et éprouvé pour chaque projet, de la première conversation à la mise en ligne.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div v-for="step in process" :key="step.n" class="flex gap-5">
+                            <div class="w-14 h-14 rounded-2xl bg-[#1B2D8C] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#1B2D8C]/20">
+                                <span class="text-xl font-bold text-white" style="font-family:'Poppins',sans-serif;">
+                                    {{ step.n }}
+                                </span>
+                            </div>
+                            <div class="pt-1">
+                                <h3 class="text-slate-900 font-bold text-base mb-1" style="font-family:'Poppins',sans-serif;">
+                                    {{ step.title }}
+                                </h3>
+                                <p class="text-slate-500 text-sm leading-relaxed">{{ step.desc }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -487,10 +572,19 @@ const projectTypes = [
     <!-- ════════════════════ STATS ════════════════════ -->
     <section
         ref="statsSection"
-        class="py-20"
+        class="py-20 relative overflow-hidden"
         style="background: linear-gradient(135deg, #1B2D8C 0%, #0B1437 100%);"
     >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Background image overlay -->
+        <div class="absolute inset-0 opacity-10">
+            <img
+                src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1400&h=400&q=60&auto=format&fit=crop"
+                alt=""
+                class="w-full h-full object-cover"
+            />
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                 <div
                     v-for="(s, i) in stats"
@@ -527,12 +621,21 @@ const projectTypes = [
                         Ou commencez directement sur WhatsApp pour une réponse immédiate.
                     </p>
 
+                    <!-- Office photo -->
+                    <div class="rounded-2xl overflow-hidden mb-8 border border-white/10">
+                        <img
+                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=240&q=75&auto=format&fit=crop"
+                            alt="Bureau Diginova Yaoundé"
+                            class="w-full h-44 object-cover"
+                        />
+                    </div>
+
                     <!-- WhatsApp CTA -->
                     <a
-                        href="https://wa.me/237655065494?text=Bonjour%2C%20je%20souhaite%20d%C3%A9marrer%20un%20projet%20avec%20Diginova%20%2F%20Eureka%20Agency."
+                        href="https://wa.me/237655065494?text=Bonjour%2C%20je%20souhaite%20d%C3%A9marrer%20un%20projet%20avec%20Diginova."
                         target="_blank"
                         rel="noopener"
-                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bb5a] text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 cursor-pointer mb-10 shadow-lg shadow-[#25D366]/20"
+                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bb5a] text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 cursor-pointer mb-8 shadow-lg shadow-[#25D366]/20"
                     >
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -558,8 +661,8 @@ const projectTypes = [
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                 </svg>
                             </div>
-                            <a href="mailto:penlapsaturin@gmail.com" class="text-white/65 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
-                                penlapsaturin@gmail.com
+                            <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
+                                contact@diginova.cm
                             </a>
                         </div>
                         <div class="flex items-center gap-3">
@@ -685,7 +788,6 @@ const projectTypes = [
                             ></textarea>
                         </div>
 
-                        <!-- Error -->
                         <p v-if="formError" class="text-red-400 text-xs">{{ formError }}</p>
 
                         <button

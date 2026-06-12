@@ -130,7 +130,7 @@ function smoothScroll(id) {
                             Web, SaaS, DevOps — de la conception au déploiement.
                         </p>
                         <p class="text-xs text-white/35">
-                            Une initiative <span class="text-[#00D8E8]">Eureka Agency</span> · Yaoundé, Cameroun
+                            Yaoundé, Cameroun
                         </p>
                     </div>
 
@@ -208,9 +208,9 @@ function smoothScroll(id) {
 
                 <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p class="text-white/35 text-xs">
-                        © {{ new Date().getFullYear() }} Diginova · Eureka Agency. Tous droits réservés.
+                        © {{ new Date().getFullYear() }} Diginova. Tous droits réservés.
                     </p>
-                    <p class="text-white/25 text-xs">Conçu &amp; développé par Eureka Agency, Yaoundé 🇨🇲</p>
+                    <p class="text-white/25 text-xs">Conçu &amp; développé par Diginova, Yaoundé 🇨🇲</p>
                 </div>
             </div>
         </footer>
