@@ -221,7 +221,7 @@ const clients = [
     { name: 'ADS360',      logo: 'https://ads360.digital/images/logo.png' },
     { name: 'CaregFA',     logo: 'https://caregfa.com/images/logo.png' },
     { name: 'Census',      logo: 'https://census.diginova.cm/assets/images/logo-rgph.png' },
-    { name: 'DECH School', logo: null },
+    { name: 'DECH School', logo: 'https://dech-school.diginova.cm/images/Header/logo.svg' },
     { name: 'FreeSurf',    logo: 'https://freesurf.cm/logo.png' },
     { name: 'MBAC',        logo: 'https://mbac.mg/images/logo/mbac.jpg' },
 ]
@@ -281,12 +281,6 @@ const projectTypes = [
 
                 <!-- Left: text -->
                 <div>
-                    <!-- Badge -->
-                    <div class="inline-flex items-center gap-2 bg-white/5 border border-[#00D8E8]/25 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#00D8E8] animate-pulse flex-shrink-0"></span>
-                        <span class="text-[#00D8E8] text-xs font-medium tracking-wider uppercase">Diginova · Yaoundé, Cameroun</span>
-                    </div>
-
                     <!-- Headline -->
                     <h1
                         class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-6"
