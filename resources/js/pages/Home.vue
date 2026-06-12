@@ -221,7 +221,7 @@ const clients = [
     { name: 'CaregFA',     logo: 'https://caregfa.com/images/logo.png' },
     { name: 'Census',      logo: 'https://census.diginova.cm/assets/images/logo-rgph.png' },
     { name: 'DECH School', logo: null },
-    { name: 'FreeSurf',    logo: null },
+    { name: 'FreeSurf',    logo: 'https://freesurf.cm/logo.png' },
     { name: 'MBAC',        logo: null },
 ]
 
