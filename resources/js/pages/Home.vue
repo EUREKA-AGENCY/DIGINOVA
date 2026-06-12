@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { Head } from '@inertiajs/vue3'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 import {
     ArrowRight, ChevronDown, Check, Send, Loader2,
@@ -245,6 +246,11 @@ const projectTypes = [
 </script>
 
 <template>
+    <Head>
+        <title>Diginova — Développement Web & SaaS | Yaoundé, Cameroun</title>
+        <meta name="description" content="Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19 projets en production." />
+    </Head>
+
     <!-- ════════════════════ HERO ════════════════════ -->
     <section
         class="relative min-h-screen flex flex-col justify-center overflow-hidden"
@@ -403,7 +409,7 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ SERVICES ════════════════════ -->
-    <section id="services" class="py-24" style="background: #0B1437;">
+    <section id="services" aria-label="Nos services" class="py-24" style="background: #0B1437;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-14">
@@ -478,6 +484,7 @@ const projectTypes = [
                 <img
                     src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=300&q=70&auto=format&fit=crop"
                     alt="Développement web et code"
+                    loading="lazy"
                     class="w-full h-48 object-cover object-center"
                 />
                 <div class="absolute inset-0" style="background: linear-gradient(90deg, #0B1437 0%, transparent 30%, transparent 70%, #0B1437 100%);"></div>
@@ -491,7 +498,7 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ RÉALISATIONS ════════════════════ -->
-    <section id="realisations" class="py-24 bg-slate-50">
+    <section id="realisations" aria-label="Nos réalisations" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-14">
@@ -515,6 +522,7 @@ const projectTypes = [
                         <img
                             :src="proj.img"
                             :alt="proj.name"
+                            loading="lazy"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div
@@ -579,7 +587,7 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ PROCESSUS ════════════════════ -->
-    <section id="processus" class="py-24 bg-white">
+    <section id="processus" aria-label="Notre processus" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -589,6 +597,7 @@ const projectTypes = [
                     <img
                         src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&h=520&q=80&auto=format&fit=crop"
                         alt="Équipe Diginova en réunion"
+                        loading="lazy"
                         class="w-full h-96 lg:h-[520px] object-cover"
                     />
                     <!-- Overlay with floating stat -->
@@ -676,7 +685,7 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ CONTACT ════════════════════ -->
-    <section id="contact" class="py-24" style="background: #050D2A;">
+    <section id="contact" aria-label="Nous contacter" class="py-24" style="background: #050D2A;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
@@ -696,6 +705,7 @@ const projectTypes = [
                         <img
                             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=240&q=75&auto=format&fit=crop"
                             alt="Bureau Diginova Yaoundé"
+                            loading="lazy"
                             class="w-full h-44 object-cover"
                         />
                     </div>

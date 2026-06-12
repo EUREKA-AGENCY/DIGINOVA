@@ -9,6 +9,16 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
 
+Route::get('/sitemap.xml', function () {
+    $lastmod = '2025-06-12';
+    $base    = config('app.url');
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+    $xml .= "<url><loc>{$base}/</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>";
+    $xml .= '</urlset>';
+    return response($xml, 200)->header('Content-Type', 'application/xml');
+});
+
 Route::post('/contact', function (Request $request) {
     $data = $request->validate([
         'name'         => 'required|string|max:255',

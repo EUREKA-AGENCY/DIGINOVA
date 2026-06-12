@@ -1,2 +1,14 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /confirm-password
+Disallow: /profile
+Disallow: /api/
+
+Sitemap: https://diginova.cm/sitemap.xml
