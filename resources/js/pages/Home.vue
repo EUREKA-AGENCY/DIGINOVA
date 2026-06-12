@@ -378,23 +378,23 @@ const projectTypes = [
                         <div
                             v-for="(c, i) in [...clients, ...clients]"
                             :key="`${c.name}-${i}`"
-                            class="group flex-shrink-0 flex flex-col items-center gap-2"
+                            class="group flex-shrink-0 flex flex-col items-center gap-2.5"
                         >
-                            <!-- Logo pill -->
-                            <div class="w-28 h-16 rounded-2xl bg-white flex items-center justify-center px-3 py-2 shadow-md opacity-55 group-hover:opacity-100 group-hover:shadow-xl group-hover:shadow-[#00D8E8]/10 transition-all duration-300">
+                            <!-- Logo -->
+                            <div class="h-12 w-32 flex items-center justify-center">
                                 <img
                                     v-if="c.logo && !logoFailed[c.name]"
                                     :src="c.logo"
                                     :alt="c.name"
-                                    class="max-w-full max-h-full object-contain"
+                                    class="max-h-10 max-w-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-90 transition-all duration-400"
                                     @error="logoFailed[c.name] = true"
                                 />
-                                <span v-else class="text-[#070E24] text-sm font-bold tracking-tight">
+                                <span v-else class="text-white/30 text-sm font-bold tracking-tight group-hover:text-white/70 transition-colors duration-300">
                                     {{ c.name.slice(0, 2).toUpperCase() }}
                                 </span>
                             </div>
                             <!-- Nom -->
-                            <span class="text-white/30 group-hover:text-white/60 text-[10px] font-medium tracking-wide transition-colors duration-300">
+                            <span class="text-white/25 group-hover:text-white/55 text-[10px] font-medium tracking-wide transition-colors duration-300">
                                 {{ c.name }}
                             </span>
                         </div>
