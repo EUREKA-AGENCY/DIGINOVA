@@ -1,6 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
+import {
+    ArrowRight, ChevronDown, Check, Send, Loader2,
+    Phone, Mail, MapPin,
+    Code2, Cloud, Network, Terminal, Zap, MessageSquare,
+} from 'lucide-vue-next'
 
 defineOptions({ layout: AppLayoutPublic })
 
@@ -64,31 +69,31 @@ const services = [
         title: 'Développement Web Custom',
         desc: 'Applications web performantes et scalables, conçues sur mesure pour votre métier.',
         tags: ['Laravel', 'Vue.js', 'React', 'Next.js'],
-        icon: 'M16 18l6-6-6-6M8 6l-6 6 6 6',
+        icon: Code2,
     },
     {
         title: 'Applications SaaS',
         desc: 'Conception et déploiement de plateformes SaaS multi-tenant, de la maquette au Go-Live.',
         tags: ['SaaS', 'Multi-tenant', 'API REST'],
-        icon: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
+        icon: Cloud,
     },
     {
         title: 'Microservices & API',
         desc: 'Architecture microservices, API Gateway, intégration de services tiers et ETL.',
         tags: ['Node.js', 'Docker', 'REST', 'GraphQL'],
-        icon: 'M4 6h16M4 10h16M4 14h16M4 18h16',
+        icon: Network,
     },
     {
         title: 'DevOps & CI/CD',
         desc: 'Pipelines CI/CD, containerisation Docker, déploiement continu sur VPS ou cloud.',
         tags: ['Docker', 'GitHub Actions', 'Nginx', 'Linux'],
-        icon: 'M22 12h-4l-3 9L9 3l-3 9H2',
+        icon: Terminal,
     },
     {
         title: 'Transformation Digitale',
         desc: 'Audit, conseil stratégique et accompagnement pour digitaliser vos processus métier.',
         tags: ['Audit', 'Conseil', 'Formation', 'Support'],
-        icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+        icon: Zap,
     },
 ]
 
@@ -255,18 +260,14 @@ const projectTypes = [
                             class="inline-flex items-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] active:scale-95 text-[#070E24] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#00D8E8]/30 text-base w-full sm:w-auto justify-center border-0"
                         >
                             Démarrer un projet
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-7-7 7 7-7 7"/>
-                            </svg>
+                            <ArrowRight class="w-5 h-5" />
                         </button>
                         <button
                             @click="scrollTo('realisations')"
                             class="inline-flex items-center gap-2.5 bg-white/8 hover:bg-white/12 border border-white/15 hover:border-[#00D8E8]/40 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base w-full sm:w-auto justify-center backdrop-blur-sm"
                         >
                             Voir nos réalisations
-                            <svg class="w-5 h-5 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <ChevronDown class="w-5 h-5 text-[#00D8E8]" />
                         </button>
                     </div>
 
@@ -331,9 +332,7 @@ const projectTypes = [
         <!-- Scroll hint -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-35">
             <span class="text-white text-[11px] uppercase tracking-widest">Découvrir</span>
-            <svg class="w-4 h-4 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
+            <ChevronDown class="w-4 h-4 text-white animate-bounce" />
         </div>
     </section>
 
@@ -365,9 +364,7 @@ const projectTypes = [
                     ></div>
 
                     <div class="relative w-11 h-11 rounded-xl bg-[#00D8E8]/10 flex items-center justify-center mb-4 flex-shrink-0">
-                        <svg class="w-5 h-5 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path :d="svc.icon"/>
-                        </svg>
+                        <component :is="svc.icon" class="w-5 h-5 text-[#00D8E8]" />
                     </div>
 
                     <h3 class="relative text-white font-semibold text-[17px] mb-2 leading-snug" style="font-family:'Poppins',sans-serif;">
@@ -394,9 +391,7 @@ const projectTypes = [
                 >
                     <div>
                         <div class="w-11 h-11 rounded-xl bg-[#00D8E8]/15 flex items-center justify-center mb-4">
-                            <svg class="w-5 h-5 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                            </svg>
+                            <MessageSquare class="w-5 h-5 text-[#00D8E8]" />
                         </div>
                         <h3 class="text-white font-semibold text-[17px] mb-2" style="font-family:'Poppins',sans-serif;">
                             Votre projet ici
@@ -407,9 +402,7 @@ const projectTypes = [
                     </div>
                     <div class="mt-6 inline-flex items-center gap-2 text-[#00D8E8] text-sm font-semibold group-hover:gap-3 transition-all duration-200">
                         Discutons de votre projet
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7"/>
-                        </svg>
+                        <ArrowRight class="w-4 h-4" />
                     </div>
                 </button>
             </div>
@@ -500,9 +493,7 @@ const projectTypes = [
                     class="inline-flex items-center gap-2 bg-[#1B2D8C] hover:bg-[#1527A0] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors duration-200 cursor-pointer border-0 shadow-lg shadow-[#1B2D8C]/20"
                 >
                     Démarrer un projet
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7"/>
-                    </svg>
+                    <ArrowRight class="w-4 h-4" />
                 </button>
             </div>
         </div>
@@ -647,9 +638,7 @@ const projectTypes = [
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-4 h-4 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                </svg>
+                                <Phone class="w-4 h-4 text-[#00D8E8]" />
                             </div>
                             <a href="tel:+237655065494" class="text-white/65 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
                                 +237 655 065 494
@@ -657,9 +646,7 @@ const projectTypes = [
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-4 h-4 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
+                                <Mail class="w-4 h-4 text-[#00D8E8]" />
                             </div>
                             <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
                                 contact@diginova.cm
@@ -667,10 +654,7 @@ const projectTypes = [
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-4 h-4 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
+                                <MapPin class="w-4 h-4 text-[#00D8E8]" />
                             </div>
                             <span class="text-white/65 text-sm">Yaoundé, Cameroun</span>
                         </div>
@@ -686,9 +670,7 @@ const projectTypes = [
                         style="background: rgba(255,255,255,0.03);"
                     >
                         <div class="w-16 h-16 rounded-full bg-[#00D8E8]/15 flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-8 h-8 text-[#00D8E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                            </svg>
+                            <Check class="w-8 h-8 text-[#00D8E8]" stroke-width="2.5" />
                         </div>
                         <h3 class="text-white text-xl font-bold mb-2" style="font-family:'Poppins',sans-serif;">
                             Message envoyé !
@@ -795,13 +777,8 @@ const projectTypes = [
                             :disabled="sending"
                             class="w-full flex items-center justify-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] disabled:opacity-60 disabled:cursor-not-allowed text-[#070E24] font-bold py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-[#00D8E8]/20 text-sm border-0"
                         >
-                            <svg v-if="sending" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
-                            </svg>
-                            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                            </svg>
+                            <Loader2 v-if="sending" class="w-4 h-4 animate-spin" />
+                            <Send v-else class="w-4 h-4" />
                             {{ sending ? 'Envoi en cours...' : 'Envoyer ma demande' }}
                         </button>
 
