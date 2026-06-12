@@ -47,82 +47,67 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600|poppins:400,500,600,700,800&display=swap" rel="stylesheet">
 
         <!-- JSON-LD Structured Data -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@graph": [
-                {
-                    "@type": ["Organization", "ProfessionalService"],
-                    "@id": "{{ config('app.url') }}/#organization",
-                    "name": "Diginova",
-                    "url": "{{ config('app.url') }}",
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": "{{ config('app.url') }}/logo.svg"
-                    },
-                    "image": "{{ config('app.url') }}/og-image.png",
-                    "description": "Agence de développement web et solutions SaaS à Yaoundé, Cameroun. Développement sur mesure, microservices, DevOps, transformation digitale.",
-                    "priceRange": "$$",
-                    "currenciesAccepted": "XAF",
-                    "areaServed": {
-                        "@type": "Country",
-                        "name": "Cameroun"
-                    },
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": "Yaoundé",
-                        "addressRegion": "Centre",
-                        "addressCountry": "CM"
-                    },
-                    "contactPoint": {
-                        "@type": "ContactPoint",
-                        "telephone": "+237-655-065-494",
-                        "contactType": "customer service",
-                        "email": "contact@diginova.cm",
-                        "availableLanguage": "French"
-                    },
-                    "sameAs": [
-                        "https://github.com/EUREKA-AGENCY",
-                        "https://wa.me/237655065494"
+        @php
+            $base = config('app.url');
+            $jsonLd = [
+                '@context' => 'https://schema.org',
+                '@graph'   => [
+                    [
+                        '@type'              => ['Organization', 'ProfessionalService'],
+                        '@id'                => $base . '/#organization',
+                        'name'               => 'Diginova',
+                        'url'                => $base,
+                        'logo'               => ['@type' => 'ImageObject', 'url' => $base . '/logo.svg'],
+                        'image'              => $base . '/og-image.png',
+                        'description'        => 'Agence de développement web et solutions SaaS à Yaoundé, Cameroun. Développement sur mesure, microservices, DevOps, transformation digitale.',
+                        'priceRange'         => '$$',
+                        'currenciesAccepted' => 'XAF',
+                        'areaServed'         => ['@type' => 'Country', 'name' => 'Cameroun'],
+                        'address'            => [
+                            '@type'           => 'PostalAddress',
+                            'addressLocality' => 'Yaoundé',
+                            'addressRegion'   => 'Centre',
+                            'addressCountry'  => 'CM',
+                        ],
+                        'contactPoint' => [
+                            '@type'             => 'ContactPoint',
+                            'telephone'         => '+237-655-065-494',
+                            'contactType'       => 'customer service',
+                            'email'             => 'contact@diginova.cm',
+                            'availableLanguage' => 'French',
+                        ],
+                        'sameAs'            => ['https://github.com/EUREKA-AGENCY', 'https://wa.me/237655065494'],
+                        'foundingDate'      => '2017',
+                        'numberOfEmployees' => ['@type' => 'QuantitativeValue', 'value' => 5],
                     ],
-                    "foundingDate": "2017",
-                    "numberOfEmployees": {
-                        "@type": "QuantitativeValue",
-                        "value": 5
-                    }
-                },
-                {
-                    "@type": "WebSite",
-                    "@id": "{{ config('app.url') }}/#website",
-                    "url": "{{ config('app.url') }}",
-                    "name": "Diginova",
-                    "publisher": { "@id": "{{ config('app.url') }}/#organization" },
-                    "inLanguage": "fr-CM"
-                },
-                {
-                    "@type": "WebPage",
-                    "@id": "{{ config('app.url') }}/#webpage",
-                    "url": "{{ config('app.url') }}",
-                    "name": "Diginova — Développement Web & Solutions SaaS | Yaoundé, Cameroun",
-                    "description": "Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience, 19 projets en production.",
-                    "isPartOf": { "@id": "{{ config('app.url') }}/#website" },
-                    "about": { "@id": "{{ config('app.url') }}/#organization" },
-                    "inLanguage": "fr-CM",
-                    "breadcrumb": {
-                        "@type": "BreadcrumbList",
-                        "itemListElement": [
-                            {
-                                "@type": "ListItem",
-                                "position": 1,
-                                "name": "Accueil",
-                                "item": "{{ config('app.url') }}"
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-        </script>
+                    [
+                        '@type'     => 'WebSite',
+                        '@id'       => $base . '/#website',
+                        'url'       => $base,
+                        'name'      => 'Diginova',
+                        'publisher' => ['@id' => $base . '/#organization'],
+                        'inLanguage'=> 'fr-CM',
+                    ],
+                    [
+                        '@type'       => 'WebPage',
+                        '@id'         => $base . '/#webpage',
+                        'url'         => $base,
+                        'name'        => 'Diginova — Développement Web & Solutions SaaS | Yaoundé, Cameroun',
+                        'description' => "Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience, 19 projets en production.",
+                        'isPartOf'    => ['@id' => $base . '/#website'],
+                        'about'       => ['@id' => $base . '/#organization'],
+                        'inLanguage'  => 'fr-CM',
+                        'breadcrumb'  => [
+                            '@type'           => 'BreadcrumbList',
+                            'itemListElement' => [
+                                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Accueil', 'item' => $base],
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+        @endphp
+        <script type="application/ld+json">{!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
         <!-- Scripts -->
         @routes
