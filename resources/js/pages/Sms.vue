@@ -176,7 +176,16 @@ const activeLang = ref('cURL')
     </Head>
 
     <!-- ════════════════════ HERO ════════════════════ -->
-    <section class="relative overflow-hidden pt-32 pb-20" style="background: linear-gradient(160deg, #061514 0%, #0A2422 55%, #0D2B29 100%);">
+    <section class="relative overflow-hidden pt-32 pb-20">
+        <div class="absolute inset-0">
+            <img
+                src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=1600&h=900&q=80&auto=format&fit=crop"
+                alt=""
+                class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute inset-0" style="background: linear-gradient(160deg, rgba(6,21,20,0.94) 0%, rgba(10,36,34,0.92) 55%, rgba(13,43,41,0.9) 100%);"></div>
+        </div>
+
         <div class="pointer-events-none absolute -top-10 right-10 w-72 h-72 rounded-full border border-white/8"></div>
         <div class="pointer-events-none absolute bottom-0 left-10 w-56 h-56 rounded-full border border-[#30998A]/20"></div>
 
@@ -281,6 +290,22 @@ const activeLang = ref('cURL')
                     </div>
                     <h3 class="text-white font-bold text-lg mb-2" style="font-family:'Poppins',sans-serif;">{{ u.title }}</h3>
                     <p class="text-white/55 text-sm leading-relaxed">{{ u.desc }}</p>
+                </div>
+            </div>
+
+            <!-- Bande visuelle -->
+            <div class="mt-16 rounded-2xl overflow-hidden relative">
+                <img
+                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&h=300&q=70&auto=format&fit=crop"
+                    alt="Application Messages sur smartphone"
+                    loading="lazy"
+                    class="w-full h-48 object-cover object-center"
+                />
+                <div class="absolute inset-0" style="background: rgba(10,36,34,0.74);"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-white/80 text-lg font-semibold tracking-wide text-center px-4" style="font-family:'Poppins',sans-serif;">
+                        Notifications instantanées · Sans application · Sans connexion data
+                    </p>
                 </div>
             </div>
         </div>
