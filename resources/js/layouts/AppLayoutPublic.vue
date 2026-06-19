@@ -55,7 +55,7 @@ function smoothScroll(id, event) {
 
                     <!-- Logo -->
                     <a href="/" class="flex items-center gap-3 flex-shrink-0 cursor-pointer">
-                        <img src="/logo-dark.svg" alt="Diginova" class="h-8 w-auto" />
+                        <img src="/logo-icon.png" alt="Diginova" class="h-8 w-auto" />
                         <span class="text-white font-bold text-lg tracking-tight hidden sm:block" style="font-family:'Poppins',sans-serif">
                             Diginova
                         </span>
@@ -148,7 +148,7 @@ function smoothScroll(id, event) {
                     <!-- Brand -->
                     <div>
                         <div class="flex items-center gap-3 mb-4">
-                            <img src="/logo-dark.svg" alt="Diginova" class="h-8 w-auto" />
+                            <img src="/logo-icon.png" alt="Diginova" class="h-8 w-auto" />
                             <span class="font-bold text-xl" style="font-family:'Poppins',sans-serif">Diginova</span>
                         </div>
                         <p class="text-white/55 text-sm leading-relaxed mb-4">

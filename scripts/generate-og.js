@@ -1,8 +1,10 @@
 import puppeteer from 'puppeteer'
 import path from 'path'
+import fs from 'fs'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const logoIconB64 = fs.readFileSync(path.join(__dirname, '../public/logo-icon.png')).toString('base64')
 
 const html = `<!DOCTYPE html>
 <html>
@@ -108,17 +110,9 @@ const html = `<!DOCTYPE html>
     margin-bottom: 28px;
   }
   .logo-mark {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #30998A 0%, #1D5457 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-weight: 800;
-    color: white;
-    letter-spacing: -1px;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
   }
   .logo-name {
     font-size: 36px;
@@ -232,7 +226,7 @@ const html = `<!DOCTYPE html>
     </div>
 
     <div class="logo-row">
-      <div class="logo-mark">Dn</div>
+      <img class="logo-mark" src="data:image/png;base64,${logoIconB64}" alt="" />
       <span class="logo-name">Diginova</span>
     </div>
 
