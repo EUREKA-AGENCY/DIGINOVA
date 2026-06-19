@@ -4,7 +4,7 @@ import { Head, Link } from '@inertiajs/vue3'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 import {
     ArrowRight, ChevronDown, Check, Send, Loader2,
-    Phone, Mail, MapPin,
+    Phone, Mail, MapPin, Smartphone,
     Code2, Cloud, Network, Terminal, Zap, MessageSquare,
 } from 'lucide-vue-next'
 
@@ -102,6 +102,13 @@ const services = [
         tags: ['Messagerie', 'IA', 'Automatisation'],
         icon: Mail,
         link: '/messagerie-pro',
+    },
+    {
+        title: 'SMS Pro & Campagnes',
+        desc: 'Notifications, alertes, OTP/2FA et campagnes marketing par SMS, plus de 95% de taux de lecture. Plateforme web et API.',
+        tags: ['SMS', 'OTP/2FA', 'API'],
+        icon: Smartphone,
+        link: '/sms',
     },
 ]
 

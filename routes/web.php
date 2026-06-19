@@ -13,6 +13,10 @@ Route::get('/messagerie-pro', function () {
     return Inertia::render('MessageriePro');
 })->name('messagerie-pro');
 
+Route::get('/sms', function () {
+    return Inertia::render('Sms');
+})->name('sms');
+
 Route::get('/sitemap.xml', function () {
     $lastmod = '2026-06-19';
     $base    = config('app.url');
@@ -20,6 +24,7 @@ Route::get('/sitemap.xml', function () {
     $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     $xml .= "<url><loc>{$base}/</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>";
     $xml .= "<url><loc>{$base}/messagerie-pro</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>";
+    $xml .= "<url><loc>{$base}/sms</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>";
     $xml .= '</urlset>';
     return response($xml, 200)->header('Content-Type', 'application/xml');
 });
