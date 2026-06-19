@@ -9,12 +9,17 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
 
+Route::get('/messagerie-pro', function () {
+    return Inertia::render('MessageriePro');
+})->name('messagerie-pro');
+
 Route::get('/sitemap.xml', function () {
-    $lastmod = '2025-06-12';
+    $lastmod = '2026-06-19';
     $base    = config('app.url');
     $xml = '<?xml version="1.0" encoding="UTF-8"?>';
     $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     $xml .= "<url><loc>{$base}/</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>";
+    $xml .= "<url><loc>{$base}/messagerie-pro</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>";
     $xml .= '</urlset>';
     return response($xml, 200)->header('Content-Type', 'application/xml');
 });

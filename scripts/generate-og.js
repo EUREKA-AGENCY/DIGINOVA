@@ -18,7 +18,7 @@ const html = `<!DOCTYPE html>
     height: 630px;
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(150deg, #050D2A 0%, #0B1437 55%, #0d2060 100%);
+    background: linear-gradient(150deg, #061514 0%, #0D2B29 55%, #145A54 100%);
     color: white;
     position: relative;
   }
@@ -39,7 +39,7 @@ const html = `<!DOCTYPE html>
     width: 600px;
     height: 500px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(0,216,232,0.18) 0%, transparent 65%);
+    background: radial-gradient(ellipse at center, rgba(48,153,138,0.18) 0%, transparent 65%);
   }
 
   /* Cyan glow bottom-left */
@@ -50,7 +50,7 @@ const html = `<!DOCTYPE html>
     width: 400px;
     height: 400px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(27,45,140,0.5) 0%, transparent 65%);
+    background: radial-gradient(ellipse at center, rgba(29,84,87,0.5) 0%, transparent 65%);
   }
 
   /* Left accent bar */
@@ -60,7 +60,7 @@ const html = `<!DOCTYPE html>
     top: 0;
     bottom: 0;
     width: 5px;
-    background: linear-gradient(180deg, #00D8E8 0%, #4EB8FF 50%, transparent 100%);
+    background: linear-gradient(180deg, #30998A 0%, #5FD9C4 50%, transparent 100%);
   }
 
   /* Content */
@@ -79,7 +79,7 @@ const html = `<!DOCTYPE html>
     align-items: center;
     gap: 8px;
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(0,216,232,0.3);
+    border: 1px solid rgba(48,153,138,0.3);
     border-radius: 100px;
     padding: 6px 18px;
     margin-bottom: 32px;
@@ -89,13 +89,13 @@ const html = `<!DOCTYPE html>
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #00D8E8;
+    background: #30998A;
     flex-shrink: 0;
   }
   .badge-text {
     font-size: 13px;
     font-weight: 600;
-    color: #00D8E8;
+    color: #30998A;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
@@ -111,7 +111,7 @@ const html = `<!DOCTYPE html>
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #00D8E8 0%, #1B2D8C 100%);
+    background: linear-gradient(135deg, #30998A 0%, #1D5457 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,7 +136,7 @@ const html = `<!DOCTYPE html>
     margin-bottom: 20px;
   }
   h1 .cyan {
-    background: linear-gradient(90deg, #00D8E8 0%, #4EB8FF 100%);
+    background: linear-gradient(90deg, #30998A 0%, #5FD9C4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -163,7 +163,7 @@ const html = `<!DOCTYPE html>
   .stat-value {
     font-size: 28px;
     font-weight: 800;
-    color: #00D8E8;
+    color: #30998A;
     line-height: 1;
   }
   .stat-label {
@@ -186,13 +186,13 @@ const html = `<!DOCTYPE html>
     position: absolute;
     bottom: 40px;
     right: 80px;
-    background: rgba(0,216,232,0.1);
-    border: 1px solid rgba(0,216,232,0.25);
+    background: rgba(48,153,138,0.1);
+    border: 1px solid rgba(48,153,138,0.25);
     border-radius: 8px;
     padding: 8px 18px;
     font-size: 15px;
     font-weight: 600;
-    color: rgba(0,216,232,0.8);
+    color: rgba(48,153,138,0.8);
     letter-spacing: 0.04em;
   }
 
@@ -212,8 +212,8 @@ const html = `<!DOCTYPE html>
     line-height: 1.8;
   }
   .code-line { color: rgba(255,255,255,0.3); }
-  .code-key { color: #4EB8FF; }
-  .code-val { color: #00D8E8; }
+  .code-key { color: #5FD9C4; }
+  .code-val { color: #30998A; }
   .code-str { color: rgba(255,255,255,0.6); }
   .code-num { color: #FFB347; }
   .code-bool { color: #A78BFA; }
@@ -274,7 +274,7 @@ const html = `<!DOCTYPE html>
     <div class="code-line">&nbsp;&nbsp;<span class="code-key">client</span>: <span class="code-val">'satisfied'</span>,</div>
     <div class="code-line">}</div>
     <br>
-    <div class="code-line" style="color:#00D8E8;">✓ <span style="color:rgba(255,255,255,0.35)">built in 10.41s</span></div>
+    <div class="code-line" style="color:#30998A;">✓ <span style="color:rgba(255,255,255,0.35)">built in 10.41s</span></div>
   </div>
 
   <div class="url-chip">diginova.cm</div>

@@ -1,59 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 500" role="img" aria-label="Diginova">
-  <defs>
-    <linearGradient id="sfGrad" x1="130" y1="0" x2="460" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#1B2D8C"/>
-      <stop offset="42%"  stop-color="#1B2D8C"/>
-      <stop offset="68%"  stop-color="#00A8C0"/>
-      <stop offset="100%" stop-color="#00D8E8"/>
-    </linearGradient>
-    <linearGradient id="sfGradDark" x1="130" y1="0" x2="460" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#FFFFFF"/>
-      <stop offset="42%"  stop-color="#FFFFFF"/>
-      <stop offset="68%"  stop-color="#00A8C0"/>
-      <stop offset="100%" stop-color="#00D8E8"/>
-    </linearGradient>
-  </defs>
-
-  <!-- ── D Letter ── -->
-  <path fill-rule="evenodd" fill="#1B2D8C"
-    d="M42,45 H185 Q312,45 312,250 Q312,455 185,455 H42 Z
-       M112,118 H170 Q242,118 242,250 Q242,382 170,382 H112 Z"/>
-
-  <!-- ── Snowflake (8 arms + diamond tips) ── -->
-  <g transform="translate(285,250)" fill="url(#sfGrad)">
-
-    <!-- 4 cardinal arms (long narrow rhombus) -->
-    <polygon points="0,-162  9,-52  0,0  -9,-52"/>
-    <polygon points="0,162   9,52   0,0  -9,52"/>
-    <polygon points="162,0   52,9   0,0  52,-9"/>
-    <polygon points="-162,0 -52,9   0,0 -52,-9"/>
-
-    <!-- 4 diagonal arms (45°) -->
-    <polygon points="115,-115  34,-11  0,0   11,-34"/>
-    <polygon points="115,115   11,34   0,0   34,11"/>
-    <polygon points="-115,-115 -11,-34  0,0  -34,-11"/>
-    <polygon points="-115,115  -34,11   0,0  -11,34"/>
-
-    <!-- Diamond tips — cardinal -->
-    <polygon points="0,-162  12,-138  0,-114 -12,-138"/>
-    <polygon points="0,162   12,138   0,114  -12,138"/>
-    <polygon points="162,0   138,12   114,0  138,-12"/>
-    <polygon points="-162,0 -138,12  -114,0 -138,-12"/>
-
-    <!-- Diamond tips — diagonal -->
-    <polygon points="115,-115  97,-91  77,-77  91,-97"/>
-    <polygon points="115,115   91,97   77,77   97,91"/>
-    <polygon points="-115,-115 -91,-97 -77,-77 -97,-91"/>
-    <polygon points="-115,115  -97,91  -77,77  -91,97"/>
-
-    <!-- Small accent diamonds between arms -->
-    <polygon points="62,-148  67,-122  62,-96  57,-122"/>
-    <polygon points="148,-62  122,-57  96,-62  122,-67"/>
-    <polygon points="148,62   122,67   96,62   122,57"/>
-    <polygon points="62,148   67,122   62,96   57,122"/>
-    <polygon points="-62,-148 -57,-122 -62,-96  -67,-122"/>
-    <polygon points="-148,-62 -122,-67 -96,-62  -122,-57"/>
-    <polygon points="-148,62  -122,57  -96,62   -122,67"/>
-    <polygon points="-62,148  -57,122  -62,96   -67,122"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" role="img" aria-label="Diginova">
+  <!-- D ring (fond clair) -->
+  <path fill-rule="evenodd" fill="#1D5457"
+    d="M28,8 H96 C152,8 178,54 178,110 C178,166 152,212 96,212 H28 Z
+       M64,48 H92 C124,48 140,74 140,110 C140,146 124,172 92,172 H64 Z"/>
+  <!-- Flèche / chevron -->
+  <polygon fill="#30998A" points="70,52 138,110 70,168 90,168 118,110 90,52"/>
 </svg>

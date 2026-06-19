@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 import {
     ArrowRight, ChevronDown, Check, Send, Loader2,
@@ -95,6 +95,13 @@ const services = [
         desc: 'Audit, conseil stratégique et accompagnement pour digitaliser vos processus métier.',
         tags: ['Audit', 'Conseil', 'Formation', 'Support'],
         icon: Zap,
+    },
+    {
+        title: 'Messagerie Pro & Automatisation IA',
+        desc: 'Adresse professionnelle @votredomaine.cm, assistant e-mail IA et automatisation de vos workflows. Dès 2 000 F/mois.',
+        tags: ['Messagerie', 'IA', 'Automatisation'],
+        icon: Mail,
+        link: '/messagerie-pro',
     },
 ]
 
@@ -261,18 +268,18 @@ const projectTypes = [
                 alt=""
                 class="w-full h-full object-cover object-center"
             />
-            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(5,13,42,0.95) 0%, rgba(7,14,36,0.85) 45%, rgba(7,14,36,0.65) 100%);"></div>
+            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(6,21,20,0.95) 0%, rgba(10,36,34,0.85) 45%, rgba(10,36,34,0.65) 100%);"></div>
         </div>
 
         <!-- Cercle décoratif bas-gauche -->
-        <div class="pointer-events-none absolute bottom-16 left-10 w-56 h-56 rounded-full border border-[#00D8E8]/20"></div>
-        <div class="pointer-events-none absolute bottom-24 left-20 w-32 h-32 rounded-full border border-[#00D8E8]/10"></div>
+        <div class="pointer-events-none absolute bottom-16 left-10 w-56 h-56 rounded-full border border-[#30998A]/20"></div>
+        <div class="pointer-events-none absolute bottom-24 left-20 w-32 h-32 rounded-full border border-[#30998A]/10"></div>
 
         <!-- Cercle décoratif haut-droite -->
         <div class="pointer-events-none absolute -top-10 right-10 w-72 h-72 rounded-full border border-white/8"></div>
 
         <!-- Accent dot -->
-        <div class="pointer-events-none absolute top-1/3 left-1/2 w-2 h-2 rounded-full bg-[#00D8E8]/60"></div>
+        <div class="pointer-events-none absolute top-1/3 left-1/2 w-2 h-2 rounded-full bg-[#30998A]/60"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 w-full">
 
@@ -287,7 +294,7 @@ const projectTypes = [
                         style="font-family:'Poppins',sans-serif;"
                     >
                         Votre partenaire<br>
-                        <span class="text-[#00D8E8]">digital</span><br>
+                        <span class="text-[#30998A]">digital</span><br>
                         de confiance
                     </h1>
 
@@ -301,14 +308,14 @@ const projectTypes = [
                     <div class="flex flex-col sm:flex-row items-start gap-4">
                         <button
                             @click="scrollTo('contact')"
-                            class="inline-flex items-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] active:scale-95 text-[#070E24] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#00D8E8]/30 text-base justify-center border-0"
+                            class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 text-base justify-center border-0"
                         >
                             Démarrer un projet
                             <ArrowRight class="w-5 h-5" />
                         </button>
                         <button
                             @click="scrollTo('realisations')"
-                            class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#00D8E8]/50 text-white hover:text-[#00D8E8] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base justify-center backdrop-blur-sm bg-white/5"
+                            class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#30998A]/50 text-white hover:text-[#30998A] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base justify-center backdrop-blur-sm bg-white/5"
                         >
                             Voir nos réalisations →
                         </button>
@@ -318,7 +325,7 @@ const projectTypes = [
                 <!-- Right: stat cards 2×2 -->
                 <div class="hidden lg:grid grid-cols-2 gap-4">
                     <!-- Card 1 — accent -->
-                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#00D8E8]/30" style="background: rgba(0,216,232,0.12);">
+                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#30998A]/30" style="background: rgba(48,153,138,0.12);">
                         <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">8+</p>
                         <p class="text-white/60 text-sm leading-tight">Années<br>d'expérience</p>
                     </div>
@@ -333,7 +340,7 @@ const projectTypes = [
                         <p class="text-white/60 text-sm leading-tight">Projets<br>livrés</p>
                     </div>
                     <!-- Card 4 — accent -->
-                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#00D8E8]/30" style="background: rgba(0,216,232,0.12);">
+                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#30998A]/30" style="background: rgba(48,153,138,0.12);">
                         <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">100%</p>
                         <p class="text-white/60 text-sm leading-tight">En<br>production</p>
                     </div>
@@ -384,11 +391,11 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ SERVICES ════════════════════ -->
-    <section id="services" aria-label="Nos services" class="py-24" style="background: #0B1437;">
+    <section id="services" aria-label="Nos services" class="py-24" style="background: #0D2B29;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-14">
-                <span class="inline-block text-[#00D8E8] text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
+                <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white" style="font-family:'Poppins',sans-serif;">
                     Ce que nous construisons
                 </h2>
@@ -399,19 +406,22 @@ const projectTypes = [
 
             <!-- Services with background image strip -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <div
+                <component
+                    :is="svc.link ? Link : 'div'"
                     v-for="svc in services"
                     :key="svc.title"
-                    class="group relative p-6 rounded-2xl border border-white/10 hover:border-[#00D8E8]/35 transition-all duration-300 cursor-default overflow-hidden"
+                    :href="svc.link"
+                    class="group relative p-6 rounded-2xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300 overflow-hidden"
+                    :class="svc.link ? 'cursor-pointer' : 'cursor-default'"
                     style="background: rgba(255,255,255,0.03);"
                 >
                     <div
                         class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                        style="background: radial-gradient(ellipse at 0% 0%, rgba(0,216,232,0.06) 0%, transparent 60%);"
+                        style="background: radial-gradient(ellipse at 0% 0%, rgba(48,153,138,0.06) 0%, transparent 60%);"
                     ></div>
 
-                    <div class="relative w-11 h-11 rounded-xl bg-[#00D8E8]/10 flex items-center justify-center mb-4 flex-shrink-0">
-                        <component :is="svc.icon" class="w-5 h-5 text-[#00D8E8]" />
+                    <div class="relative w-11 h-11 rounded-xl bg-[#30998A]/10 flex items-center justify-center mb-4 flex-shrink-0">
+                        <component :is="svc.icon" class="w-5 h-5 text-[#30998A]" />
                     </div>
 
                     <h3 class="relative text-white font-semibold text-[17px] mb-2 leading-snug" style="font-family:'Poppins',sans-serif;">
@@ -423,22 +433,22 @@ const projectTypes = [
                         <span
                             v-for="tag in svc.tags"
                             :key="tag"
-                            class="text-[10px] font-medium text-[#00D8E8]/70 bg-[#00D8E8]/8 border border-[#00D8E8]/15 rounded-full px-2.5 py-0.5"
+                            class="text-[10px] font-medium text-[#30998A]/70 bg-[#30998A]/8 border border-[#30998A]/15 rounded-full px-2.5 py-0.5"
                         >
                             {{ tag }}
                         </span>
                     </div>
-                </div>
+                </component>
 
-                <!-- CTA card (6th slot) -->
+                <!-- CTA card (7th slot) -->
                 <button
                     @click="scrollTo('contact')"
-                    class="group p-6 rounded-2xl border border-[#00D8E8]/25 hover:border-[#00D8E8]/50 flex flex-col justify-between transition-all duration-300 cursor-pointer text-left"
-                    style="background: linear-gradient(135deg, rgba(0,216,232,0.06), rgba(27,45,140,0.12));"
+                    class="group p-6 rounded-2xl border border-[#30998A]/25 hover:border-[#30998A]/50 flex flex-col justify-between transition-all duration-300 cursor-pointer text-left"
+                    style="background: linear-gradient(135deg, rgba(48,153,138,0.06), rgba(29,84,87,0.12));"
                 >
                     <div>
-                        <div class="w-11 h-11 rounded-xl bg-[#00D8E8]/15 flex items-center justify-center mb-4">
-                            <MessageSquare class="w-5 h-5 text-[#00D8E8]" />
+                        <div class="w-11 h-11 rounded-xl bg-[#30998A]/15 flex items-center justify-center mb-4">
+                            <MessageSquare class="w-5 h-5 text-[#30998A]" />
                         </div>
                         <h3 class="text-white font-semibold text-[17px] mb-2" style="font-family:'Poppins',sans-serif;">
                             Votre projet ici
@@ -447,7 +457,7 @@ const projectTypes = [
                             Besoin d'une solution sur mesure qui ne rentre dans aucune case ? Parlons-en.
                         </p>
                     </div>
-                    <div class="mt-6 inline-flex items-center gap-2 text-[#00D8E8] text-sm font-semibold group-hover:gap-3 transition-all duration-200">
+                    <div class="mt-6 inline-flex items-center gap-2 text-[#30998A] text-sm font-semibold group-hover:gap-3 transition-all duration-200">
                         Discutons de votre projet
                         <ArrowRight class="w-4 h-4" />
                     </div>
@@ -462,7 +472,7 @@ const projectTypes = [
                     loading="lazy"
                     class="w-full h-48 object-cover object-center"
                 />
-                <div class="absolute inset-0" style="background: linear-gradient(90deg, #0B1437 0%, transparent 30%, transparent 70%, #0B1437 100%);"></div>
+                <div class="absolute inset-0" style="background: linear-gradient(90deg, #0D2B29 0%, transparent 30%, transparent 70%, #0D2B29 100%);"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <p class="text-white/70 text-lg font-semibold tracking-wide text-center px-4" style="font-family:'Poppins',sans-serif;">
                         Code propre · Livraisons rapides · Infrastructure robuste
@@ -477,7 +487,7 @@ const projectTypes = [
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-14">
-                <span class="inline-block text-[#1B2D8C] text-xs font-semibold uppercase tracking-widest mb-3">Portfolio</span>
+                <span class="inline-block text-[#1D5457] text-xs font-semibold uppercase tracking-widest mb-3">Portfolio</span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-slate-900" style="font-family:'Poppins',sans-serif;">
                     Nos réalisations
                 </h2>
@@ -552,7 +562,7 @@ const projectTypes = [
                 <p class="text-slate-400 mb-5 text-sm">Vous voulez rejoindre cette liste ?</p>
                 <button
                     @click="scrollTo('contact')"
-                    class="inline-flex items-center gap-2 bg-[#1B2D8C] hover:bg-[#1527A0] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors duration-200 cursor-pointer border-0 shadow-lg shadow-[#1B2D8C]/20"
+                    class="inline-flex items-center gap-2 bg-[#1D5457] hover:bg-[#1527A0] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors duration-200 cursor-pointer border-0 shadow-lg shadow-[#1D5457]/20"
                 >
                     Démarrer un projet
                     <ArrowRight class="w-4 h-4" />
@@ -576,14 +586,14 @@ const projectTypes = [
                         class="w-full h-96 lg:h-[520px] object-cover"
                     />
                     <!-- Overlay with floating stat -->
-                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(27,45,140,0.7) 0%, transparent 50%);"></div>
+                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(29,84,87,0.7) 0%, transparent 50%);"></div>
                     <div class="absolute bottom-6 left-6 right-6 flex gap-4">
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
                             <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">19</div>
                             <div class="text-white/70 text-xs">Projets livrés</div>
                         </div>
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
-                            <div class="text-2xl font-bold text-[#00D8E8]" style="font-family:'Poppins',sans-serif;">8+</div>
+                            <div class="text-2xl font-bold text-[#30998A]" style="font-family:'Poppins',sans-serif;">8+</div>
                             <div class="text-white/70 text-xs">Ans d'exp.</div>
                         </div>
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
@@ -595,7 +605,7 @@ const projectTypes = [
 
                 <!-- Right: steps -->
                 <div>
-                    <span class="inline-block text-[#1B2D8C] text-xs font-semibold uppercase tracking-widest mb-3">Comment ça marche</span>
+                    <span class="inline-block text-[#1D5457] text-xs font-semibold uppercase tracking-widest mb-3">Comment ça marche</span>
                     <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" style="font-family:'Poppins',sans-serif;">
                         Notre processus en 4 étapes
                     </h2>
@@ -605,7 +615,7 @@ const projectTypes = [
 
                     <div class="space-y-6">
                         <div v-for="step in process" :key="step.n" class="flex gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-[#1B2D8C] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#1B2D8C]/20">
+                            <div class="w-14 h-14 rounded-2xl bg-[#1D5457] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#1D5457]/20">
                                 <span class="text-xl font-bold text-white" style="font-family:'Poppins',sans-serif;">
                                     {{ step.n }}
                                 </span>
@@ -627,7 +637,7 @@ const projectTypes = [
     <section
         ref="statsSection"
         class="py-20 relative overflow-hidden"
-        style="background: linear-gradient(135deg, #1B2D8C 0%, #0B1437 100%);"
+        style="background: linear-gradient(135deg, #1D5457 0%, #0D2B29 100%);"
     >
         <!-- Background image overlay -->
         <div class="absolute inset-0 opacity-10">
@@ -649,7 +659,7 @@ const projectTypes = [
                 >
                     <div
                         class="text-4xl lg:text-5xl font-extrabold mb-1"
-                        style="font-family:'Poppins',sans-serif; background: linear-gradient(90deg, #ffffff, #00D8E8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+                        style="font-family:'Poppins',sans-serif; background: linear-gradient(90deg, #ffffff, #30998A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
                     >
                         {{ s.value }}
                     </div>
@@ -660,13 +670,13 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ CONTACT ════════════════════ -->
-    <section id="contact" aria-label="Nous contacter" class="py-24" style="background: #050D2A;">
+    <section id="contact" aria-label="Nous contacter" class="py-24" style="background: #061514;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
                 <!-- Left: info -->
                 <div>
-                    <span class="inline-block text-[#00D8E8] text-xs font-semibold uppercase tracking-widest mb-3">Parlons de votre projet</span>
+                    <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Parlons de votre projet</span>
                     <h2 class="text-3xl sm:text-4xl font-bold text-white mb-5" style="font-family:'Poppins',sans-serif;">
                         Prêt à démarrer ?
                     </h2>
@@ -702,23 +712,23 @@ const projectTypes = [
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                <Phone class="w-4 h-4 text-[#00D8E8]" />
+                                <Phone class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <a href="tel:+237655065494" class="text-white/65 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
+                            <a href="tel:+237655065494" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
                                 +237 655 065 494
                             </a>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                <Mail class="w-4 h-4 text-[#00D8E8]" />
+                                <Mail class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
+                            <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
                                 contact@diginova.cm
                             </a>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                <MapPin class="w-4 h-4 text-[#00D8E8]" />
+                                <MapPin class="w-4 h-4 text-[#30998A]" />
                             </div>
                             <span class="text-white/65 text-sm">Yaoundé, Cameroun</span>
                         </div>
@@ -733,8 +743,8 @@ const projectTypes = [
                         class="text-center py-16 px-8 rounded-2xl border border-white/10"
                         style="background: rgba(255,255,255,0.03);"
                     >
-                        <div class="w-16 h-16 rounded-full bg-[#00D8E8]/15 flex items-center justify-center mx-auto mb-4">
-                            <Check class="w-8 h-8 text-[#00D8E8]" stroke-width="2.5" />
+                        <div class="w-16 h-16 rounded-full bg-[#30998A]/15 flex items-center justify-center mx-auto mb-4">
+                            <Check class="w-8 h-8 text-[#30998A]" stroke-width="2.5" />
                         </div>
                         <h3 class="text-white text-xl font-bold mb-2" style="font-family:'Poppins',sans-serif;">
                             Message envoyé !
@@ -752,7 +762,7 @@ const projectTypes = [
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="f-name" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                    Nom complet <span class="text-[#00D8E8]">*</span>
+                                    Nom complet <span class="text-[#30998A]">*</span>
                                 </label>
                                 <input
                                     id="f-name"
@@ -760,12 +770,12 @@ const projectTypes = [
                                     type="text"
                                     required
                                     placeholder="Votre nom"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#00D8E8]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                             <div>
                                 <label for="f-email" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                    Email <span class="text-[#00D8E8]">*</span>
+                                    Email <span class="text-[#30998A]">*</span>
                                 </label>
                                 <input
                                     id="f-email"
@@ -773,7 +783,7 @@ const projectTypes = [
                                     type="email"
                                     required
                                     placeholder="email@exemple.cm"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#00D8E8]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                         </div>
@@ -788,7 +798,7 @@ const projectTypes = [
                                     v-model="form.phone"
                                     type="tel"
                                     placeholder="+237 6XX XXX XXX"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#00D8E8]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                             <div>
@@ -798,7 +808,7 @@ const projectTypes = [
                                 <select
                                     id="f-type"
                                     v-model="form.project_type"
-                                    class="w-full bg-[#0B1437] border border-white/10 focus:border-[#00D8E8]/60 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
+                                    class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
                                 >
                                     <option value="">Choisir...</option>
                                     <option v-for="t in projectTypes" :key="t" :value="t">{{ t }}</option>
@@ -813,7 +823,7 @@ const projectTypes = [
                             <select
                                 id="f-budget"
                                 v-model="form.budget"
-                                class="w-full bg-[#0B1437] border border-white/10 focus:border-[#00D8E8]/60 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
+                                class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
                             >
                                 <option value="">Sélectionner une fourchette...</option>
                                 <option v-for="b in budgets" :key="b" :value="b">{{ b }}</option>
@@ -822,7 +832,7 @@ const projectTypes = [
 
                         <div>
                             <label for="f-message" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                Description du projet <span class="text-[#00D8E8]">*</span>
+                                Description du projet <span class="text-[#30998A]">*</span>
                             </label>
                             <textarea
                                 id="f-message"
@@ -830,7 +840,7 @@ const projectTypes = [
                                 required
                                 rows="5"
                                 placeholder="Décrivez votre projet, vos objectifs, vos contraintes techniques ou métier..."
-                                class="w-full bg-white/5 border border-white/10 focus:border-[#00D8E8]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none"
+                                class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none"
                             ></textarea>
                         </div>
 
@@ -839,7 +849,7 @@ const projectTypes = [
                         <button
                             type="submit"
                             :disabled="sending"
-                            class="w-full flex items-center justify-center gap-2.5 bg-[#00D8E8] hover:bg-[#00C2D0] disabled:opacity-60 disabled:cursor-not-allowed text-[#070E24] font-bold py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-[#00D8E8]/20 text-sm border-0"
+                            class="w-full flex items-center justify-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] disabled:opacity-60 disabled:cursor-not-allowed text-[#0A2422] font-bold py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-[#30998A]/20 text-sm border-0"
                         >
                             <Loader2 v-if="sending" class="w-4 h-4 animate-spin" />
                             <Send v-else class="w-4 h-4" />

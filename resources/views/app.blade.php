@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#070E24">
+        <meta name="theme-color" content="#0A2422">
         <meta name="robots" content="index, follow">
         <meta name="author" content="Diginova">
         <meta name="geo.region" content="CM-CE">
@@ -57,7 +57,7 @@
                         '@id'                => $base . '/#organization',
                         'name'               => 'Diginova',
                         'url'                => $base,
-                        'logo'               => ['@type' => 'ImageObject', 'url' => $base . '/logo.svg'],
+                        'logo'               => ['@type' => 'ImageObject', 'url' => $base . '/logo.png'],
                         'image'              => $base . '/og-image.png',
                         'description'        => 'Agence de développement web et solutions SaaS à Yaoundé, Cameroun. Développement sur mesure, microservices, DevOps, transformation digitale.',
                         'priceRange'         => '$$',

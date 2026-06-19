@@ -1,9 +1,12 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { Link, usePage } from '@inertiajs/vue3'
 import { ArrowRight, ChevronDown, Menu, X, Phone, Mail, MapPin, Github } from 'lucide-vue-next'
 
 const scrolled = ref(false)
 const mobileOpen = ref(false)
+const page = usePage()
+const isHome = computed(() => page.component === 'Home')
 
 function handleScroll() {
     scrolled.value = window.scrollY > 60
@@ -13,14 +16,21 @@ onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true 
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 const navLinks = [
-    { label: 'Services', href: 'services' },
-    { label: 'Réalisations', href: 'realisations' },
-    { label: 'Processus', href: 'processus' },
-    { label: 'Contact', href: 'contact' },
+    { label: 'Services', href: 'services', type: 'anchor' },
+    { label: 'Réalisations', href: 'realisations', type: 'anchor' },
+    { label: 'Messagerie Pro', href: '/messagerie-pro', type: 'page' },
+    { label: 'Processus', href: 'processus', type: 'anchor' },
+    { label: 'Contact', href: 'contact', type: 'anchor' },
 ]
 
-function smoothScroll(id) {
+function anchorHref(id) {
+    return isHome.value ? `#${id}` : `/#${id}`
+}
+
+function smoothScroll(id, event) {
     mobileOpen.value = false
+    if (!isHome.value) return
+    event?.preventDefault()
     const el = document.getElementById(id)
     if (!el) return
     const top = el.getBoundingClientRect().top + window.scrollY - 72
@@ -36,7 +46,7 @@ function smoothScroll(id) {
             :class="[
                 'fixed top-0 inset-x-0 z-50 transition-all duration-300',
                 scrolled
-                    ? 'bg-[#070E24]/96 backdrop-blur-md shadow-2xl border-b border-white/5'
+                    ? 'bg-[#0A2422]/96 backdrop-blur-md shadow-2xl border-b border-white/5'
                     : 'bg-transparent'
             ]"
         >
@@ -53,24 +63,34 @@ function smoothScroll(id) {
 
                     <!-- Desktop nav -->
                     <nav class="hidden md:flex items-center gap-8">
-                        <button
-                            v-for="link in navLinks"
-                            :key="link.href"
-                            @click="smoothScroll(link.href)"
-                            class="text-white/70 hover:text-[#00D8E8] text-sm font-medium transition-colors duration-200 cursor-pointer bg-transparent border-0"
-                        >
-                            {{ link.label }}
-                        </button>
+                        <template v-for="link in navLinks" :key="link.href">
+                            <Link
+                                v-if="link.type === 'page'"
+                                :href="link.href"
+                                class="text-white/70 hover:text-[#30998A] text-sm font-medium transition-colors duration-200"
+                            >
+                                {{ link.label }}
+                            </Link>
+                            <a
+                                v-else
+                                :href="anchorHref(link.href)"
+                                @click="smoothScroll(link.href, $event)"
+                                class="text-white/70 hover:text-[#30998A] text-sm font-medium transition-colors duration-200 cursor-pointer"
+                            >
+                                {{ link.label }}
+                            </a>
+                        </template>
                     </nav>
 
                     <!-- CTA -->
-                    <button
-                        @click="smoothScroll('contact')"
-                        class="hidden md:inline-flex items-center gap-2 bg-[#00D8E8] hover:bg-[#00C2D0] text-[#070E24] font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-[#00D8E8]/25 border-0"
+                    <a
+                        :href="anchorHref('contact')"
+                        @click="smoothScroll('contact', $event)"
+                        class="hidden md:inline-flex items-center gap-2 bg-[#30998A] hover:bg-[#257A6E] text-[#0A2422] font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-[#30998A]/25"
                     >
                         Démarrer un projet
                         <ArrowRight class="w-4 h-4" />
-                    </button>
+                    </a>
 
                     <!-- Mobile burger -->
                     <button
@@ -87,22 +107,33 @@ function smoothScroll(id) {
             <!-- Mobile menu -->
             <div
                 v-show="mobileOpen"
-                class="md:hidden bg-[#070E24]/98 backdrop-blur-md border-t border-white/10 px-4 py-4 space-y-1"
+                class="md:hidden bg-[#0A2422]/98 backdrop-blur-md border-t border-white/10 px-4 py-4 space-y-1"
             >
-                <button
-                    v-for="link in navLinks"
-                    :key="link.href"
-                    @click="smoothScroll(link.href)"
-                    class="flex w-full items-center text-white/80 hover:text-[#00D8E8] py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 cursor-pointer text-sm font-medium bg-transparent border-0"
-                >
-                    {{ link.label }}
-                </button>
-                <button
-                    @click="smoothScroll('contact')"
-                    class="flex w-full items-center justify-center mt-2 bg-[#00D8E8] text-[#070E24] font-semibold text-sm px-4 py-3 rounded-lg transition-colors duration-200 cursor-pointer border-0"
+                <template v-for="link in navLinks" :key="link.href">
+                    <Link
+                        v-if="link.type === 'page'"
+                        :href="link.href"
+                        @click="mobileOpen = false"
+                        class="flex w-full items-center text-white/80 hover:text-[#30998A] py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm font-medium"
+                    >
+                        {{ link.label }}
+                    </Link>
+                    <a
+                        v-else
+                        :href="anchorHref(link.href)"
+                        @click="smoothScroll(link.href, $event)"
+                        class="flex w-full items-center text-white/80 hover:text-[#30998A] py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 cursor-pointer text-sm font-medium"
+                    >
+                        {{ link.label }}
+                    </a>
+                </template>
+                <a
+                    :href="anchorHref('contact')"
+                    @click="smoothScroll('contact', $event)"
+                    class="flex w-full items-center justify-center mt-2 bg-[#30998A] text-[#0A2422] font-semibold text-sm px-4 py-3 rounded-lg transition-colors duration-200 cursor-pointer"
                 >
                     Démarrer un projet
-                </button>
+                </a>
             </div>
         </header>
 
@@ -110,7 +141,7 @@ function smoothScroll(id) {
         <slot />
 
         <!-- ── Footer ── -->
-        <footer class="bg-[#070E24] text-white">
+        <footer class="bg-[#0A2422] text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
 
@@ -134,12 +165,21 @@ function smoothScroll(id) {
                         <h3 class="font-semibold text-xs text-white/45 mb-5 uppercase tracking-widest">Navigation</h3>
                         <ul class="space-y-3">
                             <li v-for="link in navLinks" :key="link.href">
-                                <button
-                                    @click="smoothScroll(link.href)"
-                                    class="text-white/60 hover:text-[#00D8E8] text-sm transition-colors duration-200 cursor-pointer bg-transparent border-0"
+                                <Link
+                                    v-if="link.type === 'page'"
+                                    :href="link.href"
+                                    class="text-white/60 hover:text-[#30998A] text-sm transition-colors duration-200"
                                 >
                                     {{ link.label }}
-                                </button>
+                                </Link>
+                                <a
+                                    v-else
+                                    :href="anchorHref(link.href)"
+                                    @click="smoothScroll(link.href, $event)"
+                                    class="text-white/60 hover:text-[#30998A] text-sm transition-colors duration-200 cursor-pointer"
+                                >
+                                    {{ link.label }}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -149,19 +189,19 @@ function smoothScroll(id) {
                         <h3 class="font-semibold text-xs text-white/45 mb-5 uppercase tracking-widest">Contact</h3>
                         <ul class="space-y-3 mb-6">
                             <li>
-                                <a href="tel:+237655065494" class="flex items-center gap-2.5 text-white/60 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
-                                    <Phone class="w-4 h-4 text-[#00D8E8] flex-shrink-0" />
+                                <a href="tel:+237655065494" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
+                                    <Phone class="w-4 h-4 text-[#30998A] flex-shrink-0" />
                                     +237 655 065 494
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:contact@diginova.cm" class="flex items-center gap-2.5 text-white/60 hover:text-[#00D8E8] text-sm transition-colors cursor-pointer">
-                                    <Mail class="w-4 h-4 text-[#00D8E8] flex-shrink-0" />
+                                <a href="mailto:contact@diginova.cm" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
+                                    <Mail class="w-4 h-4 text-[#30998A] flex-shrink-0" />
                                     contact@diginova.cm
                                 </a>
                             </li>
                             <li class="flex items-center gap-2.5 text-white/60 text-sm">
-                                <MapPin class="w-4 h-4 text-[#00D8E8] flex-shrink-0" />
+                                <MapPin class="w-4 h-4 text-[#30998A] flex-shrink-0" />
                                 Yaoundé, Cameroun
                             </li>
                         </ul>
@@ -173,7 +213,7 @@ function smoothScroll(id) {
                                 target="_blank"
                                 rel="noopener"
                                 aria-label="WhatsApp"
-                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#00D8E8]/15 text-white/50 hover:text-[#00D8E8] transition-all duration-200 cursor-pointer"
+                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#30998A]/15 text-white/50 hover:text-[#30998A] transition-all duration-200 cursor-pointer"
                             >
                                 <!-- WhatsApp brand icon (pas dans Lucide) -->
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -185,7 +225,7 @@ function smoothScroll(id) {
                                 target="_blank"
                                 rel="noopener"
                                 aria-label="GitHub"
-                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#00D8E8]/15 text-white/50 hover:text-[#00D8E8] transition-all duration-200 cursor-pointer"
+                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#30998A]/15 text-white/50 hover:text-[#30998A] transition-all duration-200 cursor-pointer"
                             >
                                 <Github class="w-4 h-4" />
                             </a>
