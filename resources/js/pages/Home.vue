@@ -222,7 +222,7 @@ const process = [
 const stats = [
     { value: '8+', label: "Années d'expérience" },
     { value: '50+', label: 'Clients satisfaits' },
-    { value: '19', label: 'Projets livrés' },
+    { value: '19+', label: 'Projets livrés' },
     { value: '100%', label: 'En production' },
 ]
 
@@ -262,11 +262,11 @@ const projectTypes = [
 <template>
     <Head>
         <title>Diginova — Développement Web & SaaS | Yaoundé, Cameroun</title>
-        <meta name="description" content="Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19 projets en production." />
+        <meta name="description" content="Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19+ projets en production." />
     </Head>
 
     <!-- ════════════════════ HERO ════════════════════ -->
-    <section class="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section class="relative min-h-dvh flex flex-col justify-center overflow-hidden">
 
         <!-- Background photo + dark overlay -->
         <div class="absolute inset-0">
@@ -359,7 +359,7 @@ const projectTypes = [
                 <!-- Label -->
                 <div class="flex items-center gap-4 mb-10">
                     <div class="flex-1 h-px bg-white/10"></div>
-                    <span class="text-white/35 text-[11px] uppercase tracking-[0.18em] whitespace-nowrap">Ils nous font confiance</span>
+                    <span class="text-white/50 text-[11px] uppercase tracking-[0.18em] whitespace-nowrap">Ils nous font confiance</span>
                     <div class="flex-1 h-px bg-white/10"></div>
                 </div>
 
@@ -382,7 +382,7 @@ const projectTypes = [
                                 {{ c.name.slice(0, 2).toUpperCase() }}
                             </span>
                         </div>
-                        <span class="text-white/30 group-hover:text-white/60 text-[10px] font-medium tracking-wide transition-colors duration-300">
+                        <span class="text-white/50 group-hover:text-white/70 text-[10px] font-medium tracking-wide transition-colors duration-300">
                             {{ c.name }}
                         </span>
                     </div>
@@ -569,7 +569,7 @@ const projectTypes = [
                 <p class="text-slate-400 mb-5 text-sm">Vous voulez rejoindre cette liste ?</p>
                 <button
                     @click="scrollTo('contact')"
-                    class="inline-flex items-center gap-2 bg-[#1D5457] hover:bg-[#1527A0] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors duration-200 cursor-pointer border-0 shadow-lg shadow-[#1D5457]/20"
+                    class="inline-flex items-center gap-2 bg-[#1D5457] hover:bg-[#30998A] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors duration-200 cursor-pointer border-0 shadow-lg shadow-[#1D5457]/20"
                 >
                     Démarrer un projet
                     <ArrowRight class="w-4 h-4" />
@@ -596,7 +596,7 @@ const projectTypes = [
                     <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(29,84,87,0.7) 0%, transparent 50%);"></div>
                     <div class="absolute bottom-6 left-6 right-6 flex gap-4">
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
-                            <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">19</div>
+                            <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">19+</div>
                             <div class="text-white/70 text-xs">Projets livrés</div>
                         </div>
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
@@ -754,7 +754,7 @@ const projectTypes = [
                             <Check class="w-8 h-8 text-[#30998A]" stroke-width="2.5" />
                         </div>
                         <h3 class="text-white text-xl font-bold mb-2" style="font-family:'Poppins',sans-serif;">
-                            Message envoyé !
+                            Message envoyé
                         </h3>
                         <p class="text-white/55 text-sm">Nous vous répondrons sous 24h. Merci de votre confiance.</p>
                     </div>
@@ -777,7 +777,7 @@ const projectTypes = [
                                     type="text"
                                     required
                                     placeholder="Votre nom"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                             <div>
@@ -790,7 +790,7 @@ const projectTypes = [
                                     type="email"
                                     required
                                     placeholder="email@exemple.cm"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                         </div>
@@ -805,7 +805,7 @@ const projectTypes = [
                                     v-model="form.phone"
                                     type="tel"
                                     placeholder="+237 6XX XXX XXX"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                             <div>
@@ -815,7 +815,7 @@ const projectTypes = [
                                 <select
                                     id="f-type"
                                     v-model="form.project_type"
-                                    class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
+                                    class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
                                 >
                                     <option value="">Choisir...</option>
                                     <option v-for="t in projectTypes" :key="t" :value="t">{{ t }}</option>
@@ -830,7 +830,7 @@ const projectTypes = [
                             <select
                                 id="f-budget"
                                 v-model="form.budget"
-                                class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
+                                class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
                             >
                                 <option value="">Sélectionner une fourchette...</option>
                                 <option v-for="b in budgets" :key="b" :value="b">{{ b }}</option>
@@ -847,7 +847,7 @@ const projectTypes = [
                                 required
                                 rows="5"
                                 placeholder="Décrivez votre projet, vos objectifs, vos contraintes techniques ou métier..."
-                                class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none"
+                                class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none"
                             ></textarea>
                         </div>
 
@@ -863,7 +863,7 @@ const projectTypes = [
                             {{ sending ? 'Envoi en cours...' : 'Envoyer ma demande' }}
                         </button>
 
-                        <p class="text-center text-white/30 text-xs">
+                        <p class="text-center text-white/50 text-xs">
                             Réponse garantie sous 24h · Estimation gratuite et sans engagement
                         </p>
                     </form>

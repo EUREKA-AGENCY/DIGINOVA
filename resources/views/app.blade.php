@@ -9,7 +9,7 @@
         <meta name="geo.region" content="CM-CE">
         <meta name="geo.placename" content="Yaoundé, Cameroun">
 
-        <meta name="description" content="Diginova — Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19 projets en production.">
+        <meta name="description" content="Diginova — Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19+ projets en production.">
 
         <title inertia>{{ config('app.name', 'Diginova') }}</title>
 
@@ -27,7 +27,7 @@
         <meta property="og:locale"      content="fr_CM">
         <meta property="og:site_name"   content="Diginova">
         <meta property="og:title"       content="Diginova — Développement Web & SaaS | Yaoundé, Cameroun">
-        <meta property="og:description" content="Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19 projets en production.">
+        <meta property="og:description" content="Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience · 19+ projets en production.">
         <meta property="og:image"       content="{{ config('app.url') }}/og-image.png">
         <meta property="og:image:width"  content="1200">
         <meta property="og:image:height" content="630">
@@ -93,7 +93,7 @@
                         '@id'         => $base . '/#webpage',
                         'url'         => $base,
                         'name'        => 'Diginova — Développement Web & Solutions SaaS | Yaoundé, Cameroun',
-                        'description' => "Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience, 19 projets en production.",
+                        'description' => "Agence de développement web et SaaS à Yaoundé. Applications sur mesure, microservices, DevOps. 8 ans d'expérience, 19+ projets en production.",
                         'isPartOf'    => ['@id' => $base . '/#website'],
                         'about'       => ['@id' => $base . '/#organization'],
                         'inLanguage'  => 'fr-CM',

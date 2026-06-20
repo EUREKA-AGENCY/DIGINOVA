@@ -17,14 +17,24 @@ Route::get('/sms', function () {
     return Inertia::render('Sms');
 })->name('sms');
 
+Route::get('/mentions-legales', function () {
+    return Inertia::render('MentionsLegales');
+})->name('mentions-legales');
+
+Route::get('/confidentialite', function () {
+    return Inertia::render('Confidentialite');
+})->name('confidentialite');
+
 Route::get('/sitemap.xml', function () {
-    $lastmod = '2026-06-19';
+    $lastmod = '2026-06-20';
     $base    = config('app.url');
     $xml = '<?xml version="1.0" encoding="UTF-8"?>';
     $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     $xml .= "<url><loc>{$base}/</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>";
     $xml .= "<url><loc>{$base}/messagerie-pro</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>";
     $xml .= "<url><loc>{$base}/sms</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>";
+    $xml .= "<url><loc>{$base}/mentions-legales</loc><lastmod>{$lastmod}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>";
+    $xml .= "<url><loc>{$base}/confidentialite</loc><lastmod>{$lastmod}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>";
     $xml .= '</urlset>';
     return response($xml, 200)->header('Content-Type', 'application/xml');
 });

@@ -441,7 +441,7 @@ const activeLang = ref('cURL')
 
                 <div class="rounded-2xl border border-white/10 overflow-hidden" style="background: #061514;">
                     <div class="flex items-center gap-1 px-4 pt-3">
-                        <Terminal class="w-3.5 h-3.5 text-white/30 mr-2" />
+                        <Terminal class="w-3.5 h-3.5 text-white/45 mr-2" />
                         <button
                             v-for="lang in codeLangs"
                             :key="lang"
@@ -449,7 +449,7 @@ const activeLang = ref('cURL')
                             @click="activeLang = lang"
                             :class="[
                                 'text-xs font-medium px-3 py-1.5 rounded-t-lg transition-colors duration-150 cursor-pointer',
-                                activeLang === lang ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/40 hover:text-white/70',
+                                activeLang === lang ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/50 hover:text-white/80',
                             ]"
                         >
                             {{ lang }}
@@ -457,7 +457,7 @@ const activeLang = ref('cURL')
                     </div>
                     <pre class="px-5 py-5 text-[12.5px] leading-relaxed text-white/75 overflow-x-auto font-mono">{{ codeSnippets[activeLang] }}</pre>
                     <div class="border-t border-white/10 px-5 py-4">
-                        <p class="text-white/35 text-[11px] uppercase tracking-widest mb-2">Réponse</p>
+                        <p class="text-white/50 text-[11px] uppercase tracking-widest mb-2">Réponse</p>
                         <pre class="text-[12.5px] leading-relaxed text-[#30998A] font-mono">{ "status": "envoyé", "id": "msg_8f2a", "credits_restants": 9876 }</pre>
                     </div>
                 </div>

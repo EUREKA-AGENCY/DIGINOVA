@@ -28,6 +28,10 @@ function anchorHref(id) {
     return isHome.value ? `#${id}` : `/#${id}`
 }
 
+function isActive(link) {
+    return link.type === 'page' && page.url === link.href
+}
+
 function smoothScroll(id, event) {
     mobileOpen.value = false
     if (!isHome.value) return
@@ -68,7 +72,11 @@ function smoothScroll(id, event) {
                             <Link
                                 v-if="link.type === 'page'"
                                 :href="link.href"
-                                class="text-white/70 hover:text-[#30998A] text-sm font-medium transition-colors duration-200"
+                                :aria-current="isActive(link) ? 'page' : undefined"
+                                :class="[
+                                    'text-sm font-medium transition-colors duration-200',
+                                    isActive(link) ? 'text-[#30998A]' : 'text-white/70 hover:text-[#30998A]',
+                                ]"
                             >
                                 {{ link.label }}
                             </Link>
@@ -114,8 +122,12 @@ function smoothScroll(id, event) {
                     <Link
                         v-if="link.type === 'page'"
                         :href="link.href"
+                        :aria-current="isActive(link) ? 'page' : undefined"
                         @click="mobileOpen = false"
-                        class="flex w-full items-center text-white/80 hover:text-[#30998A] py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm font-medium"
+                        :class="[
+                            'flex w-full items-center py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm font-medium',
+                            isActive(link) ? 'text-[#30998A]' : 'text-white/80 hover:text-[#30998A]',
+                        ]"
                     >
                         {{ link.label }}
                     </Link>
@@ -156,7 +168,7 @@ function smoothScroll(id, event) {
                             Solutions digitales sur mesure pour les entreprises ambitieuses.
                             Web, SaaS, DevOps — de la conception au déploiement.
                         </p>
-                        <p class="text-xs text-white/35">
+                        <p class="text-xs text-white/50">
                             Yaoundé, Cameroun
                         </p>
                     </div>
@@ -235,10 +247,14 @@ function smoothScroll(id, event) {
                 </div>
 
                 <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p class="text-white/35 text-xs">
+                    <p class="text-white/50 text-xs">
                         © {{ new Date().getFullYear() }} Diginova. Tous droits réservés.
                     </p>
-                    <p class="text-white/25 text-xs">Conçu &amp; développé par Diginova, Yaoundé 🇨🇲</p>
+                    <div class="flex items-center gap-5">
+                        <Link href="/mentions-legales" class="text-white/50 hover:text-[#30998A] text-xs transition-colors duration-200">Mentions légales</Link>
+                        <Link href="/confidentialite" class="text-white/50 hover:text-[#30998A] text-xs transition-colors duration-200">Confidentialité</Link>
+                        <p class="text-white/50 text-xs">Conçu &amp; développé par Diginova, Yaoundé</p>
+                    </div>
                 </div>
             </div>
         </footer>
