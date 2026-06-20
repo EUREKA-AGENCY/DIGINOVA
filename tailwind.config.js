@@ -13,10 +13,27 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+                // Police d'affichage du site public (hero, titres) — voir resources/views/app.blade.php pour le chargement Bunny Fonts
+                display: ['Space Grotesk', ...defaultTheme.fontFamily.sans],
+                // Ancienne police d'affichage, conservée pour compat (non utilisée sur le site public)
                 'diginova': ['Poppins', 'Montserrat', ...defaultTheme.fontFamily.sans],
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+                // Palette du site public (hero, services, portfolio, messagerie-pro, sms) — source unique de vérité
+                brand: {
+                    50: '#E9F6F3',
+                    100: '#CDEAE3',
+                    300: '#7FC4B7',
+                    400: '#5FD9C4',
+                    500: '#30998A',
+                    600: '#257A6E',
+                    700: '#1D5457',
+                    800: '#0D2B29',
+                    900: '#0A2422',
+                    950: '#061514',
+                },
+                // Palette historique du dashboard / pages auth (hors refonte du site public)
                 'diginova': {
                     'blue': '#0C1122',
                     'red': '#E12428',

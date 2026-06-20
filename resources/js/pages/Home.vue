@@ -1,7 +1,8 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { Head, Link } from '@inertiajs/vue3'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
+import { useReveal, useCountUp, prefersReducedMotion } from '@/composables/useReveal'
 import {
     ArrowRight, ChevronDown, Check, Send, Loader2,
     Phone, Mail, MapPin, Smartphone,
@@ -17,30 +18,64 @@ function scrollTo(id) {
     window.scrollTo({ top, behavior: 'smooth' })
 }
 
-const statsVisible = ref(false)
-const statsSection = ref(null)
+// Hero : entrée déclenchée au montage (au-dessus de la ligne de flottaison, pas de scroll requis)
+const heroLoaded = ref(false)
+onMounted(() => requestAnimationFrame(() => { heroLoaded.value = true }))
 
+// Hero : parallax léger sur la photo de fond
+const heroParallax = ref(0)
+let parallaxRaf = null
+function onHeroScroll() {
+    if (parallaxRaf) return
+    parallaxRaf = requestAnimationFrame(() => {
+        heroParallax.value = Math.min(window.scrollY * 0.18, 120)
+        parallaxRaf = null
+    })
+}
 onMounted(() => {
-    const observer = new IntersectionObserver(
-        ([entry]) => {
-            if (entry.isIntersecting) {
-                statsVisible.value = true
-                observer.disconnect()
-            }
-        },
-        { threshold: 0.3 }
-    )
-    if (statsSection.value) observer.observe(statsSection.value)
+    if (!prefersReducedMotion()) window.addEventListener('scroll', onHeroScroll, { passive: true })
 })
+onUnmounted(() => window.removeEventListener('scroll', onHeroScroll))
+
+// Bandeau logos : marquee en continu, sauf préférence "réduire les animations"
+const motionOk = ref(true)
+onMounted(() => { motionOk.value = !prefersReducedMotion() })
+
+const { target: statsSection, visible: statsVisible } = useReveal(0.3)
+const { target: servicesGrid, visible: servicesVisible } = useReveal(0.15)
+const { target: portfolioGrid, visible: portfolioVisible } = useReveal(0.1)
+const { target: processSection, visible: processVisible } = useReveal(0.25)
 
 const form = ref({ name: '', email: '', phone: '', project_type: '', budget: '', message: '' })
 const sending = ref(false)
 const sent = ref(false)
 const formError = ref('')
+const touched = reactive({ name: false, email: false, message: false })
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+const errors = computed(() => ({
+    name: form.value.name.trim() ? '' : 'Indiquez votre nom.',
+    email: !form.value.email.trim()
+        ? 'Indiquez votre email.'
+        : !emailPattern.test(form.value.email.trim())
+            ? 'Cette adresse email semble invalide.'
+            : '',
+    message: form.value.message.trim().length >= 10 ? '' : 'Décrivez votre projet en quelques mots (10 caractères minimum).',
+}))
+
+const isFormValid = computed(() => !errors.value.name && !errors.value.email && !errors.value.message)
+
+function touch(field) {
+    touched[field] = true
+}
 
 async function handleSubmit() {
     formError.value = ''
-    if (!form.value.name || !form.value.email || !form.value.message) return
+    touched.name = true
+    touched.email = true
+    touched.message = true
+    if (!isFormValid.value) return
     sending.value = true
     try {
         const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? ''
@@ -71,30 +106,36 @@ const services = [
         desc: 'Applications web performantes et scalables, conçues sur mesure pour votre métier.',
         tags: ['Laravel', 'Vue.js', 'React', 'Next.js'],
         icon: Code2,
+        area: 'featured',
+        featured: true,
     },
     {
         title: 'Applications SaaS',
         desc: 'Conception et déploiement de plateformes SaaS multi-tenant, de la maquette au Go-Live.',
         tags: ['SaaS', 'Multi-tenant', 'API REST'],
         icon: Cloud,
+        area: 'saas',
     },
     {
         title: 'Microservices & API',
         desc: 'Architecture microservices, API Gateway, intégration de services tiers et ETL.',
         tags: ['Node.js', 'Docker', 'REST', 'GraphQL'],
         icon: Network,
+        area: 'micro',
     },
     {
         title: 'DevOps & CI/CD',
         desc: 'Pipelines CI/CD, containerisation Docker, déploiement continu sur VPS ou cloud.',
         tags: ['Docker', 'GitHub Actions', 'Nginx', 'Linux'],
         icon: Terminal,
+        area: 'devops',
     },
     {
         title: 'Transformation Digitale',
         desc: 'Audit, conseil stratégique et accompagnement pour digitaliser vos processus métier.',
         tags: ['Audit', 'Conseil', 'Formation', 'Support'],
         icon: Zap,
+        area: 'transfo',
     },
     {
         title: 'Messagerie Pro & Automatisation IA',
@@ -102,6 +143,7 @@ const services = [
         tags: ['Messagerie', 'IA', 'Automatisation'],
         icon: Mail,
         link: '/messagerie-pro',
+        area: 'msg',
     },
     {
         title: 'SMS Pro & Campagnes',
@@ -109,6 +151,7 @@ const services = [
         tags: ['SMS', 'OTP/2FA', 'API'],
         icon: Smartphone,
         link: '/sms',
+        area: 'sms',
     },
 ]
 
@@ -224,7 +267,7 @@ const stats = [
     { value: '50+', label: 'Clients satisfaits' },
     { value: '19+', label: 'Projets livrés' },
     { value: '100%', label: 'En production' },
-]
+].map((s) => ({ ...s, display: useCountUp(s.value, statsVisible) }))
 
 const logoFailed = reactive({})
 
@@ -268,8 +311,8 @@ const projectTypes = [
     <!-- ════════════════════ HERO ════════════════════ -->
     <section class="relative min-h-dvh flex flex-col justify-center overflow-hidden">
 
-        <!-- Background photo + dark overlay -->
-        <div class="absolute inset-0">
+        <!-- Background photo + dark overlay (parallax léger) -->
+        <div class="absolute inset-0 -top-16 -bottom-16" :style="`transform: translateY(${heroParallax}px);`">
             <img
                 src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&h=900&q=80&auto=format&fit=crop"
                 alt=""
@@ -297,8 +340,8 @@ const projectTypes = [
                 <div>
                     <!-- Headline -->
                     <h1
-                        class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-6"
-                        style="font-family:'Poppins',sans-serif;"
+                        class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-6 font-display transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
                     >
                         Votre partenaire<br>
                         <span class="text-[#30998A]">digital</span><br>
@@ -306,23 +349,31 @@ const projectTypes = [
                     </h1>
 
                     <!-- Subtitle -->
-                    <p class="text-white/55 text-lg leading-relaxed mb-10 max-w-xl">
+                    <p
+                        class="text-white/55 text-lg leading-relaxed mb-10 max-w-xl transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                        style="transition-delay: 120ms;"
+                    >
                         Développement web sur mesure, applications SaaS, microservices et DevOps —
                         tout sous un même toit, une seule équipe.
                     </p>
 
                     <!-- CTAs -->
-                    <div class="flex flex-col sm:flex-row items-start gap-4">
+                    <div
+                        class="flex flex-col sm:flex-row items-start gap-4 transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                        style="transition-delay: 220ms;"
+                    >
                         <button
                             @click="scrollTo('contact')"
-                            class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 text-base justify-center border-0"
+                            class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 text-base justify-center border-0 focus-ring"
                         >
                             Démarrer un projet
                             <ArrowRight class="w-5 h-5" />
                         </button>
                         <button
                             @click="scrollTo('realisations')"
-                            class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#30998A]/50 text-white hover:text-[#30998A] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base justify-center backdrop-blur-sm bg-white/5"
+                            class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#30998A]/50 active:scale-95 text-white hover:text-[#30998A] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer text-base justify-center backdrop-blur-sm bg-white/5 focus-ring"
                         >
                             Voir nos réalisations →
                         </button>
@@ -332,23 +383,39 @@ const projectTypes = [
                 <!-- Right: stat cards 2×2 -->
                 <div class="hidden lg:grid grid-cols-2 gap-4">
                     <!-- Card 1 — accent -->
-                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#30998A]/30" style="background: rgba(48,153,138,0.12);">
-                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">8+</p>
+                    <div
+                        class="rounded-2xl p-6 backdrop-blur-md border border-[#30998A]/30 transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                        style="background: rgba(48,153,138,0.12); transition-delay: 280ms;"
+                    >
+                        <p class="text-4xl font-extrabold text-white mb-2 font-display">8+</p>
                         <p class="text-white/60 text-sm leading-tight">Années<br>d'expérience</p>
                     </div>
                     <!-- Card 2 — glass -->
-                    <div class="rounded-2xl p-6 backdrop-blur-md border border-white/10" style="background: rgba(255,255,255,0.05);">
-                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">24/7</p>
+                    <div
+                        class="rounded-2xl p-6 backdrop-blur-md border border-white/10 transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                        style="background: rgba(255,255,255,0.05); transition-delay: 340ms;"
+                    >
+                        <p class="text-4xl font-extrabold text-white mb-2 font-display">24/7</p>
                         <p class="text-white/60 text-sm leading-tight">Support<br>dédié</p>
                     </div>
                     <!-- Card 3 — glass -->
-                    <div class="rounded-2xl p-6 backdrop-blur-md border border-white/10" style="background: rgba(255,255,255,0.05);">
-                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">19+</p>
+                    <div
+                        class="rounded-2xl p-6 backdrop-blur-md border border-white/10 transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                        style="background: rgba(255,255,255,0.05); transition-delay: 400ms;"
+                    >
+                        <p class="text-4xl font-extrabold text-white mb-2 font-display">19+</p>
                         <p class="text-white/60 text-sm leading-tight">Projets<br>livrés</p>
                     </div>
                     <!-- Card 4 — accent -->
-                    <div class="rounded-2xl p-6 backdrop-blur-md border border-[#30998A]/30" style="background: rgba(48,153,138,0.12);">
-                        <p class="text-4xl font-extrabold text-white mb-2" style="font-family:'Poppins',sans-serif">100%</p>
+                    <div
+                        class="rounded-2xl p-6 backdrop-blur-md border border-[#30998A]/30 transition-all duration-700 ease-out"
+                        :class="heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                        style="background: rgba(48,153,138,0.12); transition-delay: 460ms;"
+                    >
+                        <p class="text-4xl font-extrabold text-white mb-2 font-display">100%</p>
                         <p class="text-white/60 text-sm leading-tight">En<br>production</p>
                     </div>
                 </div>
@@ -363,8 +430,35 @@ const projectTypes = [
                     <div class="flex-1 h-px bg-white/10"></div>
                 </div>
 
-                <!-- Grid logos -->
-                <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-y-8">
+                <!-- Logos en défilement continu (pause au survol) -->
+                <div v-if="motionOk" class="relative overflow-hidden" style="mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);">
+                    <div class="flex items-center gap-16 w-max animate-marquee">
+                        <div
+                            v-for="(c, idx) in [...clients, ...clients]"
+                            :key="`${c.name}-${idx}`"
+                            class="group flex flex-col items-center gap-3 flex-shrink-0"
+                        >
+                            <div class="h-16 flex items-center justify-center px-2">
+                                <img
+                                    v-if="c.logo && !logoFailed[c.name]"
+                                    :src="c.logo"
+                                    :alt="c.name"
+                                    class="max-h-14 max-w-[110px] w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+                                    @error="logoFailed[c.name] = true"
+                                />
+                                <span v-else class="text-white/40 text-base font-bold group-hover:text-white/70 transition-colors duration-300">
+                                    {{ c.name.slice(0, 2).toUpperCase() }}
+                                </span>
+                            </div>
+                            <span class="text-white/50 group-hover:text-white/70 text-[10px] font-medium tracking-wide transition-colors duration-300 whitespace-nowrap">
+                                {{ c.name }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grille statique (prefers-reduced-motion) -->
+                <div v-else class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-y-8">
                     <div
                         v-for="c in clients"
                         :key="c.name"
@@ -403,7 +497,7 @@ const projectTypes = [
 
             <div class="text-center mb-14">
                 <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white" style="font-family:'Poppins',sans-serif;">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white font-display">
                     Ce que nous construisons
                 </h2>
                 <p class="mt-4 text-white/50 max-w-xl mx-auto text-sm leading-relaxed">
@@ -411,32 +505,43 @@ const projectTypes = [
                 </p>
             </div>
 
-            <!-- Services with background image strip -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Services en bento asymétrique (casse la grille 3 colonnes uniforme) -->
+            <div ref="servicesGrid" class="services-bento">
                 <component
                     :is="svc.link ? Link : 'div'"
-                    v-for="svc in services"
+                    v-for="(svc, i) in services"
                     :key="svc.title"
                     :href="svc.link"
-                    class="group relative p-6 rounded-2xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300 overflow-hidden"
-                    :class="svc.link ? 'cursor-pointer' : 'cursor-default'"
-                    style="background: rgba(255,255,255,0.03);"
+                    :data-area="svc.area"
+                    class="group relative p-6 rounded-2xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300 overflow-hidden flex flex-col"
+                    :class="[
+                        svc.link ? 'cursor-pointer focus-ring' : 'cursor-default',
+                        svc.featured ? 'lg:p-8' : '',
+                        servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
+                    ]"
+                    :style="`background: rgba(255,255,255,0.03); transition: opacity 700ms ease-out ${i * 70}ms, transform 700ms ease-out ${i * 70}ms, border-color 300ms;`"
                 >
                     <div
                         class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                         style="background: radial-gradient(ellipse at 0% 0%, rgba(48,153,138,0.06) 0%, transparent 60%);"
                     ></div>
 
-                    <div class="relative w-11 h-11 rounded-xl bg-[#30998A]/10 flex items-center justify-center mb-4 flex-shrink-0">
-                        <component :is="svc.icon" class="w-5 h-5 text-[#30998A]" />
+                    <div
+                        class="relative rounded-xl bg-[#30998A]/10 flex items-center justify-center mb-4 flex-shrink-0"
+                        :class="svc.featured ? 'w-14 h-14' : 'w-11 h-11'"
+                    >
+                        <component :is="svc.icon" :class="svc.featured ? 'w-7 h-7' : 'w-5 h-5'" class="text-[#30998A]" />
                     </div>
 
-                    <h3 class="relative text-white font-semibold text-[17px] mb-2 leading-snug" style="font-family:'Poppins',sans-serif;">
+                    <h3
+                        class="relative text-white font-semibold leading-snug font-display"
+                        :class="svc.featured ? 'text-2xl mb-3' : 'text-[17px] mb-2'"
+                    >
                         {{ svc.title }}
                     </h3>
-                    <p class="relative text-white/50 text-sm leading-relaxed mb-4">{{ svc.desc }}</p>
+                    <p class="relative text-white/50 text-sm leading-relaxed mb-4" :class="svc.featured ? 'max-w-sm' : ''">{{ svc.desc }}</p>
 
-                    <div class="relative flex flex-wrap gap-1.5">
+                    <div class="relative flex flex-wrap gap-1.5 mt-auto">
                         <span
                             v-for="tag in svc.tags"
                             :key="tag"
@@ -447,17 +552,19 @@ const projectTypes = [
                     </div>
                 </component>
 
-                <!-- CTA card (7th slot) -->
+                <!-- CTA card -->
                 <button
                     @click="scrollTo('contact')"
-                    class="group p-6 rounded-2xl border border-[#30998A]/25 hover:border-[#30998A]/50 flex flex-col justify-between transition-all duration-300 cursor-pointer text-left"
-                    style="background: linear-gradient(135deg, rgba(48,153,138,0.06), rgba(29,84,87,0.12));"
+                    data-area="cta"
+                    class="group p-6 rounded-2xl border border-[#30998A]/25 hover:border-[#30998A]/50 flex flex-col justify-between transition-all duration-300 cursor-pointer text-left focus-ring"
+                    :class="servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                    :style="`background: linear-gradient(135deg, rgba(48,153,138,0.06), rgba(29,84,87,0.12)); transition: opacity 700ms ease-out 560ms, transform 700ms ease-out 560ms, border-color 300ms;`"
                 >
                     <div>
                         <div class="w-11 h-11 rounded-xl bg-[#30998A]/15 flex items-center justify-center mb-4">
                             <MessageSquare class="w-5 h-5 text-[#30998A]" />
                         </div>
-                        <h3 class="text-white font-semibold text-[17px] mb-2" style="font-family:'Poppins',sans-serif;">
+                        <h3 class="text-white font-semibold text-[17px] mb-2 font-display">
                             Votre projet ici
                         </h3>
                         <p class="text-white/50 text-sm leading-relaxed">
@@ -481,7 +588,7 @@ const projectTypes = [
                 />
                 <div class="absolute inset-0" style="background: linear-gradient(90deg, #0D2B29 0%, transparent 30%, transparent 70%, #0D2B29 100%);"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <p class="text-white/70 text-lg font-semibold tracking-wide text-center px-4" style="font-family:'Poppins',sans-serif;">
+                    <p class="text-white/70 text-lg font-semibold tracking-wide text-center px-4 font-display">
                         Code propre · Livraisons rapides · Infrastructure robuste
                     </p>
                 </div>
@@ -495,7 +602,7 @@ const projectTypes = [
 
             <div class="text-center mb-14">
                 <span class="inline-block text-[#1D5457] text-xs font-semibold uppercase tracking-widest mb-3">Portfolio</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900" style="font-family:'Poppins',sans-serif;">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-display">
                     Nos réalisations
                 </h2>
                 <p class="mt-4 text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
@@ -503,11 +610,13 @@ const projectTypes = [
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div ref="portfolioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 <div
-                    v-for="proj in portfolio"
+                    v-for="(proj, i) in portfolio"
                     :key="proj.name"
-                    class="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-slate-200 hover:shadow-xl hover:shadow-slate-200/70 transition-all duration-300 cursor-default flex flex-col"
+                    class="portfolio-card group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:-translate-y-1.5 transition-all duration-300 cursor-default flex flex-col"
+                    :class="portfolioVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+                    :style="`--accent: ${proj.accent}; --accent-shadow: ${proj.accent}40; transition: opacity 600ms ease-out ${i * 60}ms, transform 300ms ease-out, box-shadow 300ms, border-color 300ms;`"
                 >
                     <!-- Cover image -->
                     <div class="relative h-44 overflow-hidden">
@@ -534,7 +643,7 @@ const projectTypes = [
                     <div class="h-1 w-full" :style="`background: ${proj.accent};`"></div>
 
                     <div class="p-5 flex flex-col flex-1">
-                        <h3 class="text-slate-900 font-bold text-xl mb-2" style="font-family:'Poppins',sans-serif;">
+                        <h3 class="text-slate-900 font-bold text-xl mb-2 font-display">
                             {{ proj.name }}
                         </h3>
                         <p class="text-slate-500 text-sm leading-relaxed mb-4 flex-1">{{ proj.desc }}</p>
@@ -554,7 +663,7 @@ const projectTypes = [
                             :href="proj.url"
                             target="_blank"
                             rel="noopener"
-                            class="inline-flex items-center gap-1.5 text-xs font-semibold transition-all duration-200 group/link"
+                            class="inline-flex items-center gap-1.5 text-xs font-semibold transition-all duration-200 group/link rounded focus-ring-light"
                             :style="`color: ${proj.accent};`"
                             @click.stop
                         >
@@ -569,7 +678,7 @@ const projectTypes = [
                 <p class="text-slate-400 mb-5 text-sm">Vous voulez rejoindre cette liste ?</p>
                 <button
                     @click="scrollTo('contact')"
-                    class="inline-flex items-center gap-2 bg-[#1D5457] hover:bg-[#30998A] text-white font-semibold px-7 py-3.5 rounded-xl transition-colors duration-200 cursor-pointer border-0 shadow-lg shadow-[#1D5457]/20"
+                    class="inline-flex items-center gap-2 bg-[#1D5457] hover:bg-[#30998A] active:scale-95 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 cursor-pointer border-0 shadow-lg shadow-[#1D5457]/20 focus-ring-light"
                 >
                     Démarrer un projet
                     <ArrowRight class="w-4 h-4" />
@@ -580,7 +689,7 @@ const projectTypes = [
 
     <!-- ════════════════════ PROCESSUS ════════════════════ -->
     <section id="processus" aria-label="Notre processus" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div ref="processSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -596,15 +705,15 @@ const projectTypes = [
                     <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(29,84,87,0.7) 0%, transparent 50%);"></div>
                     <div class="absolute bottom-6 left-6 right-6 flex gap-4">
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
-                            <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">19+</div>
+                            <div class="text-2xl font-bold text-white font-display">19+</div>
                             <div class="text-white/70 text-xs">Projets livrés</div>
                         </div>
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
-                            <div class="text-2xl font-bold text-[#30998A]" style="font-family:'Poppins',sans-serif;">8+</div>
+                            <div class="text-2xl font-bold text-[#30998A] font-display">8+</div>
                             <div class="text-white/70 text-xs">Ans d'exp.</div>
                         </div>
                         <div class="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 flex-1 text-center">
-                            <div class="text-2xl font-bold text-white" style="font-family:'Poppins',sans-serif;">100%</div>
+                            <div class="text-2xl font-bold text-white font-display">100%</div>
                             <div class="text-white/70 text-xs">En prod.</div>
                         </div>
                     </div>
@@ -613,7 +722,7 @@ const projectTypes = [
                 <!-- Right: steps -->
                 <div>
                     <span class="inline-block text-[#1D5457] text-xs font-semibold uppercase tracking-widest mb-3">Comment ça marche</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" style="font-family:'Poppins',sans-serif;">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 font-display">
                         Notre processus en 4 étapes
                     </h2>
                     <p class="text-slate-500 text-sm leading-relaxed mb-10">
@@ -621,14 +730,20 @@ const projectTypes = [
                     </p>
 
                     <div class="space-y-6">
-                        <div v-for="step in process" :key="step.n" class="flex gap-5">
+                        <div
+                            v-for="(step, i) in process"
+                            :key="step.n"
+                            class="flex gap-5"
+                            :class="processVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'"
+                            :style="`transition: opacity 600ms ease-out ${i * 110}ms, transform 600ms ease-out ${i * 110}ms;`"
+                        >
                             <div class="w-14 h-14 rounded-2xl bg-[#1D5457] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#1D5457]/20">
-                                <span class="text-xl font-bold text-white" style="font-family:'Poppins',sans-serif;">
+                                <span class="text-xl font-bold text-white font-display">
                                     {{ step.n }}
                                 </span>
                             </div>
                             <div class="pt-1">
-                                <h3 class="text-slate-900 font-bold text-base mb-1" style="font-family:'Poppins',sans-serif;">
+                                <h3 class="text-slate-900 font-bold text-base mb-1 font-display">
                                     {{ step.title }}
                                 </h3>
                                 <p class="text-slate-500 text-sm leading-relaxed">{{ step.desc }}</p>
@@ -665,10 +780,10 @@ const projectTypes = [
                     :style="`transition-delay: ${i * 100}ms`"
                 >
                     <div
-                        class="text-4xl lg:text-5xl font-extrabold mb-1"
-                        style="font-family:'Poppins',sans-serif; background: linear-gradient(90deg, #ffffff, #30998A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+                        class="text-4xl lg:text-5xl font-extrabold mb-1 font-display"
+                        style="background: linear-gradient(90deg, #ffffff, #30998A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
                     >
-                        {{ s.value }}
+                        {{ s.display }}
                     </div>
                     <p class="text-white/55 text-sm">{{ s.label }}</p>
                 </div>
@@ -684,7 +799,7 @@ const projectTypes = [
                 <!-- Left: info -->
                 <div>
                     <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Parlons de votre projet</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-5" style="font-family:'Poppins',sans-serif;">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-5 font-display">
                         Prêt à démarrer ?
                     </h2>
                     <p class="text-white/55 leading-relaxed mb-8 text-sm">
@@ -707,7 +822,7 @@ const projectTypes = [
                         href="https://wa.me/237655065494?text=Bonjour%2C%20je%20souhaite%20d%C3%A9marrer%20un%20projet%20avec%20Diginova."
                         target="_blank"
                         rel="noopener"
-                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bb5a] text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 cursor-pointer mb-8 shadow-lg shadow-[#25D366]/20"
+                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bb5a] active:scale-95 text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 cursor-pointer mb-8 shadow-lg shadow-[#25D366]/20 focus-ring"
                     >
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -721,7 +836,7 @@ const projectTypes = [
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
                                 <Phone class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <a href="tel:+237655065494" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
+                            <a href="tel:+237655065494" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
                                 +237 655 065 494
                             </a>
                         </div>
@@ -729,7 +844,7 @@ const projectTypes = [
                             <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
                                 <Mail class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
+                            <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
                                 contact@diginova.cm
                             </a>
                         </div>
@@ -753,7 +868,7 @@ const projectTypes = [
                         <div class="w-16 h-16 rounded-full bg-[#30998A]/15 flex items-center justify-center mx-auto mb-4">
                             <Check class="w-8 h-8 text-[#30998A]" stroke-width="2.5" />
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2" style="font-family:'Poppins',sans-serif;">
+                        <h3 class="text-white text-xl font-bold mb-2 font-display">
                             Message envoyé
                         </h3>
                         <p class="text-white/55 text-sm">Nous vous répondrons sous 24h. Merci de votre confiance.</p>
@@ -775,10 +890,16 @@ const projectTypes = [
                                     id="f-name"
                                     v-model="form.name"
                                     type="text"
-                                    required
                                     placeholder="Votre nom"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    :aria-invalid="touched.name && !!errors.name"
+                                    aria-describedby="f-name-error"
+                                    @blur="touch('name')"
+                                    class="w-full bg-white/5 border text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2"
+                                    :class="touched.name && errors.name
+                                        ? 'border-red-400/60 focus:border-red-400/70 focus:ring-red-400/30'
+                                        : 'border-white/10 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
                                 />
+                                <p v-if="touched.name && errors.name" id="f-name-error" class="text-red-300 text-xs mt-1.5">{{ errors.name }}</p>
                             </div>
                             <div>
                                 <label for="f-email" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
@@ -788,10 +909,16 @@ const projectTypes = [
                                     id="f-email"
                                     v-model="form.email"
                                     type="email"
-                                    required
                                     placeholder="email@exemple.cm"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    :aria-invalid="touched.email && !!errors.email"
+                                    aria-describedby="f-email-error"
+                                    @blur="touch('email')"
+                                    class="w-full bg-white/5 border text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2"
+                                    :class="touched.email && errors.email
+                                        ? 'border-red-400/60 focus:border-red-400/70 focus:ring-red-400/30'
+                                        : 'border-white/10 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
                                 />
+                                <p v-if="touched.email && errors.email" id="f-email-error" class="text-red-300 text-xs mt-1.5">{{ errors.email }}</p>
                             </div>
                         </div>
 
@@ -844,19 +971,25 @@ const projectTypes = [
                             <textarea
                                 id="f-message"
                                 v-model="form.message"
-                                required
                                 rows="5"
                                 placeholder="Décrivez votre projet, vos objectifs, vos contraintes techniques ou métier..."
-                                class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none"
+                                :aria-invalid="touched.message && !!errors.message"
+                                aria-describedby="f-message-error"
+                                @blur="touch('message')"
+                                class="w-full bg-white/5 border text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none focus:ring-2"
+                                :class="touched.message && errors.message
+                                    ? 'border-red-400/60 focus:border-red-400/70 focus:ring-red-400/30'
+                                    : 'border-white/10 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
                             ></textarea>
+                            <p v-if="touched.message && errors.message" id="f-message-error" class="text-red-300 text-xs mt-1.5">{{ errors.message }}</p>
                         </div>
 
-                        <p v-if="formError" class="text-red-400 text-xs">{{ formError }}</p>
+                        <p v-if="formError" class="text-red-300 text-xs" role="alert">{{ formError }}</p>
 
                         <button
                             type="submit"
                             :disabled="sending"
-                            class="w-full flex items-center justify-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] disabled:opacity-60 disabled:cursor-not-allowed text-[#0A2422] font-bold py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-[#30998A]/20 text-sm border-0"
+                            class="w-full flex items-center justify-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 text-[#0A2422] font-bold py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-[#30998A]/20 text-sm border-0 focus-ring"
                         >
                             <Loader2 v-if="sending" class="w-4 h-4 animate-spin" />
                             <Send v-else class="w-4 h-4" />

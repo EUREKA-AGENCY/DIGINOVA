@@ -195,7 +195,7 @@ const activeLang = ref('cURL')
                 <span class="text-[#30998A] text-xs font-medium tracking-wider uppercase">SMS Pro & Campagnes</span>
             </div>
 
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6" style="font-family:'Poppins',sans-serif;">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 font-display">
                 Un SMS lu en 3 minutes.<br>
                 <span class="text-[#30998A]">Pas un email ignoré.</span>
             </h1>
@@ -208,14 +208,14 @@ const activeLang = ref('cURL')
                     :href="wa('Bonjour, je souhaite un diagnostic numérique gratuit pour mon entreprise.')"
                     target="_blank"
                     rel="noopener"
-                    class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 justify-center"
+                    class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 justify-center focus-ring"
                 >
                     <MessageCircle class="w-5 h-5" />
                     Diagnostic gratuit · 15 min
                 </a>
                 <a
                     href="#tarifs"
-                    class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#30998A]/50 text-white hover:text-[#30998A] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer justify-center backdrop-blur-sm bg-white/5"
+                    class="inline-flex items-center gap-2.5 border border-white/30 hover:border-[#30998A]/50 active:scale-95 text-white hover:text-[#30998A] font-semibold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer justify-center backdrop-blur-sm bg-white/5 focus-ring"
                 >
                     Voir les tarifs
                     <ArrowRight class="w-4 h-4" />
@@ -247,7 +247,7 @@ const activeLang = ref('cURL')
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Le canal le plus direct</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white" style="font-family:'Poppins',sans-serif;">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Le SMS, c'est l'attention garantie
                 </h2>
             </div>
@@ -262,7 +262,7 @@ const activeLang = ref('cURL')
                     <div class="w-11 h-11 rounded-xl bg-[#30998A]/10 flex items-center justify-center mb-4">
                         <component :is="r.icon" class="w-5 h-5 text-[#30998A]" />
                     </div>
-                    <h3 class="text-white font-semibold text-[16px] mb-2 leading-snug" style="font-family:'Poppins',sans-serif;">{{ r.title }}</h3>
+                    <h3 class="text-white font-semibold text-[16px] mb-2 leading-snug font-display">{{ r.title }}</h3>
                     <p class="text-white/50 text-sm leading-relaxed">{{ r.desc }}</p>
                 </div>
             </div>
@@ -274,7 +274,7 @@ const activeLang = ref('cURL')
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">À chaque besoin, son SMS</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white" style="font-family:'Poppins',sans-serif;">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Ce que vous pouvez envoyer
                 </h2>
             </div>
@@ -288,7 +288,7 @@ const activeLang = ref('cURL')
                     <div class="w-11 h-11 rounded-xl bg-[#30998A]/15 flex items-center justify-center mb-4">
                         <component :is="u.icon" class="w-5 h-5 text-[#30998A]" />
                     </div>
-                    <h3 class="text-white font-bold text-lg mb-2" style="font-family:'Poppins',sans-serif;">{{ u.title }}</h3>
+                    <h3 class="text-white font-bold text-lg mb-2 font-display">{{ u.title }}</h3>
                     <p class="text-white/55 text-sm leading-relaxed">{{ u.desc }}</p>
                 </div>
             </div>
@@ -303,7 +303,7 @@ const activeLang = ref('cURL')
                 />
                 <div class="absolute inset-0" style="background: rgba(10,36,34,0.74);"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <p class="text-white/80 text-lg font-semibold tracking-wide text-center px-4" style="font-family:'Poppins',sans-serif;">
+                    <p class="text-white/80 text-lg font-semibold tracking-wide text-center px-4 font-display">
                         Notifications instantanées · Sans application · Sans connexion data
                     </p>
                 </div>
@@ -316,7 +316,7 @@ const activeLang = ref('cURL')
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Tarifs SMS</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white" style="font-family:'Poppins',sans-serif;">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Des packs clairs, sans surprise
                 </h2>
                 <p class="text-white/55 mt-4 max-w-xl mx-auto">Plus vous envoyez, moins le SMS coûte. Crédits sans date limite d'utilisation. Sans engagement.</p>
@@ -345,12 +345,12 @@ const activeLang = ref('cURL')
                         <component :is="plan.icon" class="w-5 h-5 text-[#30998A]" />
                     </div>
 
-                    <h3 class="text-white font-bold text-lg mb-1" style="font-family:'Poppins',sans-serif;">{{ plan.name }}</h3>
+                    <h3 class="text-white font-bold text-lg mb-1 font-display">{{ plan.name }}</h3>
                     <p class="text-white/45 text-xs mb-1">{{ plan.range }}</p>
                     <p class="text-white/55 text-sm mb-5">{{ plan.desc }}</p>
 
                     <div class="mb-6">
-                        <span class="text-3xl font-extrabold text-white" style="font-family:'Poppins',sans-serif;">{{ plan.price }}</span>
+                        <span class="text-3xl font-extrabold text-white font-display">{{ plan.price }}</span>
                         <span class="text-white/45 text-sm ml-1">{{ plan.unit }}</span>
                     </div>
 
@@ -368,8 +368,8 @@ const activeLang = ref('cURL')
                         :class="[
                             'inline-flex items-center justify-center gap-2 font-semibold text-sm px-5 py-3 rounded-xl transition-all duration-200 cursor-pointer',
                             plan.featured
-                                ? 'bg-[#30998A] hover:bg-[#257A6E] text-[#0A2422]'
-                                : 'border border-white/20 hover:border-[#30998A]/50 text-white hover:text-[#30998A]',
+                                ? 'bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] focus-ring'
+                                : 'border border-white/20 hover:border-[#30998A]/50 active:scale-95 text-white hover:text-[#30998A] focus-ring',
                         ]"
                     >
                         Choisir cette offre
@@ -384,7 +384,7 @@ const activeLang = ref('cURL')
                     :href="wa('Bonjour, nous avons un besoin SMS en très gros volume. Pouvez-vous nous proposer un tarif sur mesure ?')"
                     target="_blank"
                     rel="noopener"
-                    class="text-[#30998A] font-semibold hover:underline"
+                    class="text-[#30998A] font-semibold hover:underline rounded focus-ring"
                 >Tarif sur mesure — parlons-en.</a>
             </p>
         </div>
@@ -395,7 +395,7 @@ const activeLang = ref('cURL')
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Tout est inclus</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white" style="font-family:'Poppins',sans-serif;">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Les outils indispensables, sans option cachée
                 </h2>
             </div>
@@ -422,7 +422,7 @@ const activeLang = ref('cURL')
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Pour les développeurs</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-5" style="font-family:'Poppins',sans-serif;">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-5 font-display">
                         Intégrez le SMS en quelques lignes
                     </h2>
                     <p class="text-white/60 leading-relaxed mb-8">
@@ -432,7 +432,7 @@ const activeLang = ref('cURL')
                         :href="wa('Bonjour, je souhaite la documentation de votre API SMS.')"
                         target="_blank"
                         rel="noopener"
-                        class="inline-flex items-center gap-2 text-[#30998A] font-semibold text-sm hover:gap-3 transition-all duration-200"
+                        class="inline-flex items-center gap-2 text-[#30998A] font-semibold text-sm hover:gap-3 transition-all duration-200 rounded focus-ring"
                     >
                         Consulter la documentation
                         <ArrowRight class="w-4 h-4" />
@@ -448,7 +448,7 @@ const activeLang = ref('cURL')
                             type="button"
                             @click="activeLang = lang"
                             :class="[
-                                'text-xs font-medium px-3 py-1.5 rounded-t-lg transition-colors duration-150 cursor-pointer',
+                                'text-xs font-medium px-3 py-1.5 rounded-t-lg transition-colors duration-150 cursor-pointer focus-ring',
                                 activeLang === lang ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/50 hover:text-white/80',
                             ]"
                         >
@@ -468,7 +468,7 @@ const activeLang = ref('cURL')
     <!-- ════════════════════ CTA FINAL ════════════════════ -->
     <section aria-label="Démarrer" class="py-20" style="background: linear-gradient(135deg, #1D5457 0%, #0D2B29 100%);">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4" style="font-family:'Poppins',sans-serif;">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4 font-display">
                 Prêt à passer au SMS ?
             </h2>
             <p class="text-white/70 mb-8">
@@ -478,7 +478,7 @@ const activeLang = ref('cURL')
                 :href="wa('Bonjour, je souhaite un diagnostic numérique gratuit pour mon entreprise.')"
                 target="_blank"
                 rel="noopener"
-                class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30"
+                class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 focus-ring"
             >
                 <MessageCircle class="w-5 h-5" />
                 Démarrer le diagnostic gratuit

@@ -61,7 +61,7 @@ function smoothScroll(id, event) {
                     <!-- Logo -->
                     <a href="/" class="flex items-center gap-3 flex-shrink-0 cursor-pointer">
                         <img src="/logo-icon.png" alt="Diginova" class="h-8 w-auto" />
-                        <span class="text-white font-bold text-lg tracking-tight hidden sm:block" style="font-family:'Poppins',sans-serif">
+                        <span class="text-white font-bold text-lg tracking-tight hidden sm:block font-display">
                             Diginova
                         </span>
                     </a>
@@ -74,7 +74,7 @@ function smoothScroll(id, event) {
                                 :href="link.href"
                                 :aria-current="isActive(link) ? 'page' : undefined"
                                 :class="[
-                                    'text-sm font-medium transition-colors duration-200',
+                                    'text-sm font-medium transition-colors duration-200 rounded focus-ring',
                                     isActive(link) ? 'text-[#30998A]' : 'text-white/70 hover:text-[#30998A]',
                                 ]"
                             >
@@ -84,7 +84,7 @@ function smoothScroll(id, event) {
                                 v-else
                                 :href="anchorHref(link.href)"
                                 @click="smoothScroll(link.href, $event)"
-                                class="text-white/70 hover:text-[#30998A] text-sm font-medium transition-colors duration-200 cursor-pointer"
+                                class="text-white/70 hover:text-[#30998A] text-sm font-medium transition-colors duration-200 cursor-pointer rounded focus-ring"
                             >
                                 {{ link.label }}
                             </a>
@@ -95,7 +95,7 @@ function smoothScroll(id, event) {
                     <a
                         :href="anchorHref('contact')"
                         @click="smoothScroll('contact', $event)"
-                        class="hidden md:inline-flex items-center gap-2 bg-[#30998A] hover:bg-[#257A6E] text-[#0A2422] font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-[#30998A]/25"
+                        class="hidden md:inline-flex items-center gap-2 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-[#30998A]/25 focus-ring"
                     >
                         Démarrer un projet
                         <ArrowRight class="w-4 h-4" />
@@ -104,7 +104,7 @@ function smoothScroll(id, event) {
                     <!-- Mobile burger -->
                     <button
                         @click="mobileOpen = !mobileOpen"
-                        class="md:hidden text-white p-2 cursor-pointer rounded-lg hover:bg-white/10 transition-colors border-0 bg-transparent"
+                        class="md:hidden text-white p-2 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition-all duration-200 border-0 bg-transparent focus-ring"
                         aria-label="Menu"
                     >
                         <X v-if="mobileOpen" class="w-6 h-6" />
@@ -125,7 +125,7 @@ function smoothScroll(id, event) {
                         :aria-current="isActive(link) ? 'page' : undefined"
                         @click="mobileOpen = false"
                         :class="[
-                            'flex w-full items-center py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm font-medium',
+                            'flex w-full items-center py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 text-sm font-medium focus-ring',
                             isActive(link) ? 'text-[#30998A]' : 'text-white/80 hover:text-[#30998A]',
                         ]"
                     >
@@ -135,7 +135,7 @@ function smoothScroll(id, event) {
                         v-else
                         :href="anchorHref(link.href)"
                         @click="smoothScroll(link.href, $event)"
-                        class="flex w-full items-center text-white/80 hover:text-[#30998A] py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 cursor-pointer text-sm font-medium"
+                        class="flex w-full items-center text-white/80 hover:text-[#30998A] py-3 px-3 rounded-lg hover:bg-white/5 transition-colors duration-200 cursor-pointer text-sm font-medium focus-ring"
                     >
                         {{ link.label }}
                     </a>
@@ -143,7 +143,7 @@ function smoothScroll(id, event) {
                 <a
                     :href="anchorHref('contact')"
                     @click="smoothScroll('contact', $event)"
-                    class="flex w-full items-center justify-center mt-2 bg-[#30998A] text-[#0A2422] font-semibold text-sm px-4 py-3 rounded-lg transition-colors duration-200 cursor-pointer"
+                    class="flex w-full items-center justify-center mt-2 bg-[#30998A] text-[#0A2422] font-semibold text-sm px-4 py-3 rounded-lg transition-all duration-200 active:scale-95 cursor-pointer focus-ring"
                 >
                     Démarrer un projet
                 </a>
@@ -162,7 +162,7 @@ function smoothScroll(id, event) {
                     <div>
                         <div class="flex items-center gap-3 mb-4">
                             <img src="/logo-icon.png" alt="Diginova" class="h-8 w-auto" />
-                            <span class="font-bold text-xl" style="font-family:'Poppins',sans-serif">Diginova</span>
+                            <span class="font-bold text-xl font-display">Diginova</span>
                         </div>
                         <p class="text-white/55 text-sm leading-relaxed mb-4">
                             Solutions digitales sur mesure pour les entreprises ambitieuses.
@@ -181,7 +181,7 @@ function smoothScroll(id, event) {
                                 <Link
                                     v-if="link.type === 'page'"
                                     :href="link.href"
-                                    class="text-white/60 hover:text-[#30998A] text-sm transition-colors duration-200"
+                                    class="text-white/60 hover:text-[#30998A] text-sm transition-colors duration-200 rounded focus-ring"
                                 >
                                     {{ link.label }}
                                 </Link>
@@ -189,7 +189,7 @@ function smoothScroll(id, event) {
                                     v-else
                                     :href="anchorHref(link.href)"
                                     @click="smoothScroll(link.href, $event)"
-                                    class="text-white/60 hover:text-[#30998A] text-sm transition-colors duration-200 cursor-pointer"
+                                    class="text-white/60 hover:text-[#30998A] text-sm transition-colors duration-200 cursor-pointer rounded focus-ring"
                                 >
                                     {{ link.label }}
                                 </a>
@@ -202,13 +202,13 @@ function smoothScroll(id, event) {
                         <h3 class="font-semibold text-xs text-white/45 mb-5 uppercase tracking-widest">Contact</h3>
                         <ul class="space-y-3 mb-6">
                             <li>
-                                <a href="tel:+237655065494" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
+                                <a href="tel:+237655065494" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
                                     <Phone class="w-4 h-4 text-[#30998A] flex-shrink-0" />
                                     +237 655 065 494
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:contact@diginova.cm" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer">
+                                <a href="mailto:contact@diginova.cm" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
                                     <Mail class="w-4 h-4 text-[#30998A] flex-shrink-0" />
                                     contact@diginova.cm
                                 </a>
@@ -226,7 +226,7 @@ function smoothScroll(id, event) {
                                 target="_blank"
                                 rel="noopener"
                                 aria-label="WhatsApp"
-                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#30998A]/15 text-white/50 hover:text-[#30998A] transition-all duration-200 cursor-pointer"
+                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#30998A]/15 text-white/50 hover:text-[#30998A] transition-all duration-200 cursor-pointer focus-ring"
                             >
                                 <!-- WhatsApp brand icon (pas dans Lucide) -->
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -238,7 +238,7 @@ function smoothScroll(id, event) {
                                 target="_blank"
                                 rel="noopener"
                                 aria-label="GitHub"
-                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#30998A]/15 text-white/50 hover:text-[#30998A] transition-all duration-200 cursor-pointer"
+                                class="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-[#30998A]/15 text-white/50 hover:text-[#30998A] transition-all duration-200 cursor-pointer focus-ring"
                             >
                                 <Github class="w-4 h-4" />
                             </a>
@@ -251,8 +251,8 @@ function smoothScroll(id, event) {
                         © {{ new Date().getFullYear() }} Diginova. Tous droits réservés.
                     </p>
                     <div class="flex items-center gap-5">
-                        <Link href="/mentions-legales" class="text-white/50 hover:text-[#30998A] text-xs transition-colors duration-200">Mentions légales</Link>
-                        <Link href="/confidentialite" class="text-white/50 hover:text-[#30998A] text-xs transition-colors duration-200">Confidentialité</Link>
+                        <Link href="/mentions-legales" class="text-white/50 hover:text-[#30998A] text-xs transition-colors duration-200 rounded focus-ring">Mentions légales</Link>
+                        <Link href="/confidentialite" class="text-white/50 hover:text-[#30998A] text-xs transition-colors duration-200 rounded focus-ring">Confidentialité</Link>
                         <p class="text-white/50 text-xs">Conçu &amp; développé par Diginova, Yaoundé</p>
                     </div>
                 </div>
