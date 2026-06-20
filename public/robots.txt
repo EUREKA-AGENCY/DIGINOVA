@@ -10,6 +10,5 @@ Disallow: /verify-email
 Disallow: /confirm-password
 Disallow: /profile
 Disallow: /api/
-Disallow: /lab/
 
 Sitemap: https://diginova.cm/sitemap.xml

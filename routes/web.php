@@ -17,10 +17,6 @@ Route::get('/sms', function () {
     return Inertia::render('Sms');
 })->name('sms');
 
-Route::get('/lab/grid-system', function () {
-    return Inertia::render('LabGridSystem');
-})->name('lab.grid-system');
-
 Route::get('/sitemap.xml', function () {
     $lastmod = '2026-06-19';
     $base    = config('app.url');
