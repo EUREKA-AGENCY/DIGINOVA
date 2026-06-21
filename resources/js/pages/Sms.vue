@@ -466,8 +466,16 @@ const activeLang = ref('cURL')
     </section>
 
     <!-- ════════════════════ CTA FINAL ════════════════════ -->
-    <section aria-label="Démarrer" class="py-20" style="background: linear-gradient(135deg, #1D5457 0%, #0D2B29 100%);">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section aria-label="Démarrer" class="relative overflow-hidden py-20">
+        <div class="absolute inset-0">
+            <img
+                src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1600&h=700&q=80&auto=format&fit=crop"
+                alt=""
+                class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(29,84,87,0.94) 0%, rgba(13,43,41,0.92) 100%);"></div>
+        </div>
+        <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4 font-display">
                 Prêt à passer au SMS ?
             </h2>
