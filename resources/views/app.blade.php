@@ -42,9 +42,10 @@
         <!-- CSRF -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
+        <!-- Fonts (loaded async to avoid render-blocking) -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600|space-grotesk:500,600,700&display=swap" rel="stylesheet">
+        <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=figtree:400,500,600|space-grotesk:500,600,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link href="https://fonts.bunny.net/css?family=figtree:400,500,600|space-grotesk:500,600,700&display=swap" rel="stylesheet"></noscript>
 
         <!-- JSON-LD Structured Data -->
         @php

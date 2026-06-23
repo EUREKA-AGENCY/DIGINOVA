@@ -192,7 +192,7 @@ const activeLang = ref('cURL')
         <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="inline-flex items-center gap-2 bg-white/5 border border-[#30998A]/25 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#30998A] animate-pulse flex-shrink-0"></span>
-                <span class="text-[#30998A] text-xs font-medium tracking-wider uppercase">SMS Pro & Campagnes</span>
+                <span class="text-brand-400 text-xs font-medium tracking-wider uppercase">SMS Pro & Campagnes</span>
             </div>
 
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 font-display">
@@ -246,7 +246,7 @@ const activeLang = ref('cURL')
     <section aria-label="Pourquoi le SMS" class="py-24" style="background: #0D2B29;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
-                <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Le canal le plus direct</span>
+                <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Le canal le plus direct</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Le SMS, c'est l'attention garantie
                 </h2>
@@ -315,7 +315,7 @@ const activeLang = ref('cURL')
     <section id="tarifs" aria-label="Tarifs SMS" class="py-24" style="background: #0D2B29;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
-                <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Tarifs SMS</span>
+                <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Tarifs SMS</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Des packs clairs, sans surprise
                 </h2>
@@ -421,7 +421,7 @@ const activeLang = ref('cURL')
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Pour les développeurs</span>
+                    <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Pour les développeurs</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-5 font-display">
                         Intégrez le SMS en quelques lignes
                     </h2>

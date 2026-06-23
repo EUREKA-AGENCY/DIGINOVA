@@ -272,15 +272,15 @@ const stats = [
 const logoFailed = reactive({})
 
 const clients = [
-    { name: 'BGFIBank',    logo: 'https://leclientcm.bgfi.com/_nuxt/img/bgfi.f7108a4.png' },
-    { name: 'MinDef',      logo: 'https://mindef.gov.cm/wp-content/uploads/2023/10/LOGO-MINDEF-PNG-FRANCAIS.png' },
-    { name: 'USRA-CARE',   logo: 'https://usra-care.com/images/logo.jpg' },
-    { name: 'ADS360',      logo: 'https://ads360.digital/images/logo.png' },
-    { name: 'CaregFA',     logo: 'https://caregfa.com/images/logo.png' },
-    { name: 'Census',      logo: 'https://census.diginova.cm/assets/images/logo-rgph.png' },
+    { name: 'BGFIBank',    logo: '/images/clients/bgfibank.webp' },
+    { name: 'MinDef',      logo: '/images/clients/mindef.webp' },
+    { name: 'USRA-CARE',   logo: '/images/clients/usra-care.webp' },
+    { name: 'ADS360',      logo: '/images/clients/ads360.webp' },
+    { name: 'CaregFA',     logo: '/images/clients/caregfa.webp' },
+    { name: 'Census',      logo: '/images/clients/census.webp' },
     { name: 'DECH School', logo: 'https://dech-school.diginova.cm/images/Header/logo.svg' },
-    { name: 'FreeSurf',    logo: 'https://freesurf.cm/logo.png' },
-    { name: 'MBAC',        logo: 'https://mbac.mg/images/logo/mbac.jpg' },
+    { name: 'FreeSurf',    logo: '/images/clients/freesurf.webp' },
+    { name: 'MBAC',        logo: '/images/clients/mbac.webp' },
 ]
 
 const budgets = [
@@ -443,6 +443,9 @@ const projectTypes = [
                                     v-if="c.logo && !logoFailed[c.name]"
                                     :src="c.logo"
                                     :alt="c.name"
+                                    width="110"
+                                    height="56"
+                                    loading="lazy"
                                     class="max-h-14 max-w-[110px] w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
                                     @error="logoFailed[c.name] = true"
                                 />
@@ -469,6 +472,9 @@ const projectTypes = [
                                 v-if="c.logo && !logoFailed[c.name]"
                                 :src="c.logo"
                                 :alt="c.name"
+                                width="110"
+                                height="56"
+                                loading="lazy"
                                 class="max-h-14 max-w-[110px] w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
                                 @error="logoFailed[c.name] = true"
                             />
@@ -496,7 +502,7 @@ const projectTypes = [
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-14">
-                <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
+                <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white font-display">
                     Ce que nous construisons
                 </h2>
@@ -675,7 +681,7 @@ const projectTypes = [
             </div>
 
             <div class="text-center mt-12">
-                <p class="text-slate-400 mb-5 text-sm">Vous voulez rejoindre cette liste ?</p>
+                <p class="text-slate-600 mb-5 text-sm">Vous voulez rejoindre cette liste ?</p>
                 <button
                     @click="scrollTo('contact')"
                     class="inline-flex items-center gap-2 bg-[#1D5457] hover:bg-[#30998A] active:scale-95 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 cursor-pointer border-0 shadow-lg shadow-[#1D5457]/20 focus-ring-light"
@@ -822,7 +828,7 @@ const projectTypes = [
                         href="https://wa.me/237655065494?text=Bonjour%2C%20je%20souhaite%20d%C3%A9marrer%20un%20projet%20avec%20Diginova."
                         target="_blank"
                         rel="noopener"
-                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bb5a] active:scale-95 text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 cursor-pointer mb-8 shadow-lg shadow-[#25D366]/20 focus-ring"
+                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bb5a] active:scale-95 text-[#0A2422] font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 cursor-pointer mb-8 shadow-lg shadow-[#25D366]/20 focus-ring"
                     >
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>

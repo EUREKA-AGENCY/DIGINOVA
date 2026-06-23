@@ -106,7 +106,7 @@ const addons = [
         <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="inline-flex items-center gap-2 bg-white/5 border border-[#30998A]/25 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#30998A] animate-pulse flex-shrink-0"></span>
-                <span class="text-[#30998A] text-xs font-medium tracking-wider uppercase">Messagerie Pro & Automatisation IA</span>
+                <span class="text-brand-400 text-xs font-medium tracking-wider uppercase">Messagerie Pro & Automatisation IA</span>
             </div>
 
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6 font-display">
@@ -159,7 +159,7 @@ const addons = [
     <section id="tarifs" aria-label="Tarifs messagerie" class="py-24" style="background: #0D2B29;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
-                <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Messagerie professionnelle</span>
+                <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Messagerie professionnelle</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Une boîte mail à votre domaine
                 </h2>

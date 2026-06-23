@@ -60,7 +60,7 @@ function smoothScroll(id, event) {
 
                     <!-- Logo -->
                     <a href="/" class="flex items-center gap-3 flex-shrink-0 cursor-pointer">
-                        <img src="/logo-icon.png" alt="Diginova" class="h-8 w-auto" />
+                        <img src="/logo-icon.png" alt="Diginova" width="32" height="32" class="h-8 w-auto" />
                         <span class="text-white font-bold text-lg tracking-tight hidden sm:block font-display">
                             Diginova
                         </span>
@@ -161,7 +161,7 @@ function smoothScroll(id, event) {
                     <!-- Brand -->
                     <div>
                         <div class="flex items-center gap-3 mb-4">
-                            <img src="/logo-icon.png" alt="Diginova" class="h-8 w-auto" />
+                            <img src="/logo-icon.png" alt="Diginova" width="32" height="32" class="h-8 w-auto" />
                             <span class="font-bold text-xl font-display">Diginova</span>
                         </div>
                         <p class="text-white/55 text-sm leading-relaxed mb-4">
@@ -175,7 +175,7 @@ function smoothScroll(id, event) {
 
                     <!-- Links -->
                     <div>
-                        <h3 class="font-semibold text-xs text-white/45 mb-5 uppercase tracking-widest">Navigation</h3>
+                        <h3 class="font-semibold text-xs text-white/50 mb-5 uppercase tracking-widest">Navigation</h3>
                         <ul class="space-y-3">
                             <li v-for="link in navLinks" :key="link.href">
                                 <Link
@@ -199,7 +199,7 @@ function smoothScroll(id, event) {
 
                     <!-- Contact -->
                     <div>
-                        <h3 class="font-semibold text-xs text-white/45 mb-5 uppercase tracking-widest">Contact</h3>
+                        <h3 class="font-semibold text-xs text-white/50 mb-5 uppercase tracking-widest">Contact</h3>
                         <ul class="space-y-3 mb-6">
                             <li>
                                 <a href="tel:+237655065494" class="flex items-center gap-2.5 text-white/60 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
