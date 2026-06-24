@@ -215,7 +215,7 @@ const portfolio = [
         desc: 'Plateforme de gestion de hotspots WiFi avec portail captif, facturation automatique et dashboards temps réel.',
         tags: ['Laravel', 'Vue.js', 'MySQL'],
         accent: '#0891B2',
-        img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/freesurf.webp',
         url: null,
     },
     {
