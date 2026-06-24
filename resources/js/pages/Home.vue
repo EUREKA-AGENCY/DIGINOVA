@@ -179,7 +179,7 @@ const portfolio = [
         desc: 'Site institutionnel et système de messagerie sécurisé du Ministère de la Défense du Cameroun.',
         tags: ['Laravel', 'Bootstrap', 'MySQL'],
         accent: '#15803D',
-        img: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/mindef.webp',
         url: 'https://mindef.gov.cm/',
     },
     {
@@ -188,7 +188,7 @@ const portfolio = [
         desc: 'Plateforme de suivi santé développée dans le cadre du projet SISEPCAM, financé par la Banque Mondiale.',
         tags: ['React', 'Node.js', 'PostgreSQL'],
         accent: '#DC2626',
-        img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/usra-care.webp',
         url: 'https://usra-care.com/',
     },
     {
@@ -197,7 +197,7 @@ const portfolio = [
         desc: 'Solutions d\'écrans digitaux publicitaires (DOOH) : gestion de contenus, diffusion en temps réel et analytics pour réseaux d\'affichage urbain.',
         tags: ['Vue.js', 'Laravel', 'API REST'],
         accent: '#EA580C',
-        img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/ads360.webp',
         url: 'https://ads360.digital/',
     },
     {
@@ -206,7 +206,7 @@ const portfolio = [
         desc: 'Plateforme SaaS de gestion de file d\'attente et d\'optimisation de l\'accueil client pour entreprises et institutions.',
         tags: ['Laravel', 'Vue.js', 'MySQL'],
         accent: '#7C3AED',
-        img: 'https://images.unsplash.com/photo-1556742205-e10c9486e506?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/caregfa.webp',
         url: 'https://caregfa.com/',
     },
     {
@@ -224,16 +224,16 @@ const portfolio = [
         desc: 'Application complète : inscriptions, notes, emplois du temps, paiements en ligne et portail parents/élèves.',
         tags: ['Laravel', 'Vue.js', 'MySQL'],
         accent: '#D97706',
-        img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/dech.webp',
         url: null,
     },
     {
         name: 'MBAC',
-        type: 'Administration Publique',
-        desc: 'Système de gestion administrative pour le Ministère des Biens et Affaires Culturelles du Cameroun.',
-        tags: ['Laravel', 'Bootstrap', 'Oracle'],
+        type: 'Location de véhicules · Premium',
+        desc: 'Plateforme de réservation en ligne de véhicules premium, pour des expériences de location sur mesure.',
+        tags: ['Laravel', 'Vue.js', 'Réservation en ligne'],
         accent: '#0D6B52',
-        img: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/mbac.webp',
         url: null,
     },
     {
@@ -242,7 +242,7 @@ const portfolio = [
         desc: 'Application nationale de recensement avec interface mobile offline-first et synchronisation différée.',
         tags: ['Laravel', 'Flutter', 'MySQL'],
         accent: '#6B7280',
-        img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/census.webp',
         url: 'https://census.diginova.cm/',
     },
 ]
