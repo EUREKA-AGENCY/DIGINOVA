@@ -170,7 +170,7 @@ const portfolio = [
         desc: 'Plateforme digitale BGFIBank Cameroun : ouverture de compte en ligne, gestion bancaire et services financiers pour particuliers et entreprises.',
         tags: ['Laravel', 'Vue.js', 'API Banking'],
         accent: '#1D4ED8',
-        img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=220&q=75&auto=format&fit=crop',
+        img: '/images/site/portfolio/bgfi.webp',
         url: 'https://leclientcm.bgfi.com/',
     },
     {
