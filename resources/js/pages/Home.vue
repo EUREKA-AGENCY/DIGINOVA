@@ -314,7 +314,7 @@ const projectTypes = [
         <!-- Background photo + dark overlay (parallax léger) -->
         <div class="absolute inset-0 -top-16 -bottom-16" :style="`transform: translateY(${heroParallax}px);`">
             <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&h=900&q=80&auto=format&fit=crop"
+                src="/images/site/hero-dev.webp"
                 alt=""
                 class="w-full h-full object-cover object-center"
             />
@@ -587,7 +587,7 @@ const projectTypes = [
             <!-- Tech visual strip -->
             <div class="mt-16 rounded-2xl overflow-hidden relative">
                 <img
-                    src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=300&q=70&auto=format&fit=crop"
+                    src="/images/site/tech-strip.webp"
                     alt="Développement web et code"
                     loading="lazy"
                     class="w-full h-48 object-cover object-center"
@@ -702,7 +702,7 @@ const projectTypes = [
                 <!-- Left: image -->
                 <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-200">
                     <img
-                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&h=520&q=80&auto=format&fit=crop"
+                        src="/images/site/equipe-diginova.webp"
                         alt="Équipe Diginova en réunion"
                         loading="lazy"
                         class="w-full h-96 lg:h-[520px] object-cover"
@@ -816,7 +816,7 @@ const projectTypes = [
                     <!-- Office photo -->
                     <div class="rounded-2xl overflow-hidden mb-8 border border-slate-200">
                         <img
-                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=240&q=75&auto=format&fit=crop"
+                            src="/images/site/bureau-diginova.webp"
                             alt="Bureau Diginova Yaoundé"
                             loading="lazy"
                             class="w-full h-44 object-cover"
