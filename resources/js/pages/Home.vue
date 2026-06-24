@@ -104,6 +104,7 @@ const services = [
     {
         title: 'Développement Web Custom',
         desc: 'Applications web performantes et scalables, conçues sur mesure pour votre métier.',
+        highlights: ['Architecture évolutive, pensée pour durer', 'Code documenté et testé à chaque livraison', 'Audit technique et accompagnement inclus'],
         tags: ['Laravel', 'Vue.js', 'React', 'Next.js'],
         icon: Code2,
         img: '/images/site/services/web-custom.webp',
@@ -534,7 +535,7 @@ const projectTypes = [
                     :style="`transition: opacity 700ms ease-out ${i * 70}ms, transform 700ms ease-out ${i * 70}ms, border-color 300ms, box-shadow 300ms;`"
                 >
                     <!-- Image header -->
-                    <div class="relative overflow-hidden flex-shrink-0" :class="svc.featured ? 'h-44 lg:h-52' : 'h-28 sm:h-32'">
+                    <div class="relative overflow-hidden flex-shrink-0" :class="svc.featured ? 'h-52 lg:h-64' : 'h-28 sm:h-32'">
                         <img
                             :src="svc.img"
                             :alt="svc.title"
@@ -564,6 +565,13 @@ const projectTypes = [
                             {{ svc.title }}
                         </h3>
                         <p class="relative text-slate-500 text-sm leading-relaxed mb-4" :class="svc.featured ? 'max-w-sm' : ''">{{ svc.desc }}</p>
+
+                        <ul v-if="svc.highlights" class="relative space-y-2.5 mb-6">
+                            <li v-for="h in svc.highlights" :key="h" class="flex items-start gap-2.5 text-sm text-slate-600">
+                                <Check class="w-4 h-4 text-[#30998A] flex-shrink-0 mt-0.5" />
+                                <span>{{ h }}</span>
+                            </li>
+                        </ul>
 
                         <div class="relative flex flex-wrap gap-1.5 mt-auto">
                             <span
