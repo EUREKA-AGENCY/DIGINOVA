@@ -106,6 +106,7 @@ const services = [
         desc: 'Applications web performantes et scalables, conçues sur mesure pour votre métier.',
         tags: ['Laravel', 'Vue.js', 'React', 'Next.js'],
         icon: Code2,
+        img: '/images/site/services/web-custom.webp',
         area: 'featured',
         featured: true,
     },
@@ -114,6 +115,7 @@ const services = [
         desc: 'Conception et déploiement de plateformes SaaS multi-tenant, de la maquette au Go-Live.',
         tags: ['SaaS', 'Multi-tenant', 'API REST'],
         icon: Cloud,
+        img: '/images/site/services/saas.webp',
         area: 'saas',
     },
     {
@@ -121,6 +123,7 @@ const services = [
         desc: 'Architecture microservices, API Gateway, intégration de services tiers et ETL.',
         tags: ['Node.js', 'Docker', 'REST', 'GraphQL'],
         icon: Network,
+        img: '/images/site/services/micro.webp',
         area: 'micro',
     },
     {
@@ -128,6 +131,7 @@ const services = [
         desc: 'Pipelines CI/CD, containerisation Docker, déploiement continu sur VPS ou cloud.',
         tags: ['Docker', 'GitHub Actions', 'Nginx', 'Linux'],
         icon: Terminal,
+        img: '/images/site/services/devops.webp',
         area: 'devops',
     },
     {
@@ -135,6 +139,7 @@ const services = [
         desc: 'Audit, conseil stratégique et accompagnement pour digitaliser vos processus métier.',
         tags: ['Audit', 'Conseil', 'Formation', 'Support'],
         icon: Zap,
+        img: '/images/site/services/transfo.webp',
         area: 'transfo',
     },
     {
@@ -142,6 +147,7 @@ const services = [
         desc: 'Adresse professionnelle @votredomaine.cm, assistant e-mail IA et automatisation de vos workflows. Dès 2 000 F/mois.',
         tags: ['Messagerie', 'IA', 'Automatisation'],
         icon: Mail,
+        img: '/images/site/services/msg.webp',
         link: '/messagerie-pro',
         area: 'msg',
     },
@@ -150,6 +156,7 @@ const services = [
         desc: 'Notifications, alertes, OTP/2FA et campagnes marketing par SMS, plus de 95% de taux de lecture. Plateforme web et API.',
         tags: ['SMS', 'OTP/2FA', 'API'],
         icon: Smartphone,
+        img: '/images/site/services/sms.webp',
         link: '/sms',
         area: 'sms',
     },
@@ -519,42 +526,54 @@ const projectTypes = [
                     :key="svc.title"
                     :href="svc.link"
                     :data-area="svc.area"
-                    class="group relative p-6 rounded-2xl border border-slate-100 hover:border-[#30998A]/35 bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col"
+                    class="group relative rounded-2xl border border-slate-100 hover:border-[#30998A]/35 bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col"
                     :class="[
                         svc.link ? 'cursor-pointer focus-ring' : 'cursor-default',
-                        svc.featured ? 'lg:p-8' : '',
                         servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
                     ]"
                     :style="`transition: opacity 700ms ease-out ${i * 70}ms, transform 700ms ease-out ${i * 70}ms, border-color 300ms, box-shadow 300ms;`"
                 >
-                    <div
-                        class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                        style="background: radial-gradient(ellipse at 0% 0%, rgba(48,153,138,0.06) 0%, transparent 60%);"
-                    ></div>
-
-                    <div
-                        class="relative rounded-xl bg-[#30998A]/10 flex items-center justify-center mb-4 flex-shrink-0"
-                        :class="svc.featured ? 'w-14 h-14' : 'w-11 h-11'"
-                    >
-                        <component :is="svc.icon" :class="svc.featured ? 'w-7 h-7' : 'w-5 h-5'" class="text-[#30998A]" />
+                    <!-- Image header -->
+                    <div class="relative overflow-hidden flex-shrink-0" :class="svc.featured ? 'h-44 lg:h-52' : 'h-28 sm:h-32'">
+                        <img
+                            :src="svc.img"
+                            :alt="svc.title"
+                            loading="lazy"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(13,43,41,0.45) 0%, transparent 60%);"></div>
+                        <div
+                            class="absolute left-5 -bottom-5 rounded-xl bg-white shadow-md ring-1 ring-slate-100 flex items-center justify-center"
+                            :class="svc.featured ? 'w-14 h-14' : 'w-11 h-11'"
+                        >
+                            <component :is="svc.icon" :class="svc.featured ? 'w-7 h-7' : 'w-5 h-5'" class="text-[#30998A]" />
+                        </div>
                     </div>
 
-                    <h3
-                        class="relative text-slate-900 font-semibold leading-snug font-display"
-                        :class="svc.featured ? 'text-2xl mb-3' : 'text-[17px] mb-2'"
-                    >
-                        {{ svc.title }}
-                    </h3>
-                    <p class="relative text-slate-500 text-sm leading-relaxed mb-4" :class="svc.featured ? 'max-w-sm' : ''">{{ svc.desc }}</p>
+                    <!-- Content -->
+                    <div class="relative p-6 pt-8 flex flex-col flex-1" :class="svc.featured ? 'lg:p-8 lg:pt-10' : ''">
+                        <div
+                            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                            style="background: radial-gradient(ellipse at 0% 0%, rgba(48,153,138,0.06) 0%, transparent 60%);"
+                        ></div>
 
-                    <div class="relative flex flex-wrap gap-1.5 mt-auto">
-                        <span
-                            v-for="tag in svc.tags"
-                            :key="tag"
-                            class="text-[10px] font-medium text-slate-600 bg-slate-100 rounded-full px-2.5 py-0.5"
+                        <h3
+                            class="relative text-slate-900 font-semibold leading-snug font-display"
+                            :class="svc.featured ? 'text-2xl mb-3' : 'text-[17px] mb-2'"
                         >
-                            {{ tag }}
-                        </span>
+                            {{ svc.title }}
+                        </h3>
+                        <p class="relative text-slate-500 text-sm leading-relaxed mb-4" :class="svc.featured ? 'max-w-sm' : ''">{{ svc.desc }}</p>
+
+                        <div class="relative flex flex-wrap gap-1.5 mt-auto">
+                            <span
+                                v-for="tag in svc.tags"
+                                :key="tag"
+                                class="text-[10px] font-medium text-slate-600 bg-slate-100 rounded-full px-2.5 py-0.5"
+                            >
+                                {{ tag }}
+                            </span>
+                        </div>
                     </div>
                 </component>
 
