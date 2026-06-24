@@ -498,15 +498,15 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ SERVICES ════════════════════ -->
-    <section id="services" aria-label="Nos services" class="py-24" style="background: #0D2B29;">
+    <section id="services" aria-label="Nos services" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-14">
-                <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white font-display">
+                <span class="inline-block text-[#1D5457] text-xs font-semibold uppercase tracking-widest mb-3">Nos expertises</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-display">
                     Ce que nous construisons
                 </h2>
-                <p class="mt-4 text-white/50 max-w-xl mx-auto text-sm leading-relaxed">
+                <p class="mt-4 text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
                     De la conception à la production, nous couvrons toute la chaîne de valeur digitale.
                 </p>
             </div>
@@ -519,13 +519,13 @@ const projectTypes = [
                     :key="svc.title"
                     :href="svc.link"
                     :data-area="svc.area"
-                    class="group relative p-6 rounded-2xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300 overflow-hidden flex flex-col"
+                    class="group relative p-6 rounded-2xl border border-slate-100 hover:border-[#30998A]/35 bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col"
                     :class="[
                         svc.link ? 'cursor-pointer focus-ring' : 'cursor-default',
                         svc.featured ? 'lg:p-8' : '',
                         servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
                     ]"
-                    :style="`background: rgba(255,255,255,0.03); transition: opacity 700ms ease-out ${i * 70}ms, transform 700ms ease-out ${i * 70}ms, border-color 300ms;`"
+                    :style="`transition: opacity 700ms ease-out ${i * 70}ms, transform 700ms ease-out ${i * 70}ms, border-color 300ms, box-shadow 300ms;`"
                 >
                     <div
                         class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -540,18 +540,18 @@ const projectTypes = [
                     </div>
 
                     <h3
-                        class="relative text-white font-semibold leading-snug font-display"
+                        class="relative text-slate-900 font-semibold leading-snug font-display"
                         :class="svc.featured ? 'text-2xl mb-3' : 'text-[17px] mb-2'"
                     >
                         {{ svc.title }}
                     </h3>
-                    <p class="relative text-white/50 text-sm leading-relaxed mb-4" :class="svc.featured ? 'max-w-sm' : ''">{{ svc.desc }}</p>
+                    <p class="relative text-slate-500 text-sm leading-relaxed mb-4" :class="svc.featured ? 'max-w-sm' : ''">{{ svc.desc }}</p>
 
                     <div class="relative flex flex-wrap gap-1.5 mt-auto">
                         <span
                             v-for="tag in svc.tags"
                             :key="tag"
-                            class="text-[10px] font-medium text-[#30998A]/70 bg-[#30998A]/8 border border-[#30998A]/15 rounded-full px-2.5 py-0.5"
+                            class="text-[10px] font-medium text-slate-600 bg-slate-100 rounded-full px-2.5 py-0.5"
                         >
                             {{ tag }}
                         </span>
@@ -562,22 +562,22 @@ const projectTypes = [
                 <button
                     @click="scrollTo('contact')"
                     data-area="cta"
-                    class="group p-6 rounded-2xl border border-[#30998A]/25 hover:border-[#30998A]/50 flex flex-col justify-between transition-all duration-300 cursor-pointer text-left focus-ring"
+                    class="group p-6 rounded-2xl border border-[#30998A]/25 hover:border-[#30998A]/50 bg-gradient-to-br from-[#30998A]/5 to-[#1D5457]/5 flex flex-col justify-between transition-all duration-300 cursor-pointer text-left focus-ring"
                     :class="servicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
-                    :style="`background: linear-gradient(135deg, rgba(48,153,138,0.06), rgba(29,84,87,0.12)); transition: opacity 700ms ease-out 560ms, transform 700ms ease-out 560ms, border-color 300ms;`"
+                    style="transition: opacity 700ms ease-out 560ms, transform 700ms ease-out 560ms, border-color 300ms;"
                 >
                     <div>
                         <div class="w-11 h-11 rounded-xl bg-[#30998A]/15 flex items-center justify-center mb-4">
                             <MessageSquare class="w-5 h-5 text-[#30998A]" />
                         </div>
-                        <h3 class="text-white font-semibold text-[17px] mb-2 font-display">
+                        <h3 class="text-slate-900 font-semibold text-[17px] mb-2 font-display">
                             Votre projet ici
                         </h3>
-                        <p class="text-white/50 text-sm leading-relaxed">
+                        <p class="text-slate-500 text-sm leading-relaxed">
                             Besoin d'une solution sur mesure qui ne rentre dans aucune case ? Parlons-en.
                         </p>
                     </div>
-                    <div class="mt-6 inline-flex items-center gap-2 text-[#30998A] text-sm font-semibold group-hover:gap-3 transition-all duration-200">
+                    <div class="mt-6 inline-flex items-center gap-2 text-[#1D5457] text-sm font-semibold group-hover:gap-3 transition-all duration-200">
                         Discutons de votre projet
                         <ArrowRight class="w-4 h-4" />
                     </div>
@@ -592,7 +592,7 @@ const projectTypes = [
                     loading="lazy"
                     class="w-full h-48 object-cover object-center"
                 />
-                <div class="absolute inset-0" style="background: linear-gradient(90deg, #0D2B29 0%, transparent 30%, transparent 70%, #0D2B29 100%);"></div>
+                <div class="absolute inset-0" style="background: linear-gradient(90deg, #ffffff 0%, transparent 30%, transparent 70%, #ffffff 100%);"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <p class="text-white/70 text-lg font-semibold tracking-wide text-center px-4 font-display">
                         Code propre · Livraisons rapides · Infrastructure robuste
@@ -798,23 +798,23 @@ const projectTypes = [
     </section>
 
     <!-- ════════════════════ CONTACT ════════════════════ -->
-    <section id="contact" aria-label="Nous contacter" class="py-24" style="background: #061514;">
+    <section id="contact" aria-label="Nous contacter" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
                 <!-- Left: info -->
                 <div>
-                    <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Parlons de votre projet</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-5 font-display">
+                    <span class="inline-block text-[#1D5457] text-xs font-semibold uppercase tracking-widest mb-3">Parlons de votre projet</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-5 font-display">
                         Prêt à démarrer ?
                     </h2>
-                    <p class="text-white/55 leading-relaxed mb-8 text-sm">
-                        Décrivez votre projet et nous vous répondons sous <strong class="text-white/80">24h</strong> avec une estimation gratuite.
+                    <p class="text-slate-600 leading-relaxed mb-8 text-sm">
+                        Décrivez votre projet et nous vous répondons sous <strong class="text-slate-900">24h</strong> avec une estimation gratuite.
                         Ou commencez directement sur WhatsApp pour une réponse immédiate.
                     </p>
 
                     <!-- Office photo -->
-                    <div class="rounded-2xl overflow-hidden mb-8 border border-white/10">
+                    <div class="rounded-2xl overflow-hidden mb-8 border border-slate-200">
                         <img
                             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=240&q=75&auto=format&fit=crop"
                             alt="Bureau Diginova Yaoundé"
@@ -839,26 +839,26 @@ const projectTypes = [
                     <!-- Contact details -->
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                            <div class="w-9 h-9 rounded-lg bg-white border border-slate-100 flex items-center justify-center flex-shrink-0">
                                 <Phone class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <a href="tel:+237655065494" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
+                            <a href="tel:+237655065494" class="text-slate-600 hover:text-[#1D5457] text-sm transition-colors cursor-pointer rounded focus-ring-light">
                                 +237 655 065 494
                             </a>
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                            <div class="w-9 h-9 rounded-lg bg-white border border-slate-100 flex items-center justify-center flex-shrink-0">
                                 <Mail class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <a href="mailto:contact@diginova.cm" class="text-white/65 hover:text-[#30998A] text-sm transition-colors cursor-pointer rounded focus-ring">
+                            <a href="mailto:contact@diginova.cm" class="text-slate-600 hover:text-[#1D5457] text-sm transition-colors cursor-pointer rounded focus-ring-light">
                                 contact@diginova.cm
                             </a>
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                            <div class="w-9 h-9 rounded-lg bg-white border border-slate-100 flex items-center justify-center flex-shrink-0">
                                 <MapPin class="w-4 h-4 text-[#30998A]" />
                             </div>
-                            <span class="text-white/65 text-sm">Yaoundé, Cameroun</span>
+                            <span class="text-slate-600 text-sm">Yaoundé, Cameroun</span>
                         </div>
                     </div>
                 </div>
@@ -868,28 +868,26 @@ const projectTypes = [
                     <!-- Success state -->
                     <div
                         v-if="sent"
-                        class="text-center py-16 px-8 rounded-2xl border border-white/10"
-                        style="background: rgba(255,255,255,0.03);"
+                        class="text-center py-16 px-8 rounded-2xl border border-slate-200 bg-white shadow-sm"
                     >
                         <div class="w-16 h-16 rounded-full bg-[#30998A]/15 flex items-center justify-center mx-auto mb-4">
                             <Check class="w-8 h-8 text-[#30998A]" stroke-width="2.5" />
                         </div>
-                        <h3 class="text-white text-xl font-bold mb-2 font-display">
+                        <h3 class="text-slate-900 text-xl font-bold mb-2 font-display">
                             Message envoyé
                         </h3>
-                        <p class="text-white/55 text-sm">Nous vous répondrons sous 24h. Merci de votre confiance.</p>
+                        <p class="text-slate-600 text-sm">Nous vous répondrons sous 24h. Merci de votre confiance.</p>
                     </div>
 
                     <!-- Form -->
                     <form
                         v-else
                         @submit.prevent="handleSubmit"
-                        class="space-y-4 p-6 sm:p-8 rounded-2xl border border-white/10"
-                        style="background: rgba(255,255,255,0.03);"
+                        class="space-y-4 p-6 sm:p-8 rounded-2xl border border-slate-200 bg-white shadow-sm"
                     >
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="f-name" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
+                                <label for="f-name" class="block text-slate-600 text-xs font-medium mb-1.5 uppercase tracking-wide">
                                     Nom complet <span class="text-[#30998A]">*</span>
                                 </label>
                                 <input
@@ -900,15 +898,15 @@ const projectTypes = [
                                     :aria-invalid="touched.name && !!errors.name"
                                     aria-describedby="f-name-error"
                                     @blur="touch('name')"
-                                    class="w-full bg-white/5 border text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2"
+                                    class="w-full bg-slate-50 border text-slate-900 placeholder-slate-400 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2"
                                     :class="touched.name && errors.name
                                         ? 'border-red-400/60 focus:border-red-400/70 focus:ring-red-400/30'
-                                        : 'border-white/10 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
+                                        : 'border-slate-200 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
                                 />
                                 <p v-if="touched.name && errors.name" id="f-name-error" class="text-red-300 text-xs mt-1.5">{{ errors.name }}</p>
                             </div>
                             <div>
-                                <label for="f-email" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
+                                <label for="f-email" class="block text-slate-600 text-xs font-medium mb-1.5 uppercase tracking-wide">
                                     Email <span class="text-[#30998A]">*</span>
                                 </label>
                                 <input
@@ -919,10 +917,10 @@ const projectTypes = [
                                     :aria-invalid="touched.email && !!errors.email"
                                     aria-describedby="f-email-error"
                                     @blur="touch('email')"
-                                    class="w-full bg-white/5 border text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2"
+                                    class="w-full bg-slate-50 border text-slate-900 placeholder-slate-400 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2"
                                     :class="touched.email && errors.email
                                         ? 'border-red-400/60 focus:border-red-400/70 focus:ring-red-400/30'
-                                        : 'border-white/10 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
+                                        : 'border-slate-200 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
                                 />
                                 <p v-if="touched.email && errors.email" id="f-email-error" class="text-red-300 text-xs mt-1.5">{{ errors.email }}</p>
                             </div>
@@ -930,7 +928,7 @@ const projectTypes = [
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="f-phone" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
+                                <label for="f-phone" class="block text-slate-600 text-xs font-medium mb-1.5 uppercase tracking-wide">
                                     Téléphone / WhatsApp
                                 </label>
                                 <input
@@ -938,17 +936,17 @@ const projectTypes = [
                                     v-model="form.phone"
                                     type="tel"
                                     placeholder="+237 6XX XXX XXX"
-                                    class="w-full bg-white/5 border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
+                                    class="w-full bg-slate-50 border border-slate-200 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-slate-900 placeholder-slate-400 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200"
                                 />
                             </div>
                             <div>
-                                <label for="f-type" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
+                                <label for="f-type" class="block text-slate-600 text-xs font-medium mb-1.5 uppercase tracking-wide">
                                     Type de projet
                                 </label>
                                 <select
                                     id="f-type"
                                     v-model="form.project_type"
-                                    class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
+                                    class="w-full bg-slate-50 border border-slate-200 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-slate-700 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
                                 >
                                     <option value="">Choisir...</option>
                                     <option v-for="t in projectTypes" :key="t" :value="t">{{ t }}</option>
@@ -957,13 +955,13 @@ const projectTypes = [
                         </div>
 
                         <div>
-                            <label for="f-budget" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
+                            <label for="f-budget" class="block text-slate-600 text-xs font-medium mb-1.5 uppercase tracking-wide">
                                 Budget estimé
                             </label>
                             <select
                                 id="f-budget"
                                 v-model="form.budget"
-                                class="w-full bg-[#0D2B29] border border-white/10 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-white/70 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
+                                class="w-full bg-slate-50 border border-slate-200 focus:border-[#30998A]/60 focus:ring-2 focus:ring-[#30998A]/40 text-slate-700 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 cursor-pointer"
                             >
                                 <option value="">Sélectionner une fourchette...</option>
                                 <option v-for="b in budgets" :key="b" :value="b">{{ b }}</option>
@@ -971,7 +969,7 @@ const projectTypes = [
                         </div>
 
                         <div>
-                            <label for="f-message" class="block text-white/60 text-xs font-medium mb-1.5 uppercase tracking-wide">
+                            <label for="f-message" class="block text-slate-600 text-xs font-medium mb-1.5 uppercase tracking-wide">
                                 Description du projet <span class="text-[#30998A]">*</span>
                             </label>
                             <textarea
@@ -982,10 +980,10 @@ const projectTypes = [
                                 :aria-invalid="touched.message && !!errors.message"
                                 aria-describedby="f-message-error"
                                 @blur="touch('message')"
-                                class="w-full bg-white/5 border text-white placeholder-white/25 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none focus:ring-2"
+                                class="w-full bg-slate-50 border text-slate-900 placeholder-slate-400 rounded-xl px-4 py-3 text-sm outline-none transition-colors duration-200 resize-none focus:ring-2"
                                 :class="touched.message && errors.message
                                     ? 'border-red-400/60 focus:border-red-400/70 focus:ring-red-400/30'
-                                    : 'border-white/10 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
+                                    : 'border-slate-200 focus:border-[#30998A]/60 focus:ring-[#30998A]/40'"
                             ></textarea>
                             <p v-if="touched.message && errors.message" id="f-message-error" class="text-red-300 text-xs mt-1.5">{{ errors.message }}</p>
                         </div>
@@ -1002,7 +1000,7 @@ const projectTypes = [
                             {{ sending ? 'Envoi en cours...' : 'Envoyer ma demande' }}
                         </button>
 
-                        <p class="text-center text-white/50 text-xs">
+                        <p class="text-center text-slate-500 text-xs">
                             Réponse garantie sous 24h · Estimation gratuite et sans engagement
                         </p>
                     </form>
