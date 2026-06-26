@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Process;
  */
 class MailServerManager
 {
+    private const SUDO = '/usr/bin/sudo';
+
     private const BIN = '/usr/local/sbin/mailctl';
 
     private const LOCAL_PART_REGEX = '/^[a-z0-9][a-z0-9._-]{0,62}$/';
@@ -65,7 +67,7 @@ class MailServerManager
      */
     public function listAccounts(): array
     {
-        $result = Process::timeout(30)->run(['sudo', self::BIN, 'list']);
+        $result = Process::timeout(30)->run([self::SUDO, self::BIN, 'list']);
 
         if (! $result->successful()) {
             throw new MailServerException("mailctl list a échoué : {$result->errorOutput()}");
@@ -102,7 +104,7 @@ class MailServerManager
             $process = $process->input($stdin);
         }
 
-        $result = $process->run(['sudo', self::BIN, ...$args]);
+        $result = $process->run([self::SUDO, self::BIN, ...$args]);
 
         if (! $result->successful()) {
             Log::channel('daily')->error('mailctl a échoué', [
