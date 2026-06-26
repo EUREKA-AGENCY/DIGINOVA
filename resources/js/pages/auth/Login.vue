@@ -34,26 +34,25 @@ const submit = () => {
         <Head title="Connexion" />
 
         <div class="mb-6 text-center">
-            <h1 class="text-2xl font-semibold text-diginova-blue">
-                Connexion à votre espace
+            <h1 class="text-2xl font-bold text-slate-900 font-display">
+                Connexion à votre espace client
             </h1>
-            <p class="mt-2 text-sm text-neutral-500">
-                Accédez à votre espace membre et au forum de la communauté DIGINOVA.
+            <p class="mt-2 text-sm text-slate-500">
+                Accédez à votre espace pour gérer votre messagerie professionnelle.
             </p>
         </div>
 
-        <div v-if="status" class="mb-4 rounded-lg bg-green-50 px-3 py-2 text-sm font-medium text-green-700">
+        <div v-if="status" class="mb-4 rounded-xl border border-[#30998A]/30 bg-[#30998A]/10 px-3 py-2 text-sm font-medium text-[#1D5457]">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="space-y-5">
-            <div class="space-y-1">
+        <form @submit.prevent="submit" class="space-y-4">
+            <div>
                 <InputLabel for="email" value="Adresse e-mail" />
 
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
                     v-model="form.email"
                     required
                     autofocus
@@ -61,17 +60,17 @@ const submit = () => {
                     placeholder="vous@entreprise.com"
                 />
 
-                <InputError class="mt-1" :message="form.errors.email" />
+                <InputError class="mt-1.5" :message="form.errors.email" />
             </div>
 
-            <div class="space-y-1">
+            <div>
                 <div class="flex items-center justify-between">
                     <InputLabel for="password" value="Mot de passe" />
 
                     <Link
                         v-if="canResetPassword"
                         :href="route('password.request')"
-                        class="text-xs font-medium text-diginova-blue hover:text-diginova-red"
+                        class="text-xs font-medium text-[#1D5457] hover:text-[#30998A] mb-1.5"
                     >
                         Mot de passe oublié ?
                     </Link>
@@ -80,25 +79,24 @@ const submit = () => {
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
                     placeholder="••••••••"
                 />
 
-                <InputError class="mt-1" :message="form.errors.password" />
+                <InputError class="mt-1.5" :message="form.errors.password" />
             </div>
 
-            <div class="flex items-center justify-between">
-                <label class="flex items-center gap-2 text-xs text-neutral-600">
+            <div class="flex items-center justify-between pt-1">
+                <label class="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
                     <Checkbox name="remember" v-model:checked="form.remember" />
                     <span>Se souvenir de moi</span>
                 </label>
 
                 <Link
                     :href="route('register')"
-                    class="text-xs font-medium text-diginova-blue hover:text-diginova-red"
+                    class="text-xs font-medium text-[#1D5457] hover:text-[#30998A]"
                 >
                     Créer un compte
                 </Link>
@@ -106,7 +104,7 @@ const submit = () => {
 
             <div class="pt-2">
                 <PrimaryButton
-                    class="w-full justify-center text-sm"
+                    class="w-full"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >

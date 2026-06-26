@@ -25,22 +25,21 @@ const submit = () => {
         <Head title="Créer un compte" />
 
         <div class="mb-6 text-center">
-            <h1 class="text-2xl font-semibold text-diginova-blue">
-                Rejoindre la communauté DIGINOVA
+            <h1 class="text-2xl font-bold text-slate-900 font-display">
+                Créer votre espace client
             </h1>
-            <p class="mt-2 text-sm text-neutral-500">
-                Créez votre compte pour accéder à l’espace membre et participer au forum.
+            <p class="mt-2 text-sm text-slate-500">
+                Créez votre compte pour gérer votre messagerie professionnelle.
             </p>
         </div>
 
         <form @submit.prevent="submit" class="space-y-4">
-            <div class="space-y-1">
+            <div>
                 <InputLabel for="name" value="Nom complet" />
 
                 <TextInput
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
                     v-model="form.name"
                     required
                     autofocus
@@ -48,42 +47,40 @@ const submit = () => {
                     placeholder="Nom et prénom"
                 />
 
-                <InputError class="mt-1 text-xs" :message="form.errors.name" />
+                <InputError class="mt-1.5" :message="form.errors.name" />
             </div>
 
-            <div class="space-y-1">
+            <div>
                 <InputLabel for="email" value="Adresse e-mail" />
 
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
                     v-model="form.email"
                     required
                     autocomplete="username"
                     placeholder="vous@entreprise.com"
                 />
 
-                <InputError class="mt-1 text-xs" :message="form.errors.email" />
+                <InputError class="mt-1.5" :message="form.errors.email" />
             </div>
 
-            <div class="space-y-1">
+            <div>
                 <InputLabel for="password" value="Mot de passe" />
 
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
                     v-model="form.password"
                     required
                     autocomplete="new-password"
                     placeholder="••••••••"
                 />
 
-                <InputError class="mt-1 text-xs" :message="form.errors.password" />
+                <InputError class="mt-1.5" :message="form.errors.password" />
             </div>
 
-            <div class="space-y-1">
+            <div>
                 <InputLabel
                     for="password_confirmation"
                     value="Confirmer le mot de passe"
@@ -92,7 +89,6 @@ const submit = () => {
                 <TextInput
                     id="password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
                     v-model="form.password_confirmation"
                     required
                     autocomplete="new-password"
@@ -100,17 +96,17 @@ const submit = () => {
                 />
 
                 <InputError
-                    class="mt-1 text-xs"
+                    class="mt-1.5"
                     :message="form.errors.password_confirmation"
                 />
             </div>
 
-            <div class="mt-2 flex items-center justify-between text-xs text-neutral-600">
+            <div class="flex items-center justify-between text-xs text-slate-600 pt-1">
                 <span>
                     Déjà inscrit ?
                     <Link
                         :href="route('login')"
-                        class="font-semibold text-diginova-blue hover:text-diginova-red"
+                        class="font-semibold text-[#1D5457] hover:text-[#30998A]"
                     >
                         Se connecter
                     </Link>
@@ -119,7 +115,7 @@ const submit = () => {
 
             <div class="pt-2">
                 <PrimaryButton
-                    class="w-full justify-center text-sm"
+                    class="w-full"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
@@ -127,8 +123,8 @@ const submit = () => {
                 </PrimaryButton>
             </div>
 
-            <p class="pt-3 text-center text-[11px] text-neutral-400">
-                En créant un compte, vous acceptez les règles d’utilisation de la communauté DIGINOVA.
+            <p class="pt-3 text-center text-[11px] text-slate-400">
+                En créant un compte, vous acceptez les conditions d'utilisation de Diginova.
             </p>
         </form>
     </GuestLayout>
