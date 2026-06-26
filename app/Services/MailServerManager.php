@@ -101,7 +101,9 @@ class MailServerManager
     {
         $process = Process::timeout(30);
         if ($stdin !== null) {
-            $process = $process->input($stdin);
+            // mailctl reads this via `read -r`, which fails (and under `set -e`,
+            // aborts the whole script with no output) if stdin isn't newline-terminated.
+            $process = $process->input($stdin."\n");
         }
 
         $result = $process->run([self::SUDO, self::BIN, ...$args]);
