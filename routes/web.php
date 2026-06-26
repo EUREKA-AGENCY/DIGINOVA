@@ -27,7 +27,7 @@ Route::get('/confidentialite', function () {
 
 Route::get('/sitemap.xml', function () {
     $lastmod = '2026-06-20';
-    $base    = config('app.url');
+    $base = config('app.url');
     $xml = '<?xml version="1.0" encoding="UTF-8"?>';
     $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     $xml .= "<url><loc>{$base}/</loc><lastmod>{$lastmod}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>";
@@ -36,17 +36,18 @@ Route::get('/sitemap.xml', function () {
     $xml .= "<url><loc>{$base}/mentions-legales</loc><lastmod>{$lastmod}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>";
     $xml .= "<url><loc>{$base}/confidentialite</loc><lastmod>{$lastmod}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>";
     $xml .= '</urlset>';
+
     return response($xml, 200)->header('Content-Type', 'application/xml');
 });
 
 Route::post('/contact', function (Request $request) {
     $data = $request->validate([
-        'name'         => 'required|string|max:255',
-        'email'        => 'required|email|max:255',
-        'phone'        => 'nullable|string|max:50',
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'nullable|string|max:50',
         'project_type' => 'nullable|string|max:255',
-        'budget'       => 'nullable|string|max:255',
-        'message'      => 'required|string|max:5000',
+        'budget' => 'nullable|string|max:255',
+        'message' => 'required|string|max:5000',
     ]);
 
     Log::channel('daily')->info('Nouvelle demande de contact Diginova', $data);
@@ -54,9 +55,7 @@ Route::post('/contact', function (Request $request) {
     return response()->json(['success' => true, 'message' => 'Demande reçue.']);
 })->name('contact');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::redirect('/dashboard', '/mail')->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/settings.php';

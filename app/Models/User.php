@@ -50,24 +50,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(MailDomain::class, 'owner_user_id');
     }
-
-    public function forumThreads()
-    {
-        return $this->hasMany(ForumThread::class);
-    }
-
-    public function forumReplies()
-    {
-        return $this->hasMany(ForumReply::class);
-    }
-
-    public function likedForumThreads()
-    {
-        return $this->belongsToMany(ForumThread::class, 'forum_thread_likes')->withTimestamps();
-    }
-
-    public function likedForumReplies()
-    {
-        return $this->belongsToMany(ForumReply::class, 'forum_reply_likes')->withTimestamps();
-    }
 }
