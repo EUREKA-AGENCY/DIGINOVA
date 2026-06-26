@@ -13,6 +13,7 @@ class SmsMessage extends Model
 
     protected $fillable = [
         'sms_account_id',
+        'sms_campaign_id',
         'sender',
         'destination',
         'message',
@@ -24,5 +25,10 @@ class SmsMessage extends Model
     public function account(): BelongsTo
     {
         return $this->belongsTo(SmsAccount::class, 'sms_account_id');
+    }
+
+    public function campaign(): BelongsTo
+    {
+        return $this->belongsTo(SmsCampaign::class, 'sms_campaign_id');
     }
 }

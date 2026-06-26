@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users } from 'lucide-vue-next'
+import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users, Megaphone, Code2 } from 'lucide-vue-next'
 
 defineProps({
     title: { type: String, default: '' },
@@ -37,6 +37,8 @@ const navGroups = [
             { label: 'Envoyer des SMS', href: '/sms-pro/send', icon: Send },
             { label: 'Historique', href: '/sms-pro/history', icon: History },
             { label: 'Contacts', href: '/sms-pro/contacts', icon: Users },
+            { label: 'Campagnes', href: '/sms-pro/campaigns', icon: Megaphone },
+            { label: 'Développeurs', href: '/sms-pro/developers', icon: Code2 },
         ],
     },
 ]

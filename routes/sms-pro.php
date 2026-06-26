@@ -11,4 +11,8 @@ Route::middleware(['auth', 'verified'])->prefix('sms-pro')->name('sms-pro.')->gr
     Route::get('/contacts', [SmsAccountController::class, 'contacts'])->name('contacts.index');
     Route::post('/contacts', [SmsAccountController::class, 'storeContact'])->name('contacts.store');
     Route::delete('/contacts/{contact}', [SmsAccountController::class, 'destroyContact'])->name('contacts.destroy');
+    Route::get('/campaigns', [SmsAccountController::class, 'campaigns'])->name('campaigns.index');
+    Route::post('/campaigns', [SmsAccountController::class, 'storeCampaign'])->name('campaigns.store');
+    Route::get('/developers', [SmsAccountController::class, 'developers'])->name('developers');
+    Route::post('/developers/regenerate-key', [SmsAccountController::class, 'regenerateApiKey'])->name('developers.regenerate-key');
 });
