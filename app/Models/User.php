@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(MailDomain::class, 'owner_user_id');
     }
+
+    public function smsAccount()
+    {
+        return $this->hasOne(SmsAccount::class);
+    }
 }

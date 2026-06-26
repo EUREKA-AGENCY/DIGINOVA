@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft } from 'lucide-vue-next'
+import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users } from 'lucide-vue-next'
 
 defineProps({
     title: { type: String, default: '' },
@@ -23,12 +23,26 @@ const initials = computed(() => {
 const mobileSidebarOpen = ref(false)
 const userMenuOpen = ref(false)
 
-const navItems = [
-    { label: 'Messagerie', href: '/mail', icon: Mail },
+const navGroups = [
+    {
+        label: 'Messagerie',
+        items: [
+            { label: 'Messagerie', href: '/mail', icon: Mail },
+        ],
+    },
+    {
+        label: 'SMS Pro',
+        items: [
+            { label: 'Tableau de bord', href: '/sms-pro', icon: LayoutDashboard },
+            { label: 'Envoyer des SMS', href: '/sms-pro/send', icon: Send },
+            { label: 'Historique', href: '/sms-pro/history', icon: History },
+            { label: 'Contacts', href: '/sms-pro/contacts', icon: Users },
+        ],
+    },
 ]
 
 function isActive(href) {
-    return page.url === href || page.url.startsWith(href + '/')
+    return page.url === href
 }
 </script>
 
@@ -42,19 +56,24 @@ function isActive(href) {
                 <span class="text-white font-bold text-base tracking-tight font-display">Diginova</span>
             </div>
 
-            <nav class="flex-1 px-3 py-6 space-y-1">
-                <Link
-                    v-for="item in navItems"
-                    :key="item.href"
-                    :href="item.href"
-                    :class="[
-                        'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 focus-ring',
-                        isActive(item.href) ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/60 hover:text-white hover:bg-white/5',
-                    ]"
-                >
-                    <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
-                    {{ item.label }}
-                </Link>
+            <nav class="flex-1 px-3 py-6 space-y-5 overflow-y-auto">
+                <div v-for="group in navGroups" :key="group.label">
+                    <p class="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/30">{{ group.label }}</p>
+                    <div class="space-y-1">
+                        <Link
+                            v-for="item in group.items"
+                            :key="item.href"
+                            :href="item.href"
+                            :class="[
+                                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 focus-ring',
+                                isActive(item.href) ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/60 hover:text-white hover:bg-white/5',
+                            ]"
+                        >
+                            <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
+                            {{ item.label }}
+                        </Link>
+                    </div>
+                </div>
             </nav>
 
             <div class="px-3 py-4 border-t border-white/10">
@@ -81,20 +100,25 @@ function isActive(href) {
                         <X class="w-5 h-5" />
                     </button>
                 </div>
-                <nav class="flex-1 px-3 py-6 space-y-1">
-                    <Link
-                        v-for="item in navItems"
-                        :key="item.href"
-                        :href="item.href"
-                        @click="mobileSidebarOpen = false"
-                        :class="[
-                            'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 focus-ring',
-                            isActive(item.href) ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/60 hover:text-white hover:bg-white/5',
-                        ]"
-                    >
-                        <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
-                        {{ item.label }}
-                    </Link>
+                <nav class="flex-1 px-3 py-6 space-y-5 overflow-y-auto">
+                    <div v-for="group in navGroups" :key="group.label">
+                        <p class="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/30">{{ group.label }}</p>
+                        <div class="space-y-1">
+                            <Link
+                                v-for="item in group.items"
+                                :key="item.href"
+                                :href="item.href"
+                                @click="mobileSidebarOpen = false"
+                                :class="[
+                                    'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 focus-ring',
+                                    isActive(item.href) ? 'bg-[#30998A]/15 text-[#30998A]' : 'text-white/60 hover:text-white hover:bg-white/5',
+                                ]"
+                            >
+                                <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
+                                {{ item.label }}
+                            </Link>
+                        </div>
+                    </div>
                 </nav>
                 <div class="px-3 py-4 border-t border-white/10">
                     <Link href="/" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/40 hover:text-white hover:bg-white/5 transition-colors duration-200 focus-ring">
