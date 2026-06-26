@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users, Megaphone, Code2 } from 'lucide-vue-next'
+import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users, Megaphone, Code2, ShieldCheck } from 'lucide-vue-next'
 
 defineProps({
     title: { type: String, default: '' },
@@ -23,25 +23,38 @@ const initials = computed(() => {
 const mobileSidebarOpen = ref(false)
 const userMenuOpen = ref(false)
 
-const navGroups = [
-    {
-        label: 'Messagerie',
-        items: [
-            { label: 'Messagerie', href: '/mail', icon: Mail },
-        ],
-    },
-    {
-        label: 'SMS Pro',
-        items: [
-            { label: 'Tableau de bord', href: '/sms-pro', icon: LayoutDashboard },
-            { label: 'Envoyer des SMS', href: '/sms-pro/send', icon: Send },
-            { label: 'Historique', href: '/sms-pro/history', icon: History },
-            { label: 'Contacts', href: '/sms-pro/contacts', icon: Users },
-            { label: 'Campagnes', href: '/sms-pro/campaigns', icon: Megaphone },
-            { label: 'Développeurs', href: '/sms-pro/developers', icon: Code2 },
-        ],
-    },
-]
+const navGroups = computed(() => {
+    const groups = [
+        {
+            label: 'Messagerie',
+            items: [
+                { label: 'Messagerie', href: '/mail', icon: Mail },
+            ],
+        },
+        {
+            label: 'SMS Pro',
+            items: [
+                { label: 'Tableau de bord', href: '/sms-pro', icon: LayoutDashboard },
+                { label: 'Envoyer des SMS', href: '/sms-pro/send', icon: Send },
+                { label: 'Historique', href: '/sms-pro/history', icon: History },
+                { label: 'Contacts', href: '/sms-pro/contacts', icon: Users },
+                { label: 'Campagnes', href: '/sms-pro/campaigns', icon: Megaphone },
+                { label: 'Développeurs', href: '/sms-pro/developers', icon: Code2 },
+            ],
+        },
+    ]
+
+    if (user.value?.is_admin) {
+        groups.push({
+            label: 'Administration',
+            items: [
+                { label: 'Console admin', href: '/admin', icon: ShieldCheck },
+            ],
+        })
+    }
+
+    return groups
+})
 
 function isActive(href) {
     return page.url === href
