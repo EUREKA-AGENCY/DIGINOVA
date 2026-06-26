@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function mailDomains()
+    {
+        return $this->hasMany(MailDomain::class, 'owner_user_id');
+    }
+
     public function forumThreads()
     {
         return $this->hasMany(ForumThread::class);

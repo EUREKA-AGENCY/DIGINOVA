@@ -118,6 +118,12 @@ const user = page.props.auth.user as User;
                         >
                             Mettre à jour mon mot de passe
                         </Link>
+                        <Link
+                            :href="route('mail.index')"
+                            class="inline-flex items-center rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 hover:border-diginova-red hover:text-diginova-red"
+                        >
+                            Gérer ma messagerie pro
+                        </Link>
                     </div>
                 </section>
 
