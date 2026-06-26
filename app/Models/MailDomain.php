@@ -11,6 +11,7 @@ class MailDomain extends Model
     protected $fillable = [
         'name',
         'owner_user_id',
+        'catch_all_local_part',
     ];
 
     public function owner(): BelongsTo

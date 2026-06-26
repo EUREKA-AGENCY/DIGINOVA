@@ -37,6 +37,29 @@ class MailServerManager
         $this->run(['passwd', $domain, $localPart], $password);
     }
 
+    public function createAlias(string $domain, string $localPart, string $forwardTo): void
+    {
+        $this->assertLocalPart($localPart);
+        $this->run(['alias-add', $domain, $localPart], $forwardTo);
+    }
+
+    public function deleteAlias(string $domain, string $localPart): void
+    {
+        $this->assertLocalPart($localPart);
+        $this->run(['alias-delete', $domain, $localPart]);
+    }
+
+    public function enableCatchAll(string $domain, string $targetLocalPart): void
+    {
+        $this->assertLocalPart($targetLocalPart);
+        $this->run(['catchall-enable', $domain, $targetLocalPart]);
+    }
+
+    public function disableCatchAll(string $domain): void
+    {
+        $this->run(['catchall-disable', $domain]);
+    }
+
     /**
      * @return array<int, array{domain: string, local_part: string}>
      */
