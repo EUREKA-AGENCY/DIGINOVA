@@ -3,12 +3,12 @@ import { Head } from '@inertiajs/vue3';
 
 import AppearanceTabs from '@/components/AppearanceTabs.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
-import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue';
+import AppLayoutClient from '@/layouts/AppLayoutClient.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 </script>
 
 <template>
-    <AppLayoutPublic>
+    <AppLayoutClient title="Apparence">
         <Head title="Appearance settings" />
 
         <section class="bg-gray-50 py-10">
@@ -21,5 +21,5 @@ import SettingsLayout from '@/layouts/settings/Layout.vue';
                 </SettingsLayout>
             </div>
         </section>
-    </AppLayoutPublic>
+    </AppLayoutClient>
 </template>

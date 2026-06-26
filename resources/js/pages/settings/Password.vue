@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
-import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue';
+import AppLayoutClient from '@/layouts/AppLayoutClient.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -43,7 +43,7 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <AppLayoutPublic>
+    <AppLayoutClient title="Mot de passe">
         <Head title="Password settings" />
 
         <section class="bg-gray-50 py-10">
@@ -114,5 +114,5 @@ const updatePassword = () => {
                 </SettingsLayout>
             </div>
         </section>
-    </AppLayoutPublic>
+    </AppLayoutClient>
 </template>

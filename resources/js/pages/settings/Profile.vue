@@ -7,7 +7,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue';
+import AppLayoutClient from '@/layouts/AppLayoutClient.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type User } from '@/types';
 
@@ -34,7 +34,7 @@ const submit = () => {
 </script>
 
 <template>
-    <AppLayoutPublic>
+    <AppLayoutClient title="Paramètres du compte">
         <Head title="Profile settings" />
 
         <section class="bg-gray-50 py-10">
@@ -111,5 +111,5 @@ const submit = () => {
                 </SettingsLayout>
             </div>
         </section>
-    </AppLayoutPublic>
+    </AppLayoutClient>
 </template>

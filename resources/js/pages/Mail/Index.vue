@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue';
+import AppLayoutClient from '@/layouts/AppLayoutClient.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
 import { Head, useForm } from '@inertiajs/vue3';
@@ -73,7 +73,7 @@ function submitPassword(domainId: number, account: MailAccountItem) {
 </script>
 
 <template>
-    <AppLayoutPublic>
+    <AppLayoutClient title="Messagerie">
         <Head title="Messagerie — Espace client" />
 
         <div class="px-4 py-8 sm:px-8">
@@ -208,5 +208,5 @@ function submitPassword(domainId: number, account: MailAccountItem) {
                 </form>
             </div>
         </div>
-    </AppLayoutPublic>
+    </AppLayoutClient>
 </template>
