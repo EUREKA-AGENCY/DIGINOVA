@@ -17,10 +17,14 @@ class SmsApiController extends Controller
     public function send(Request $request): JsonResponse
     {
         $apiKey = $request->bearerToken() ?? $request->input('api_key');
-        $account = $apiKey ? SmsAccount::where('api_key', $apiKey)->first() : null;
+        $account = $apiKey ? SmsAccount::with('user')->where('api_key', $apiKey)->first() : null;
 
         if (! $account) {
             return response()->json(['success' => false, 'message' => 'Clé API invalide.'], 401);
+        }
+
+        if ($account->user->is_blocked) {
+            return response()->json(['success' => false, 'message' => 'Ce compte a été bloqué.'], 403);
         }
 
         $validated = $request->validate([

@@ -49,6 +49,14 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (Auth::user()->is_blocked) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'email' => 'Ce compte a été bloqué. Contactez Diginova pour plus d\'informations.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

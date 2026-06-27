@@ -9,4 +9,9 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::post('/clients/{client}/mail-domain', [AdminController::class, 'assignDomain'])->name('clients.assign-domain');
     Route::delete('/mail-domains/{domain}/owner', [AdminController::class, 'unassignDomain'])->name('mail-domains.unassign');
     Route::post('/clients/{client}/sms-credits', [AdminController::class, 'adjustSmsCredits'])->name('clients.sms-credits');
+    Route::put('/clients/{client}', [AdminController::class, 'updateClient'])->name('clients.update');
+    Route::post('/clients/{client}/block', [AdminController::class, 'blockClient'])->name('clients.block');
+    Route::post('/clients/{client}/unblock', [AdminController::class, 'unblockClient'])->name('clients.unblock');
+    Route::delete('/clients/{client}', [AdminController::class, 'destroyClient'])->name('clients.destroy');
+    Route::post('/mail-domains', [AdminController::class, 'storeDomain'])->name('mail-domains.store');
 });
