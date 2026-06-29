@@ -2,7 +2,7 @@
 import AppLayoutClient from '@/layouts/AppLayoutClient.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 interface MailAccountItem {
@@ -175,6 +175,12 @@ function mailboxAccounts(domain: MailDomainItem) {
                         Gérez les boîtes mail, redirections et le catch-all de votre domaine depuis une seule vue.
                     </p>
                 </div>
+                <Link
+                    href="/paiement?service=messagerie"
+                    class="inline-flex items-center justify-center rounded-xl bg-[#30998A] hover:bg-[#257A6E] px-5 py-3 text-sm font-semibold text-[#0A2422] transition-colors duration-200 cursor-pointer whitespace-nowrap"
+                >
+                    Payer mon abonnement
+                </Link>
             </div>
 
             <p v-if="status" class="mb-6 rounded-xl border border-[#30998A]/30 bg-[#30998A]/10 px-4 py-3 text-sm text-[#1D5457]">

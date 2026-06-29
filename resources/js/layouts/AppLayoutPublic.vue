@@ -20,6 +20,7 @@ const navLinks = [
     { label: 'Réalisations', href: 'realisations', type: 'anchor' },
     { label: 'Messagerie Pro', href: '/messagerie-pro', type: 'page' },
     { label: 'SMS Pro', href: '/sms', type: 'page' },
+    { label: 'Hébergement', href: '/hebergement', type: 'page' },
     { label: 'Processus', href: 'processus', type: 'anchor' },
     { label: 'Contact', href: 'contact', type: 'anchor' },
 ]

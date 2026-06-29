@@ -59,6 +59,14 @@ Route::post('/contact', function (Request $request) {
 Route::get('/diagnostic', [DiagnosticController::class, 'create'])->name('diagnostic.create');
 Route::post('/diagnostic', [DiagnosticController::class, 'store'])->name('diagnostic.store');
 
+Route::get('/paiement', function () {
+    return Inertia::render('Paiement');
+})->name('paiement');
+
+Route::get('/hebergement', function () {
+    return Inertia::render('Hebergement');
+})->name('hebergement');
+
 Route::redirect('/dashboard', '/mail')->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

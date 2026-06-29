@@ -58,6 +58,9 @@ defineProps<Props>();
                             {{ account.balance }}
                             <span class="text-sm font-medium text-slate-400">SMS</span>
                         </p>
+                        <Link href="/paiement" class="mt-2 inline-block text-xs font-semibold text-[#1D5457] hover:text-[#30998A] cursor-pointer">
+                            Recharger mon solde →
+                        </Link>
                     </div>
                     <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
                         <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Total envoyés</p>
