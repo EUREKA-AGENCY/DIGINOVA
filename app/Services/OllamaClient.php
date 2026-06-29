@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\OllamaException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -40,11 +41,17 @@ TXT;
     {
         $prompt = $this->buildPrompt($answers);
 
-        $result = Http::timeout(280)->post(self::ENDPOINT, [
-            'model' => self::MODEL,
-            'prompt' => $prompt,
-            'stream' => false,
-        ]);
+        try {
+            $result = Http::timeout(280)->post(self::ENDPOINT, [
+                'model' => self::MODEL,
+                'prompt' => $prompt,
+                'stream' => false,
+            ]);
+        } catch (ConnectionException $e) {
+            Log::channel('daily')->error('Ollama injoignable/timeout', ['error' => $e->getMessage()]);
+
+            throw new OllamaException("Ollama injoignable ou trop lent : {$e->getMessage()}");
+        }
 
         if ($result->failed()) {
             Log::channel('daily')->error('Ollama a échoué', ['status' => $result->status()]);
