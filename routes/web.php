@@ -71,6 +71,22 @@ Route::get('/hebergement', function () {
 Route::get('/hebergement/commander', [InvoiceController::class, 'create'])->name('hebergement.commander.create');
 Route::post('/hebergement/commander', [InvoiceController::class, 'store'])->name('hebergement.commander.store');
 
+Route::get('/messagerie-pro/assistant-ia', function () {
+    return Inertia::render('Addons/AssistantIA');
+})->name('addons.assistant-ia');
+
+Route::get('/messagerie-pro/automatisation', function () {
+    return Inertia::render('Addons/Automatisation');
+})->name('addons.automatisation');
+
+Route::get('/messagerie-pro/audit', function () {
+    return Inertia::render('Addons/Audit');
+})->name('addons.audit');
+
+Route::get('/messagerie-pro/pack-demarrage', function () {
+    return Inertia::render('Addons/PackDemarrage');
+})->name('addons.pack-demarrage');
+
 Route::redirect('/dashboard', '/mail')->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

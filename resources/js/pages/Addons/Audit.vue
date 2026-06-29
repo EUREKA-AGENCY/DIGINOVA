@@ -1,0 +1,126 @@
+<script setup>
+import { Head, Link } from '@inertiajs/vue3'
+import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
+import ShareButtons from '@/components/ShareButtons.vue'
+import { Map, Check, MessageCircle, Search, FileBarChart, Compass } from 'lucide-vue-next'
+
+defineOptions({ layout: AppLayoutPublic })
+
+const PAGE_URL = 'https://diginova.cm/messagerie-pro/audit'
+
+function wa(message) {
+    return `https://wa.me/237655065494?text=${encodeURIComponent(message)}`
+}
+
+const features = [
+    { icon: Search, title: 'État des lieux complet', desc: "Domaines, messagerie, sites web, outils internes — on cartographie tout votre écosystème digital existant." },
+    { icon: FileBarChart, title: 'Diagnostic détaillé', desc: 'Points forts, risques et axes de progression identifiés et documentés clairement.' },
+    { icon: Compass, title: 'Plan de mise à niveau', desc: 'Une feuille de route priorisée, avec un budget estimatif pour chaque étape.' },
+]
+</script>
+
+<template>
+    <Head>
+        <title>Audit & cartographie digitale | Diginova</title>
+        <meta name="description" content="Cartographie complète de votre écosystème digital et plan de mise à niveau. À partir de 100 000 F." />
+        <meta property="og:title" content="Audit & cartographie digitale | Diginova" />
+        <meta property="og:description" content="Cartographie complète de votre écosystème digital et plan de mise à niveau." />
+        <meta property="og:url" :content="PAGE_URL" />
+        <meta property="og:type" content="website" />
+    </Head>
+
+    <section class="relative overflow-hidden pt-32 pb-20" style="background: #0A2422;">
+        <div class="pointer-events-none absolute -top-10 right-10 w-72 h-72 rounded-full border border-white/8"></div>
+        <div class="pointer-events-none absolute bottom-0 left-10 w-56 h-56 rounded-full border border-[#30998A]/20"></div>
+
+        <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <Link href="/messagerie-pro" class="text-white/40 hover:text-[#30998A] text-xs uppercase tracking-widest mb-6 inline-block cursor-pointer">
+                ← Messagerie Pro
+            </Link>
+
+            <div class="w-14 h-14 rounded-2xl bg-[#30998A]/15 flex items-center justify-center mx-auto mb-6">
+                <Map class="w-7 h-7 text-[#30998A]" />
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-[1.1] mb-5 font-display">
+                Audit & <span class="text-[#30998A]">cartographie</span>
+            </h1>
+            <p class="text-white/65 text-lg max-w-xl mx-auto mb-8">
+                Une vue d'ensemble claire de votre écosystème digital actuel, et un plan concret pour le faire évoluer.
+            </p>
+
+            <div class="inline-flex items-baseline gap-1.5 mb-8">
+                <span class="text-white/45 text-sm">À partir de</span>
+                <span class="text-3xl font-extrabold text-white font-display">100 000 F</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <a
+                    :href="wa('Bonjour, je souhaite un audit et une cartographie de mon écosystème digital.')"
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 justify-center focus-ring"
+                >
+                    <MessageCircle class="w-5 h-5" />
+                    Demander un devis
+                </a>
+            </div>
+
+            <div class="flex justify-center">
+                <ShareButtons title="Audit & cartographie digitale — Diginova" :url="PAGE_URL" />
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24" style="background: #0D2B29;">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="inline-block text-brand-400 text-xs font-semibold uppercase tracking-widest mb-3">Déroulement</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
+                    Comment se déroule l'audit
+                </h2>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-6">
+                <div v-for="f in features" :key="f.title" class="p-6 rounded-2xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300">
+                    <div class="w-11 h-11 rounded-xl bg-[#30998A]/10 flex items-center justify-center mb-4">
+                        <component :is="f.icon" class="w-5 h-5 text-[#30998A]" />
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">{{ f.title }}</h3>
+                    <p class="text-white/55 text-sm leading-relaxed">{{ f.desc }}</p>
+                </div>
+            </div>
+
+            <ul class="mt-10 max-w-xl mx-auto space-y-3">
+                <li class="flex items-start gap-2.5 text-white/70 text-sm">
+                    <Check class="w-4 h-4 text-[#30998A] flex-shrink-0 mt-0.5" />
+                    Idéal avant une refonte de site, une migration ou une levée de fonds
+                </li>
+                <li class="flex items-start gap-2.5 text-white/70 text-sm">
+                    <Check class="w-4 h-4 text-[#30998A] flex-shrink-0 mt-0.5" />
+                    Rapport écrit, présenté et expliqué à votre équipe
+                </li>
+                <li class="flex items-start gap-2.5 text-white/70 text-sm">
+                    <Check class="w-4 h-4 text-[#30998A] flex-shrink-0 mt-0.5" />
+                    Le tarif final dépend de la taille de votre écosystème
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="relative overflow-hidden py-20" style="background: #061514;">
+        <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-white mb-4 font-display">Faisons le point ensemble</h2>
+            <p class="text-white/70 mb-8">Décrivez-nous votre situation actuelle, nous vous proposons un périmètre d'audit adapté.</p>
+            <a
+                :href="wa('Bonjour, je souhaite un audit et une cartographie de mon écosystème digital.')"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2.5 bg-[#30998A] hover:bg-[#257A6E] active:scale-95 text-[#0A2422] font-bold px-8 py-4 rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-[#30998A]/30 focus-ring"
+            >
+                <MessageCircle class="w-5 h-5" />
+                Discuter sur WhatsApp
+            </a>
+        </div>
+    </section>
+</template>

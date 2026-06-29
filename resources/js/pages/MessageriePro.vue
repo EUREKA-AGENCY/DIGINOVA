@@ -50,7 +50,7 @@ const addons = [
         unit: '15 min',
         desc: 'Un appel pour évaluer votre messagerie actuelle et vos besoins, sans engagement.',
         icon: ClipboardCheck,
-        whatsapp: true,
+        href: '/diagnostic',
     },
     {
         name: 'Assistant e-mail IA',
@@ -58,6 +58,7 @@ const addons = [
         unit: 'F / boîte / mois',
         desc: 'Tri automatique, réponses suggérées et résumés intelligents de vos emails.',
         icon: Brain,
+        href: '/messagerie-pro/assistant-ia',
     },
     {
         name: 'Automatisation sur mesure',
@@ -65,6 +66,7 @@ const addons = [
         unit: '',
         desc: 'Workflows automatisés entre vos outils : emails, CRM, facturation, notifications.',
         icon: Settings2,
+        href: '/messagerie-pro/automatisation',
     },
     {
         name: 'Audit & cartographie',
@@ -72,6 +74,7 @@ const addons = [
         unit: 'F',
         desc: 'Cartographie complète de votre écosystème digital et plan de mise à niveau.',
         icon: Map,
+        href: '/messagerie-pro/audit',
     },
     {
         name: 'Pack Démarrage',
@@ -79,6 +82,7 @@ const addons = [
         unit: 'F',
         desc: 'Migration de vos boîtes mail, configuration du domaine et formation de vos équipes.',
         icon: Rocket,
+        href: '/messagerie-pro/pack-demarrage',
     },
 ]
 </script>
@@ -271,17 +275,13 @@ const addons = [
                             <span class="text-xl font-bold text-white font-display">{{ item.price }}</span>
                             <span v-if="item.unit" class="text-white/45 text-xs ml-1">{{ item.unit }}</span>
                         </div>
-                        <a
-                            :href="item.whatsapp
-                                ? wa('Bonjour, je souhaite un diagnostic numérique gratuit pour mon entreprise.')
-                                : wa(`Bonjour, je souhaite en savoir plus sur : ${item.name}.`)"
-                            target="_blank"
-                            rel="noopener"
+                        <Link
+                            :href="item.href"
                             class="inline-flex items-center gap-1.5 text-[#30998A] text-sm font-semibold group-hover:gap-2.5 transition-all duration-200 rounded focus-ring"
                         >
-                            En discuter
+                            En savoir plus
                             <ArrowRight class="w-3.5 h-3.5" />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
