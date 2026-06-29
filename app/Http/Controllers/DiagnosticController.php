@@ -26,8 +26,6 @@ class DiagnosticController extends Controller
         'both' => 'Les deux : transactionnel et campagnes marketing',
     ];
 
-    public function __construct(private OllamaClient $ollama) {}
-
     public function create(): Response
     {
         return Inertia::render('Diagnostic/Form');
@@ -50,8 +48,26 @@ class DiagnosticController extends Controller
             'budget_range' => $validated['budget_range'] ?? 'Non précisé',
         ];
 
+        // L'analyse IA peut prendre plusieurs minutes (modèle CPU sans GPU) :
+        // on répond tout de suite au prospect, le traitement + les emails
+        // partent juste après l'envoi de la réponse (même process PHP-FPM,
+        // pas besoin d'un worker de file d'attente dédié).
+        dispatch(function () use ($submission, $answers) {
+            $this->processAndNotify($submission, $answers);
+        })->afterResponse();
+
+        return Inertia::render('Diagnostic/Form', [
+            'submitted' => [
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+            ],
+        ]);
+    }
+
+    private function processAndNotify(DiagnosticSubmission $submission, array $answers): void
+    {
         try {
-            $analysis = $this->ollama->analyzeDiagnostic($answers);
+            $analysis = app(OllamaClient::class)->analyzeDiagnostic($answers);
             $submission->update(['ai_analysis' => $analysis, 'ai_status' => DiagnosticSubmission::STATUS_DONE]);
         } catch (OllamaException $e) {
             Log::channel('daily')->error('Échec analyse diagnostic IA', ['id' => $submission->id, 'error' => $e->getMessage()]);
@@ -59,14 +75,27 @@ class DiagnosticController extends Controller
             $submission->update(['ai_status' => DiagnosticSubmission::STATUS_FAILED]);
         }
 
+        $this->emailProspect($submission, $analysis);
         $this->notifyDiginova($submission, $analysis);
+    }
 
-        return Inertia::render('Diagnostic/Form', [
-            'result' => [
-                'name' => $validated['name'],
-                'analysis' => $analysis,
-            ],
-        ]);
+    private function emailProspect(DiagnosticSubmission $submission, ?string $analysis): void
+    {
+        $body = $analysis !== null
+            ? "Bonjour {$submission->name},\n\nVoici votre diagnostic Diginova :\n\n{$analysis}\n\n"
+                ."Cette estimation est indicative et sera confirmée par notre équipe.\n\n"
+                .'Pour en discuter directement : https://wa.me/237655065494'
+            : "Bonjour {$submission->name},\n\nMerci pour votre demande de diagnostic. Notre analyse automatique n'a pas pu se terminer, "
+                ."mais votre demande est bien enregistrée : notre équipe vous recontacte rapidement.\n\n"
+                .'Pour en discuter directement : https://wa.me/237655065494';
+
+        try {
+            Mail::raw($body, function ($message) use ($submission) {
+                $message->to($submission->email)->subject('Votre diagnostic Diginova');
+            });
+        } catch (\Throwable $e) {
+            Log::channel('daily')->error('Échec envoi diagnostic au prospect', ['id' => $submission->id, 'error' => $e->getMessage()]);
+        }
     }
 
     private function notifyDiginova(DiagnosticSubmission $submission, ?string $analysis): void
