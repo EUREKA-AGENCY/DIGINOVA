@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DiagnosticController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,9 @@ Route::get('/paiement', function () {
 Route::get('/hebergement', function () {
     return Inertia::render('Hebergement');
 })->name('hebergement');
+
+Route::get('/hebergement/commander', [InvoiceController::class, 'create'])->name('hebergement.commander.create');
+Route::post('/hebergement/commander', [InvoiceController::class, 'store'])->name('hebergement.commander.store');
 
 Route::redirect('/dashboard', '/mail')->middleware(['auth', 'verified'])->name('dashboard');
 

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users, Megaphone, Code2, ShieldCheck } from 'lucide-vue-next'
+import { Mail, Settings, LogOut, Menu, X, ChevronDown, ArrowLeft, LayoutDashboard, Send, History, Users, Megaphone, Code2, ShieldCheck, Receipt } from 'lucide-vue-next'
 
 defineProps({
     title: { type: String, default: '' },
@@ -49,6 +49,7 @@ const navGroups = computed(() => {
             label: 'Administration',
             items: [
                 { label: 'Console admin', href: '/admin', icon: ShieldCheck },
+                { label: 'Factures', href: '/admin/factures', icon: Receipt },
             ],
         })
     }

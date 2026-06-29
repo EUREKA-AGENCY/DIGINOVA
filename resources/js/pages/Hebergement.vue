@@ -1,4 +1,5 @@
 <script setup>
+import { ref, computed } from 'vue'
 import { Head, Link } from '@inertiajs/vue3'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 import { Server, ShieldCheck, Star, Check, ArrowRight, MessageCircle } from 'lucide-vue-next'
@@ -9,13 +10,29 @@ function wa(message) {
     return `https://wa.me/237655065494?text=${encodeURIComponent(message)}`
 }
 
+const DURATIONS = [
+    { years: 1, label: '1 an', discount: 0 },
+    { years: 2, label: '2 ans', discount: 5 },
+    { years: 3, label: '3 ans et +', discount: 10 },
+]
+const selectedYears = ref(1)
+const selectedDiscount = computed(() => DURATIONS.find((d) => d.years === selectedYears.value)?.discount ?? 0)
+
+function totalFor(plan) {
+    const subtotal = plan.priceValue * selectedYears.value
+    return Math.round(subtotal * (100 - selectedDiscount.value) / 100)
+}
+
+function fmt(n) {
+    return new Intl.NumberFormat('fr-FR').format(n)
+}
+
 function orderHref(plan) {
     const params = new URLSearchParams({
-        service: 'hebergement',
-        amount: plan.priceValue,
-        reference: plan.name,
+        plan: plan.name,
+        years: selectedYears.value,
     })
-    return `/paiement?${params.toString()}`
+    return `/hebergement/commander?${params.toString()}`
 }
 
 const OS_CHOICES = 'CentOS 8, CentOS 7, CentOS 6, Debian 9, Debian 8, Ubuntu 21.04, Ubuntu 20.04, Ubuntu 18.04, Fedora 28, openSUSE Leap 15.0, FreeBSD 11.1, Arch Linux'
@@ -110,7 +127,26 @@ const commonFeatures = [
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
                     Choisissez la puissance qu'il vous faut
                 </h2>
-                <p class="text-white/55 mt-4 max-w-xl mx-auto">Facturation annuelle. Maîtrisez votre serveur, sans limite de créativité.</p>
+                <p class="text-white/55 mt-4 max-w-xl mx-auto">Maîtrisez votre serveur, sans limite de créativité.</p>
+            </div>
+
+            <!-- Sélecteur de durée -->
+            <div class="flex items-center justify-center gap-2 mb-12">
+                <button
+                    v-for="d in DURATIONS"
+                    :key="d.years"
+                    type="button"
+                    @click="selectedYears = d.years"
+                    :class="[
+                        'px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer',
+                        selectedYears === d.years
+                            ? 'bg-[#30998A] text-[#0A2422]'
+                            : 'border border-white/15 text-white/60 hover:text-white hover:border-white/30',
+                    ]"
+                >
+                    {{ d.label }}
+                    <span v-if="d.discount" class="ml-1 opacity-80">-{{ d.discount }}%</span>
+                </button>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -139,8 +175,12 @@ const commonFeatures = [
                     <h3 class="text-white font-bold text-base mb-4 font-display">{{ plan.name }}</h3>
 
                     <div class="mb-6">
-                        <span class="text-2xl font-extrabold text-white font-display">{{ plan.price }}</span>
-                        <span class="text-white/45 text-xs ml-1 block">{{ plan.unit }}</span>
+                        <span class="text-2xl font-extrabold text-white font-display">{{ fmt(totalFor(plan)) }}</span>
+                        <span class="text-white/45 text-xs ml-1 block">
+                            F CFA pour {{ selectedYears }} an{{ selectedYears > 1 ? 's' : '' }}
+                            <template v-if="selectedDiscount"> · -{{ selectedDiscount }}%</template>
+                        </span>
+                        <span class="text-white/30 text-xs block mt-0.5">{{ plan.price }} {{ plan.unit }}</span>
                     </div>
 
                     <ul class="space-y-2.5 mb-7 flex-1">
