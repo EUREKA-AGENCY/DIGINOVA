@@ -58,6 +58,11 @@ TXT;
             throw new OllamaException('Réponse Ollama vide');
         }
 
+        // Le modèle ignore parfois la consigne "sans markdown" : on retire
+        // au moins les marqueurs de gras/titres pour un texte brut propre.
+        $response = preg_replace('/\*\*(.*?)\*\*/u', '$1', $response);
+        $response = preg_replace('/^#{1,6}\s*/mu', '', $response);
+
         return $response;
     }
 
