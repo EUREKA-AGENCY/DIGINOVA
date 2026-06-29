@@ -74,7 +74,12 @@ const commonFeatures = [
     </Head>
 
     <!-- ════════════════════ HERO ════════════════════ -->
-    <section class="relative overflow-hidden pt-32 pb-16" style="background: #0A2422;">
+    <section class="relative overflow-hidden pt-32 pb-16">
+        <div class="absolute inset-0">
+            <img src="/images/site/hebergement/hero.webp" alt="" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0" style="background: linear-gradient(105deg, rgba(6,21,20,0.95) 0%, rgba(10,36,34,0.88) 45%, rgba(10,36,34,0.75) 100%);"></div>
+        </div>
+
         <div class="pointer-events-none absolute -top-10 right-10 w-72 h-72 rounded-full border border-white/8"></div>
         <div class="pointer-events-none absolute bottom-0 left-10 w-56 h-56 rounded-full border border-[#30998A]/20"></div>
 
@@ -178,29 +183,48 @@ const commonFeatures = [
 
     <!-- ════════════════════ INCLUS ════════════════════ -->
     <section aria-label="Inclus dans chaque offre" class="py-24" style="background: #061514;">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-14">
-                <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Sur chaque serveur</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-display">
-                    Le même socle, quel que soit le plan
-                </h2>
-            </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 order-2 lg:order-1">
+                    <img
+                        src="/images/site/hebergement/inclus.webp"
+                        alt="Infrastructure serveur Diginova"
+                        loading="lazy"
+                        class="w-full h-80 lg:h-[420px] object-cover"
+                    />
+                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,21,20,0.6) 0%, transparent 50%);"></div>
+                </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div
-                    v-for="f in commonFeatures"
-                    :key="f"
-                    class="p-5 rounded-xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300 flex items-center gap-3"
-                >
-                    <ShieldCheck class="w-4 h-4 text-[#30998A] flex-shrink-0" />
-                    <span class="text-white/75 text-sm">{{ f }}</span>
+                <div class="order-1 lg:order-2">
+                    <span class="inline-block text-[#30998A] text-xs font-semibold uppercase tracking-widest mb-3">Sur chaque serveur</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4 font-display">
+                        Le même socle, quel que soit le plan
+                    </h2>
+                    <p class="text-white/55 text-sm leading-relaxed mb-8">
+                        Aucune option cachée : chaque VPS Diginova part avec la même base solide, peu importe la taille choisie.
+                    </p>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div
+                            v-for="f in commonFeatures"
+                            :key="f"
+                            class="p-4 rounded-xl border border-white/10 hover:border-[#30998A]/35 transition-all duration-300 flex items-center gap-3"
+                        >
+                            <ShieldCheck class="w-4 h-4 text-[#30998A] flex-shrink-0" />
+                            <span class="text-white/75 text-sm">{{ f }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ════════════════════ CTA FINAL ════════════════════ -->
-    <section aria-label="Démarrer" class="relative overflow-hidden py-20" style="background: #0A2422;">
+    <section aria-label="Démarrer" class="relative overflow-hidden py-20">
+        <div class="absolute inset-0">
+            <img src="/images/site/hebergement/cta.webp" alt="" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(29,84,87,0.94) 0%, rgba(13,43,41,0.92) 100%);"></div>
+        </div>
         <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4 font-display">
                 Prêt à déployer votre projet ?
