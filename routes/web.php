@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiagnosticController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,9 @@ Route::post('/contact', function (Request $request) {
 
     return response()->json(['success' => true, 'message' => 'Demande reçue.']);
 })->name('contact');
+
+Route::get('/diagnostic', [DiagnosticController::class, 'create'])->name('diagnostic.create');
+Route::post('/diagnostic', [DiagnosticController::class, 'store'])->name('diagnostic.store');
 
 Route::redirect('/dashboard', '/mail')->middleware(['auth', 'verified'])->name('dashboard');
 

@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import AppLayoutPublic from '@/layouts/AppLayoutPublic.vue'
 import {
     ClipboardCheck, Mail, Send, ShieldCheck, Brain, Settings2, Map, Rocket,
@@ -135,6 +135,11 @@ const addons = [
                     <ArrowRight class="w-4 h-4" />
                 </a>
             </div>
+
+            <Link href="/diagnostic" class="inline-flex items-center gap-1.5 mt-5 text-white/55 hover:text-[#30998A] text-sm transition-colors duration-200 cursor-pointer focus-ring rounded">
+                Pas le temps d'appeler ? Faites le diagnostic en ligne (2 min)
+                <ArrowRight class="w-3.5 h-3.5" />
+            </Link>
         </div>
 
         <!-- Before / After -->
