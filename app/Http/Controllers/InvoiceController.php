@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,18 +52,32 @@ class InvoiceController extends Controller
         ['discount_percent' => $discountPercent, 'total_amount' => $totalAmount] = Invoice::calculateTotal($unitPrice, $years);
 
         $invoice = Invoice::create([
-            'invoice_number' => Invoice::generateNumber(),
-            'client_name' => $validated['client_name'],
-            'client_email' => $validated['client_email'],
-            'client_phone' => $validated['client_phone'] ?? null,
-            'client_company' => $validated['client_company'] ?? null,
-            'item_name' => $validated['item_name'],
-            'unit_price' => $unitPrice,
-            'years' => $years,
-            'discount_percent' => $discountPercent,
-            'total_amount' => $totalAmount,
+            'invoice_number'      => Invoice::generateNumber(),
+            'client_name'         => $validated['client_name'],
+            'client_email'        => $validated['client_email'],
+            'client_phone'        => $validated['client_phone'] ?? null,
+            'client_company'      => $validated['client_company'] ?? null,
+            'client_bp'           => $validated['client_bp'] ?? null,
+            'client_siege_social' => $validated['client_siege_social'] ?? null,
+            'client_address'      => $validated['client_address'] ?? null,
+            'item_name'           => $validated['item_name'],
+            'unit_price'          => $unitPrice,
+            'years'               => $years,
+            'discount_percent'    => $discountPercent,
+            'total_amount'        => $totalAmount,
         ]);
 
+        InvoiceItem::create([
+            'invoice_id'       => $invoice->id,
+            'description'      => $validated['item_name'],
+            'unit_price'       => $unitPrice,
+            'years'            => $years,
+            'discount_percent' => $discountPercent,
+            'line_total'       => $totalAmount,
+            'sort_order'       => 0,
+        ]);
+
+        $invoice->load('items');
         $this->emailInvoice($invoice);
         $this->notifyDiginova($invoice);
 

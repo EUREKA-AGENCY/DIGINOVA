@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::post('/mail-domains', [AdminController::class, 'storeDomain'])->name('mail-domains.store');
 
     Route::get('/factures', [AdminInvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/factures/companies', [AdminInvoiceController::class, 'companies'])->name('invoices.companies');
     Route::post('/factures', [AdminInvoiceController::class, 'storeManual'])->name('invoices.store-manual');
     Route::post('/factures/{invoice}/payee', [AdminInvoiceController::class, 'markPaid'])->name('invoices.mark-paid');
     Route::post('/factures/{invoice}/annulee', [AdminInvoiceController::class, 'markCancelled'])->name('invoices.mark-cancelled');

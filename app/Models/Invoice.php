@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Invoice extends Model
 {
@@ -18,6 +20,9 @@ class Invoice extends Model
         'client_email',
         'client_phone',
         'client_company',
+        'client_bp',
+        'client_siege_social',
+        'client_address',
         'item_name',
         'unit_price',
         'years',
@@ -26,6 +31,30 @@ class Invoice extends Model
         'status',
         'paid_at',
     ];
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(InvoiceItem::class)->orderBy('sort_order');
+    }
+
+    /**
+     * Renvoie les lignes à afficher dans le PDF.
+     * Si des InvoiceItem existent, on les utilise ; sinon on retombe sur les colonnes legacy.
+     */
+    public function displayItems(): Collection
+    {
+        if ($this->relationLoaded('items') ? $this->items->isNotEmpty() : $this->items()->exists()) {
+            return $this->items;
+        }
+
+        return collect([(object) [
+            'description'      => $this->item_name,
+            'unit_price'       => $this->unit_price,
+            'years'            => $this->years,
+            'discount_percent' => $this->discount_percent,
+            'line_total'       => $this->total_amount,
+        ]]);
+    }
 
     protected function casts(): array
     {
