@@ -233,15 +233,20 @@ class AdminInvoiceController extends Controller
             $pdf = Pdf::loadView('invoices.pdf', ['invoice' => $invoice]);
 
             Mail::send([], [], function ($message) use ($invoice, $pdf) {
-                $message->to($invoice->client_email)
+                $message
+                    ->from('contact@diginova.cm', 'Diginova')
+                    ->to($invoice->client_email, $invoice->client_name)
+                    ->cc('penlapsaturin@gmail.com', 'Saturin — Diginova')
                     ->subject("Votre facture Diginova {$invoice->invoice_number}")
                     ->html(
                         "Bonjour {$invoice->client_name},<br><br>".
-                        "Veuillez trouver ci-joint votre facture {$invoice->invoice_number} ".
-                        "d'un montant total de ".number_format($invoice->total_amount, 0, ',', ' ').' F CFA.<br><br>'.
-                        'Les modalités de paiement figurent sur la facture. Une fois le règlement effectué, merci de nous transmettre '.
-                        'votre preuve de paiement via WhatsApp : <a href="https://wa.me/237655065494">+237 655 065 494</a>.<br><br>'.
-                        "Cordialement,<br>L'équipe Diginova"
+                        "Nous vous remercions de votre confiance.<br><br>".
+                        "Veuillez trouver ci-joint votre facture <strong>{$invoice->invoice_number}</strong> ".
+                        "d'un montant total de <strong>".number_format($invoice->total_amount, 0, ',', ' ').' F CFA</strong>.<br><br>'.
+                        'Les modalités de paiement (Orange Money, MTN MoMo, virement AFB) figurent sur la facture.<br><br>'.
+                        'Une fois le règlement effectué, merci de nous transmettre votre preuve de paiement '.
+                        'via WhatsApp : <a href="https://wa.me/237655065494">+237 655 065 494</a>.<br><br>'.
+                        "Cordialement,<br><strong>L'équipe Diginova</strong><br>contact@diginova.cm · +237 655 065 494"
                     )
                     ->attachData($pdf->output(), "{$invoice->invoice_number}.pdf", ['mime' => 'application/pdf']);
             });
